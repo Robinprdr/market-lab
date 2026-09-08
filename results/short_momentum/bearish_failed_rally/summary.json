@@ -1,0 +1,103 @@
+{
+  "provenance": {
+    "commit": "34f4bbb51d9e835d4a58800d54695980bb3bd19d",
+    "core_git_blob": "ce157c4630580cf431a841af42c18db627c68bee",
+    "ohlc_sha256": "4bf294fe129a96584066d287b87159770565e9163a86cdf7e23d35d7e7712941",
+    "baseline_rows": 93107,
+    "baseline_first_date": "2018-01-22",
+    "baseline_last_date": "2025-12-05"
+  },
+  "status": "SHORT research suspended; no new variants",
+  "versions": {
+    "BFR_V1": {
+      "signals": 1563,
+      "mean_signals_per_year": 195.375,
+      "tickers": 47,
+      "dates": 635,
+      "first_signal": "2018-03-19",
+      "last_signal": "2025-12-05",
+      "rebound_length_counts": {
+        "1": 1312,
+        "2": 213,
+        "3": 38
+      },
+      "duplicate_episode_ids": 0,
+      "consecutive_same_ticker_signals": 0,
+      "holding_overlap": {
+        "1": {
+          "pairs_overlapping_previous_signal": 0,
+          "signals_retained_one_position_per_ticker": 1563
+        },
+        "3": {
+          "pairs_overlapping_previous_signal": 104,
+          "signals_retained_one_position_per_ticker": 1465
+        },
+        "5": {
+          "pairs_overlapping_previous_signal": 260,
+          "signals_retained_one_position_per_ticker": 1340
+        }
+      },
+      "checks": "synthetic boundaries, scalar equivalence, prefix invariance, OHLC integrity, core reconciliation passed",
+      "verdict": "REJETER"
+    },
+    "BFR_V2": {
+      "signals": 514,
+      "mean_signals_per_year": 64.25,
+      "tickers": 47,
+      "dates": 364,
+      "first_signal": "2018-03-27",
+      "last_signal": "2025-12-05",
+      "duplicate_episode_ids": 0,
+      "consecutive_same_ticker_signals": 0,
+      "holding_overlap": {
+        "1": {
+          "pairs_overlapping_previous_signal": 0,
+          "signals_retained_one_position_per_ticker": 514,
+          "signals_excluded_while_position_open": 0
+        },
+        "3": {
+          "pairs_overlapping_previous_signal": 12,
+          "signals_retained_one_position_per_ticker": 503,
+          "signals_excluded_while_position_open": 11
+        },
+        "5": {
+          "pairs_overlapping_previous_signal": 34,
+          "signals_retained_one_position_per_ticker": 483,
+          "signals_excluded_while_position_open": 31
+        }
+      },
+      "checks": "synthetic boundaries, scalar equivalence, prefix invariance, OHLC integrity, core reconciliation, future mutation, positional entry/exit alignment passed",
+      "verdict": "REJETER"
+    },
+    "BFR_V3": {
+      "zero_range_rows": 0,
+      "signals": 1490,
+      "mean_signals_per_year": 186.25,
+      "tickers": 47,
+      "dates": 673,
+      "first_signal": "2018-03-21",
+      "last_signal": "2025-12-05",
+      "duplicate_episode_ids": 0,
+      "consecutive_same_ticker_signals": 0,
+      "holding_overlap": {
+        "1": {
+          "pairs_overlapping_previous_signal": 0,
+          "signals_retained_one_position_per_ticker": 1490,
+          "signals_excluded_while_position_open": 0
+        },
+        "3": {
+          "pairs_overlapping_previous_signal": 69,
+          "signals_retained_one_position_per_ticker": 1426,
+          "signals_excluded_while_position_open": 64
+        },
+        "5": {
+          "pairs_overlapping_previous_signal": 181,
+          "signals_retained_one_position_per_ticker": 1327,
+          "signals_excluded_while_position_open": 163
+        }
+      },
+      "checks": "synthetic boundaries, scalar equivalence, prefix invariance, OHLC integrity, core reconciliation, future mutation, positional entry/exit alignment passed",
+      "verdict": "REJETER"
+    }
+  }
+}
