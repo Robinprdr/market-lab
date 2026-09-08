@@ -1,0 +1,23 @@
+{
+  "core_sha": "ce157c4630580cf431a841af42c18db627c68bee",
+  "ohlc_sha256": "4bf294fe129a96584066d287b87159770565e9163a86cdf7e23d35d7e7712941",
+  "signals": 5813,
+  "tickers": 47,
+  "dates": 1533,
+  "original_A_observations": 13850,
+  "removed_repeated_A_observations": 8037,
+  "duplicate_episodes": 0,
+  "cost_multiplier": 0.9980019985009996,
+  "flat_price_net_return": -0.0019980014990004236,
+  "costs_each_side": {
+    "fee": 0.0005,
+    "slippage": 0.0005
+  },
+  "overlaps_with_previous_episode_signal": {
+    "1": 0,
+    "3": 523,
+    "5": 1425
+  },
+  "checks": "rising edges, scalar rule equivalence, future mutation, prefix invariance, exact horizon alignment, cost reconciliation passed",
+  "limitation": "retrospective OOS; these calendar years were already inspected in initial research; no training or re-optimization"
+}

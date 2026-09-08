@@ -1,0 +1,82 @@
+{
+  "core_git_blob": "ce157c4630580cf431a841af42c18db627c68bee",
+  "ohlc_sha256": "4bf294fe129a96584066d287b87159770565e9163a86cdf7e23d35d7e7712941",
+  "baseline_rows": 93107,
+  "first_date": "2018-01-22",
+  "last_date": "2025-12-05",
+  "intersection": 13601,
+  "A_only": 249,
+  "B_only": 0,
+  "B_excluded_missing_prior_SMA50": 29,
+  "B_excluded_prior_close_below_SMA50": 220,
+  "reconciliation_max_abs_differences": {
+    "Return_1D": 5.412337245047638e-16,
+    "Return_3D": 5.412337245047638e-16,
+    "Return_10D": 5.412337245047638e-16,
+    "Return_20D": 5.412337245047638e-16,
+    "Distance_SMA50": 5.384147988563015e-16,
+    "SMA20_vs_SMA50": 5.377642775528102e-16,
+    "Future_Return_1D": 5.429684479807406e-16,
+    "Future_Return_3D": 5.412337245047638e-16,
+    "Future_Return_5D": 5.412337245047638e-16
+  },
+  "groups": {
+    "A": {
+      "observations": 13850,
+      "mean_per_year": 1731.25,
+      "tickers": 47,
+      "dates": 1767,
+      "episodes": 5531,
+      "episodes_with_multiple_observations": 3483,
+      "observations_beyond_first_per_episode": 8319,
+      "max_observations_per_episode": 14,
+      "consecutive_same_ticker_observations": 8037,
+      "holds": {
+        "1": {
+          "retained": 13850,
+          "excluded": 0,
+          "overlaps_previous_signal": 0
+        },
+        "3": {
+          "retained": 6764,
+          "excluded": 7086,
+          "overlaps_previous_signal": 9075
+        },
+        "5": {
+          "retained": 5248,
+          "excluded": 8602,
+          "overlaps_previous_signal": 10358
+        }
+      }
+    },
+    "B": {
+      "observations": 13601,
+      "mean_per_year": 1700.125,
+      "tickers": 47,
+      "dates": 1754,
+      "episodes": 5434,
+      "episodes_with_multiple_observations": 3423,
+      "observations_beyond_first_per_episode": 8167,
+      "max_observations_per_episode": 14,
+      "consecutive_same_ticker_observations": 7994,
+      "holds": {
+        "1": {
+          "retained": 13601,
+          "excluded": 0,
+          "overlaps_previous_signal": 0
+        },
+        "3": {
+          "retained": 6585,
+          "excluded": 7016,
+          "overlaps_previous_signal": 8957
+        },
+        "5": {
+          "retained": 5142,
+          "excluded": 8459,
+          "overlaps_previous_signal": 10162
+        }
+      }
+    }
+  },
+  "checks": "A/B boundary tests, independent scalar implementation, prefix invariance, future mutation, entry/exit alignment, source reconciliation passed"
+}
