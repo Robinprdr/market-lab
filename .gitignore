@@ -3,3 +3,11 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+
+# Large generated research datasets
+results/momentum/momentum_v1_research.csv
+results/momentum/momentum_v1_consecutive_days.csv
+results/short_momentum/short_momentum_v1_research.csv
+
+# Temporary editor backups
+*.save
