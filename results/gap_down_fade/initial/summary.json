@@ -1,0 +1,171 @@
+{
+  "research_status": "EXPLORATORY_POST_HOC_NOT_INDEPENDENT_VALIDATION",
+  "origin": "Hypothesis formed after observing rejected Gap Continuation V1 results",
+  "threshold": -0.02,
+  "direction": "LONG",
+  "ohlc_sha256": "4bf294fe129a96584066d287b87159770565e9163a86cdf7e23d35d7e7712941",
+  "raw_rows": 94188,
+  "raw_tickers": 47,
+  "raw_period": [
+    "2018-01-02",
+    "2025-12-19"
+  ],
+  "common_evaluation_rows": 93953,
+  "evaluation_period": [
+    "2018-01-03",
+    "2025-12-15"
+  ],
+  "signals": 3011,
+  "tickers": 47,
+  "dates": 818,
+  "gap_mean": -0.037100876275780986,
+  "gap_median": -0.028728060324039184,
+  "proximity": {
+    "contiguous_stress_phases": 2654,
+    "phases_with_multiple_signals": 283,
+    "signals_beyond_first_in_phase": 357,
+    "max_contiguous_phase": 4,
+    "previous_signal_1_session_ago": 357,
+    "previous_signal_within_3_sessions": 891,
+    "previous_signal_within_5_sessions": 1152
+  },
+  "concentration": {
+    "1": {
+      "positive_mean_tickers": 30,
+      "positive_mean_years": 6,
+      "top_ticker": "AMZN",
+      "top_ticker_n": 85,
+      "top_ticker_contribution": 0.6297541013555545,
+      "top_ticker_share_of_total": 0.22657684093332897,
+      "top_year": 2018,
+      "top_year_n": 250,
+      "top_year_contribution": 3.4783723851426616,
+      "top_year_share_of_total": 1.251470415069813,
+      "mean_without_top_year": -0.00025314886190721755,
+      "remove_top_tickers": [
+        {
+          "count": 1,
+          "tickers": [
+            "AMZN"
+          ],
+          "remaining_n": 2926,
+          "remaining_mean": 0.0007346802037119888
+        },
+        {
+          "count": 3,
+          "tickers": [
+            "AMZN",
+            "NVDA",
+            "TSLA"
+          ],
+          "remaining_n": 2545,
+          "remaining_mean": 0.00047347591671747965
+        },
+        {
+          "count": 5,
+          "tickers": [
+            "AMZN",
+            "NVDA",
+            "TSLA",
+            "AAPL",
+            "CRM"
+          ],
+          "remaining_n": 2374,
+          "remaining_mean": 0.000226458908686188
+        }
+      ]
+    },
+    "3": {
+      "positive_mean_tickers": 25,
+      "positive_mean_years": 7,
+      "top_ticker": "TSLA",
+      "top_ticker_n": 222,
+      "top_ticker_contribution": 2.3569673261535353,
+      "top_ticker_share_of_total": 0.6474496130951806,
+      "top_year": 2025,
+      "top_year_n": 402,
+      "top_year_contribution": 2.2794742039534213,
+      "top_year_share_of_total": 0.6261625585699567,
+      "mean_without_top_year": 0.000521622484059672,
+      "remove_top_tickers": [
+        {
+          "count": 1,
+          "tickers": [
+            "TSLA"
+          ],
+          "remaining_n": 2789,
+          "remaining_mean": 0.0004601720827219685
+        },
+        {
+          "count": 3,
+          "tickers": [
+            "TSLA",
+            "NVDA",
+            "AMZN"
+          ],
+          "remaining_n": 2545,
+          "remaining_mean": -0.00027604934856799104
+        },
+        {
+          "count": 5,
+          "tickers": [
+            "TSLA",
+            "NVDA",
+            "AMZN",
+            "AMD",
+            "NKE"
+          ],
+          "remaining_n": 2307,
+          "remaining_mean": -0.0008608338420801959
+        }
+      ]
+    },
+    "5": {
+      "positive_mean_tickers": 25,
+      "positive_mean_years": 7,
+      "top_ticker": "TSLA",
+      "top_ticker_n": 222,
+      "top_ticker_contribution": 2.813294992132163,
+      "top_ticker_share_of_total": 0.2694481004471491,
+      "top_year": 2025,
+      "top_year_n": 402,
+      "top_year_contribution": 5.431521720500791,
+      "top_year_share_of_total": 0.5202132070114659,
+      "mean_without_top_year": 0.001920058039790664,
+      "remove_top_tickers": [
+        {
+          "count": 1,
+          "tickers": [
+            "TSLA"
+          ],
+          "remaining_n": 2789,
+          "remaining_mean": 0.0027349079075591506
+        },
+        {
+          "count": 3,
+          "tickers": [
+            "TSLA",
+            "NVDA",
+            "AMD"
+          ],
+          "remaining_n": 2469,
+          "remaining_mean": 0.0011980968371526352
+        },
+        {
+          "count": 5,
+          "tickers": [
+            "TSLA",
+            "NVDA",
+            "AMD",
+            "NFLX",
+            "AMZN"
+          ],
+          "remaining_n": 2307,
+          "remaining_mean": 0.0004191701806964362
+        }
+      ]
+    }
+  },
+  "checks": "gap identity, common calendar, prefix invariance, future mutation, exact t/t+2/t+4 exits passed",
+  "execution_limitation": "Open[t] is theoretical and potentially optimistic; future validation requires opening-specific slippage."
+}
