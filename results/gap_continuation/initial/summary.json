@@ -1,0 +1,124 @@
+{
+  "ohlc_sha256": "4bf294fe129a96584066d287b87159770565e9163a86cdf7e23d35d7e7712941",
+  "raw_rows": 94188,
+  "raw_tickers": 47,
+  "raw_period": [
+    "2018-01-02",
+    "2025-12-19"
+  ],
+  "common_evaluation_rows": 93953,
+  "evaluation_period": [
+    "2018-01-03",
+    "2025-12-15"
+  ],
+  "threshold": 0.02,
+  "groups": {
+    "A_GAP_UP": {
+      "direction": "LONG",
+      "observations": 3118,
+      "tickers": 47,
+      "dates": 974,
+      "gap_mean": 0.03705850233787744,
+      "gap_median": 0.028642557217302023,
+      "proximity": {
+        "contiguous_runs": 2772,
+        "runs_with_multiple_gaps": 288,
+        "gaps_beyond_first_in_contiguous_run": 346,
+        "max_contiguous_run": 6,
+        "previous_same_group_gap_1_session": 346,
+        "previous_same_group_gap_within_3_sessions": 847,
+        "previous_same_group_gap_within_5_sessions": 1248
+      },
+      "concentration": {
+        "1": {
+          "total_directional_contribution_equal_one_per_signal": 2.188522617703721,
+          "top_ticker": "AMD",
+          "top_ticker_contribution": 0.5636374036399704,
+          "top_ticker_share_of_total": 0.25754241655101545,
+          "directional_mean_without_top_ticker": 0.0005566581754243748,
+          "top_year": 2020,
+          "top_year_contribution": 4.357580047222928,
+          "top_year_share_of_total": 1.991105786146758,
+          "directional_mean_without_top_year": -0.0010299417993918365
+        },
+        "3": {
+          "total_directional_contribution_equal_one_per_signal": 5.753165948518465,
+          "top_ticker": "AMD",
+          "top_ticker_contribution": 1.9526946141168249,
+          "top_ticker_share_of_total": 0.33941218306412246,
+          "directional_mean_without_top_ticker": 0.0013019771614942238,
+          "top_year": 2020,
+          "top_year_contribution": 2.7444951700833236,
+          "top_year_share_of_total": 0.47704084927188245,
+          "directional_mean_without_top_year": 0.001428618603245556
+        },
+        "5": {
+          "total_directional_contribution_equal_one_per_signal": 8.295957196595355,
+          "top_ticker": "TSLA",
+          "top_ticker_contribution": 3.637625377560241,
+          "top_ticker_share_of_total": 0.43848169552431104,
+          "directional_mean_without_top_ticker": 0.0016282180423051779,
+          "top_year": 2023,
+          "top_year_contribution": 3.0772541803489424,
+          "top_year_share_of_total": 0.3709341920920038,
+          "directional_mean_without_top_year": 0.0018114206929005254
+        }
+      }
+    },
+    "B_GAP_DOWN": {
+      "direction": "SHORT",
+      "observations": 3011,
+      "tickers": 47,
+      "dates": 818,
+      "gap_mean": -0.037100876275780986,
+      "gap_median": -0.028728060324039184,
+      "proximity": {
+        "contiguous_runs": 2654,
+        "runs_with_multiple_gaps": 283,
+        "gaps_beyond_first_in_contiguous_run": 357,
+        "max_contiguous_run": 4,
+        "previous_same_group_gap_1_session": 357,
+        "previous_same_group_gap_within_3_sessions": 891,
+        "previous_same_group_gap_within_5_sessions": 1152
+      },
+      "concentration": {
+        "1": {
+          "total_directional_contribution_equal_one_per_signal": -2.7794283774168336,
+          "top_ticker": "BA",
+          "top_ticker_contribution": 0.4209658038494726,
+          "top_ticker_share_of_total": -0.15145769082228086,
+          "directional_mean_without_top_ticker": -0.0011009267909412818,
+          "top_year": 2020,
+          "top_year_contribution": 2.4572206677677704,
+          "top_year_share_of_total": -0.8840741095302053,
+          "directional_mean_without_top_year": -0.0024877192613703583
+        },
+        "3": {
+          "total_directional_contribution_equal_one_per_signal": -3.640387264865106,
+          "top_ticker": "BA",
+          "top_ticker_contribution": 0.9864474252742136,
+          "top_ticker_share_of_total": -0.27097321067866287,
+          "directional_mean_without_top_ticker": -0.001591618400460722,
+          "top_year": 2020,
+          "top_year_contribution": 4.947883790187333,
+          "top_year_share_of_total": -1.359164130130171,
+          "directional_mean_without_top_year": -0.0040799387434928445
+        },
+        "5": {
+          "total_directional_contribution_equal_one_per_signal": -10.440953146314634,
+          "top_ticker": "GE",
+          "top_ticker_contribution": 0.7187205651263596,
+          "top_ticker_share_of_total": -0.06883668138861901,
+          "directional_mean_without_top_ticker": -0.0038074628834667327,
+          "top_year": 2020,
+          "top_year_contribution": 5.979440523037424,
+          "top_year_share_of_total": -0.5726910598337471,
+          "directional_mean_without_top_year": -0.0078006620757016904
+        }
+      }
+    }
+  },
+  "checks": "gap identity, common calendar, prefix invariance, future mutation, exact t/t+2/t+4 exits passed",
+  "execution_limitation": "Open[t] is theoretical and may be optimistic; future validation requires realistic opening slippage.",
+  "same_day_A_B_overlap": 0
+}
