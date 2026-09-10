@@ -89,7 +89,8 @@ def align_daily_signals(frame: pd.DataFrame, signal: pd.Series | Iterable[bool],
     out["Signal_Date"] = out["Date"].where(out.Signal_Eligible)
     out["Entry_Date"] = grouped["Date"].shift(-entry_offset).where(out.Signal_Eligible)
     out["Entry_Open"] = grouped["Open"].shift(-entry_offset).where(out.Signal_Eligible)
-    next_eligible = grouped["Eligible"].shift(-entry_offset).fillna(True).astype(bool) if "Eligible" in out else pd.Series(True, index=out.index)
+    next_eligible = (grouped["Eligible"].shift(-entry_offset).astype("boolean").fillna(True).astype(bool)
+                     if "Eligible" in out else pd.Series(True, index=out.index))
     out["Entry_Eligible"] = out.Signal_Eligible & next_eligible
     out["Entry_Valid"] = out.Entry_Eligible & out.Entry_Open.notna()
     sign = 1 if direction == "LONG" else -1
@@ -127,6 +128,13 @@ def align_event_signals(events: pd.DataFrame, price: pd.DataFrame,
     merged = e.merge(p.rename(columns={"Ticker": "ticker", "Date": "entry_date", "Open": "Entry_Open"}),
                      on=["ticker", "entry_date"], how="left", validate="one_to_one")
     # Missing event entries are retained and diagnosed, never silently dropped.
+    signal_eligible = (merged["eligible"].fillna(False).astype(bool)
+                       if "eligible" in merged else pd.Series(True, index=merged.index))
+    entry_eligible = (merged["entry_eligible"].fillna(False).astype(bool)
+                      if "entry_eligible" in merged else pd.Series(True, index=merged.index))
+    merged["Signal_Eligible"] = signal_eligible
+    merged["Entry_Eligible"] = entry_eligible
+    merged["Entry_Valid"] = signal_eligible & entry_eligible & merged.Entry_Open.notna()
     sign = 1 if direction == "LONG" else -1
     # Use the issuer's observed session index, rather than calendar-day
     # arithmetic (which would fail on weekends and holidays).
@@ -138,22 +146,24 @@ def align_event_signals(events: pd.DataFrame, price: pd.DataFrame,
         exits["_exit_session"] -= h - 1
         merged = merged.merge(exits, left_on=["ticker", "_entry_session"], right_on=["ticker", "_exit_session"], how="left", validate="one_to_one")
         merged[f"Exit_Close_{h}D"] = merged[f"exit_close_{h}D"]
-        merged[f"Future_Return_{h}D"] = sign * (merged[f"exit_close_{h}D"] / merged.Entry_Open - 1)
-        merged[f"Return_Evaluable_{h}D"] = merged[f"exit_close_{h}D"].notna()
+        evaluable = merged["Entry_Valid"] & merged[f"exit_close_{h}D"].notna()
+        merged[f"Future_Return_{h}D"] = (sign * (merged[f"exit_close_{h}D"] / merged.Entry_Open - 1)).where(evaluable)
+        merged[f"Return_Evaluable_{h}D"] = evaluable
     merged["Signal_Date"] = merged.event_date
     merged["Entry_Date"] = merged.entry_date
-    merged["Signal_Eligible"] = merged.get("eligible", True)
-    merged["Entry_Eligible"] = merged.get("entry_eligible", True)
-    merged["Entry_Valid"] = merged.Signal_Eligible & merged.Entry_Eligible & merged.Entry_Open.notna()
     return merged
 
 
-def deduplicate_episodes(signals: pd.DataFrame, key: str = "Ticker", signal_date: str = "Date") -> pd.DataFrame:
+def deduplicate_episodes(signals: pd.DataFrame, key: str = "Ticker", signal_date: str = "Date",
+                         complete: bool = False) -> pd.DataFrame:
     """Keep episode starts from a complete chronological boolean frame.
 
-    A signal-only frame cannot reveal where an episode ended. It is rejected
-    when it contains no explicit false boundary for a ticker.
+    The caller must explicitly assert that the supplied frame is the complete
+    chronological universe with ``complete=True``. A signal-only subset is
+    otherwise indistinguishable from a legitimate all-True episode.
     """
+    if not complete:
+        raise ValueError("deduplicate_episodes requires complete=True chronological frame")
     if signals.empty:
         return signals.copy()
     if "Signal" not in signals.columns:
@@ -161,9 +171,8 @@ def deduplicate_episodes(signals: pd.DataFrame, key: str = "Ticker", signal_date
     if signals["Signal"].isna().any() or not signals["Signal"].map(lambda v: isinstance(v, (bool, np.bool_))).all():
         raise ValueError("Signal must be non-null boolean")
     x = signals.sort_values([key, signal_date]).copy()
-    if x.groupby(key).Signal.apply(lambda z: bool(z.all())).any():
-        raise ValueError("cannot infer episode boundary for a ticker without an explicit Signal=False row")
-    x["_episode_start"] = x["Signal"] & ~x.groupby(key, sort=False).Signal.shift(1).fillna(False).astype(bool)
+    previous = x.groupby(key, sort=False).Signal.shift(1).astype("boolean").fillna(False).astype(bool)
+    x["_episode_start"] = x["Signal"] & ~previous
     return x[x._episode_start].drop(columns="_episode_start")
 
 
@@ -185,21 +194,19 @@ def _stats(x: pd.Series) -> dict:
 
 
 def execution_return(entry_open: pd.Series, exit_close: pd.Series, direction: str, costs: Costs) -> pd.Series:
-    """Exact round-trip execution return, including fees and slippage.
+    """Return on entry notional after round-trip costs.
 
-    LONG: ``Close*(1-exit_slippage)*(1-exit_fee) /
-    [Open*(1+entry_slippage)*(1+entry_fee)] - 1``.
-    SHORT reverses both execution directions: proceeds at entry divided by
-    cover cost at exit, minus one. Zero costs therefore equal the signed gross
-    action return exactly.
+    Gross stock return is ``Exit / Entry - 1``. LONG keeps that sign and
+    SHORT negates it. Each fee/slippage input is a proportion of entry
+    notional, so net return is directional gross return minus the four cost
+    rates. With zero costs this is exactly the project's Future_Return for
+    both directions.
     """
-    if direction == "LONG":
-        return (exit_close * (1-costs.exit_slippage) * (1-costs.exit_fee) /
-                (entry_open * (1+costs.entry_slippage) * (1+costs.entry_fee)) - 1)
-    if direction == "SHORT":
-        return (entry_open * (1-costs.entry_slippage) * (1-costs.entry_fee) /
-                (exit_close * (1+costs.exit_slippage) * (1+costs.exit_fee)) - 1)
-    raise ValueError("direction must be LONG or SHORT")
+    if direction not in {"LONG", "SHORT"}:
+        raise ValueError("direction must be LONG or SHORT")
+    gross = exit_close / entry_open - 1
+    directional = gross if direction == "LONG" else -gross
+    return directional - costs.round_trip
 
 
 def diagnostics(trades: pd.DataFrame, config: ExperimentConfig) -> dict:
@@ -310,7 +317,8 @@ def concentration(trades: pd.DataFrame, config: ExperimentConfig) -> tuple[pd.Da
     ticker_rows, year_rows, summary = [], [], {}
     year = pd.to_datetime(trades["Signal_Date"] if "Signal_Date" in trades else trades["Date"]).dt.year
     for h in config.horizons:
-        col = f"Future_Return_{h}D"; net = trades[col] - config.costs.round_trip
+        col = f"Future_Return_{h}D"
+        net = execution_return(trades["Entry_Open"], trades[f"Exit_Close_{h}D"], config.direction, config.costs)
         t = net.groupby(trades["Ticker"]).agg(["size", "mean", "sum"]).sort_values("sum", ascending=False)
         y = net.groupby(year).agg(["size", "mean", "sum"]).sort_values("sum", ascending=False)
         for name, row in t.iterrows(): ticker_rows.append({"Horizon":h,"Ticker":name,"N":int(row['size']),"Mean_Net":row['mean'],"Contribution_Net":row['sum']})
@@ -329,6 +337,6 @@ def leave_one_stock_out(trades: pd.DataFrame, config: ExperimentConfig) -> pd.Da
     for ticker in sorted(trades.Ticker.dropna().unique()):
         rest = trades[trades.Ticker != ticker]
         for h in config.horizons:
-            s = _stats(rest[f"Future_Return_{h}D"] - config.costs.round_trip)
+            s = _stats(execution_return(rest["Entry_Open"], rest[f"Exit_Close_{h}D"], config.direction, config.costs))
             rows.append({"Removed_Ticker": ticker, "Horizon": h, "Remaining_N": len(rest), "Mean_Net": s["Mean"], "Win_Rate_Net": s["Win_Rate"]})
     return pd.DataFrame(rows)
