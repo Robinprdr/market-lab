@@ -1,0 +1,29 @@
+{
+  "experiment_name": "breakout_long_v1_a_engine_reproduction",
+  "research_stage": "EXPLORATORY",
+  "direction": "LONG",
+  "signal_timing": "Close[t]",
+  "entry_rule": "Close[t] > max(High[t-20:t-1])",
+  "horizons": [
+    1,
+    3,
+    5
+  ],
+  "costs": {
+    "entry_fee": 0,
+    "entry_slippage": 0,
+    "exit_fee": 0,
+    "exit_slippage": 0
+  },
+  "episode_rule": "none",
+  "train_period": [
+    "2018-01-01",
+    "2022-12-31"
+  ],
+  "oos_period": [
+    "2023-01-01",
+    "2025-12-31"
+  ],
+  "walk_forward_rule": "annual, fixed rules, no shuffle",
+  "universe": "provided frame / optional Eligible[ticker,date]"
+}

@@ -1,0 +1,221 @@
+{
+  "observations": 7812,
+  "tickers": 47,
+  "dates": 1581,
+  "archived_core_sha": "ce157c4630580cf431a841af42c18db627c68bee",
+  "results": [
+    {
+      "Group": "BREAKOUT_A",
+      "Horizon": 1,
+      "Result": "GROSS",
+      "N": 7812,
+      "Mean": -0.00024004971357420598,
+      "Median": 0.0,
+      "Win_Rate": 0.49948796722990274,
+      "Expectancy": -0.00024004971357420598,
+      "Sum_Gains": 39.494425215389995,
+      "Sum_Losses": -41.36969357783169,
+      "Profit_Factor": 0.9546704797579991,
+      "Min": -0.1075723243582577,
+      "Max": 0.10214299964213236,
+      "Std": 0.014776784137883978
+    },
+    {
+      "Group": "BREAKOUT_A",
+      "Horizon": 1,
+      "Result": "NET",
+      "N": 7812,
+      "Mean": -0.00024004971357420598,
+      "Median": 0.0,
+      "Win_Rate": 0.49948796722990274,
+      "Expectancy": -0.00024004971357420598,
+      "Sum_Gains": 39.494425215389995,
+      "Sum_Losses": -41.36969357783169,
+      "Profit_Factor": 0.9546704797579991,
+      "Min": -0.1075723243582577,
+      "Max": 0.10214299964213236,
+      "Std": 0.014776784137883978
+    },
+    {
+      "Group": "BREAKOUT_A",
+      "Horizon": 3,
+      "Result": "GROSS",
+      "N": 7812,
+      "Mean": 0.0005006834306846243,
+      "Median": 0.0006035480480315325,
+      "Win_Rate": 0.5131848438300051,
+      "Expectancy": 0.0005006834306846243,
+      "Sum_Gains": 82.5218909605963,
+      "Sum_Losses": -78.61055200008803,
+      "Profit_Factor": 1.0497559024964471,
+      "Min": -0.23471684313004515,
+      "Max": 0.38603119891788973,
+      "Std": 0.03055330432535734
+    },
+    {
+      "Group": "BREAKOUT_A",
+      "Horizon": 3,
+      "Result": "NET",
+      "N": 7812,
+      "Mean": 0.0005006834306846243,
+      "Median": 0.0006035480480315325,
+      "Win_Rate": 0.5131848438300051,
+      "Expectancy": 0.0005006834306846243,
+      "Sum_Gains": 82.5218909605963,
+      "Sum_Losses": -78.61055200008803,
+      "Profit_Factor": 1.0497559024964471,
+      "Min": -0.23471684313004515,
+      "Max": 0.38603119891788973,
+      "Std": 0.03055330432535734
+    },
+    {
+      "Group": "BREAKOUT_A",
+      "Horizon": 5,
+      "Result": "GROSS",
+      "N": 7812,
+      "Mean": 0.002088036975914816,
+      "Median": 0.0021547598344801022,
+      "Win_Rate": 0.5371223758320532,
+      "Expectancy": 0.002088036975914816,
+      "Sum_Gains": 114.25771304043103,
+      "Sum_Losses": -97.94596818458449,
+      "Profit_Factor": 1.1665381960909935,
+      "Min": -0.342394572327278,
+      "Max": 0.36448329847329863,
+      "Std": 0.039517984602130726
+    },
+    {
+      "Group": "BREAKOUT_A",
+      "Horizon": 5,
+      "Result": "NET",
+      "N": 7812,
+      "Mean": 0.002088036975914816,
+      "Median": 0.0021547598344801022,
+      "Win_Rate": 0.5371223758320532,
+      "Expectancy": 0.002088036975914816,
+      "Sum_Gains": 114.25771304043103,
+      "Sum_Losses": -97.94596818458449,
+      "Profit_Factor": 1.1665381960909935,
+      "Min": -0.342394572327278,
+      "Max": 0.36448329847329863,
+      "Std": 0.039517984602130726
+    }
+  ],
+  "concentration": {
+    "1": {
+      "best_ticker": "NFLX",
+      "best_ticker_share": -0.24851662936444927,
+      "best_year": 2023,
+      "best_year_share": -0.5365323002017637,
+      "remove_best": [
+        {
+          "count": 1,
+          "tickers": [
+            "NFLX"
+          ],
+          "remaining_n": 7630,
+          "remaining_mean_net": -0.0003068550111441019
+        },
+        {
+          "count": 3,
+          "tickers": [
+            "NFLX",
+            "GS",
+            "LLY"
+          ],
+          "remaining_n": 7265,
+          "remaining_mean_net": -0.00042298865453440206
+        },
+        {
+          "count": 5,
+          "tickers": [
+            "NFLX",
+            "GS",
+            "LLY",
+            "AAPL",
+            "AMD"
+          ],
+          "remaining_n": 6867,
+          "remaining_mean_net": -0.0005435268811906489
+        }
+      ]
+    },
+    "3": {
+      "best_ticker": "TSLA",
+      "best_ticker_share": 0.6578975377365611,
+      "best_year": 2021,
+      "best_year_share": 0.58340129086362,
+      "remove_best": [
+        {
+          "count": 1,
+          "tickers": [
+            "TSLA"
+          ],
+          "remaining_n": 7645,
+          "remaining_mean_net": 0.00017502664344497108
+        },
+        {
+          "count": 3,
+          "tickers": [
+            "TSLA",
+            "AMD",
+            "GS"
+          ],
+          "remaining_n": 7293,
+          "remaining_mean_net": -0.00016290715945829575
+        },
+        {
+          "count": 5,
+          "tickers": [
+            "TSLA",
+            "AMD",
+            "GS",
+            "AVGO",
+            "LLY"
+          ],
+          "remaining_n": 6919,
+          "remaining_mean_net": -0.00043305872707493384
+        }
+      ]
+    },
+    "5": {
+      "best_ticker": "TSLA",
+      "best_ticker_share": 0.3152544482480466,
+      "best_year": 2023,
+      "best_year_share": 0.37829156791874047,
+      "remove_best": [
+        {
+          "count": 1,
+          "tickers": [
+            "TSLA"
+          ],
+          "remaining_n": 7645,
+          "remaining_mean_net": 0.0014610065050822407
+        },
+        {
+          "count": 3,
+          "tickers": [
+            "TSLA",
+            "AMD",
+            "NVDA"
+          ],
+          "remaining_n": 7262,
+          "remaining_mean_net": 0.0009996999935703481
+        },
+        {
+          "count": 5,
+          "tickers": [
+            "TSLA",
+            "AMD",
+            "NVDA",
+            "LLY",
+            "GS"
+          ],
+          "remaining_n": 6897,
+          "remaining_mean_net": 0.0006571106698025416
+        }
+      ]
+    }
+  },
+  "checks": "engine daily alignment and archived Breakout feature definition passed"
+}
