@@ -1,0 +1,644 @@
+{
+  "0000002488-18-000043": {
+    "filing_date": "2018-02-27",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "AMD"
+  },
+  "0000002488-22-000163": {
+    "filing_date": "2022-10-06",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "AMD"
+  },
+  "0000012927-19-000053": {
+    "filing_date": "2019-07-18",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "BA"
+  },
+  "0000012927-24-000067": {
+    "filing_date": "2024-10-11",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "BA"
+  },
+  "0000018230-18-000280": {
+    "filing_date": "2018-10-23",
+    "note": "Duplicate/amended filing for the same quarterly release; earliest accepted filing retained.",
+    "reason": "DUPLICATE_OR_AMENDMENT",
+    "ticker": "CAT"
+  },
+  "0000018230-24-000047": {
+    "filing_date": "2024-10-11",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "CAT"
+  },
+  "0000034088-18-000012": {
+    "filing_date": "2018-02-09",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "XOM"
+  },
+  "0000034088-19-000007": {
+    "filing_date": "2019-02-26",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "XOM"
+  },
+  "0000040545-19-000019": {
+    "filing_date": "2019-03-14",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GE"
+  },
+  "0000040545-20-000016": {
+    "filing_date": "2020-04-09",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GE"
+  },
+  "0000040545-23-000017": {
+    "filing_date": "2023-01-10",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GE"
+  },
+  "0000059478-18-000295": {
+    "filing_date": "2018-12-19",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0000059478-19-000322": {
+    "filing_date": "2019-12-17",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0000059478-20-000190": {
+    "filing_date": "2020-12-15",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0000059478-22-000117": {
+    "filing_date": "2022-04-14",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0000059478-22-000277": {
+    "filing_date": "2022-12-13",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0000059478-25-000005": {
+    "filing_date": "2025-01-14",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0000060667-19-000181": {
+    "filing_date": "2019-11-20",
+    "note": "Duplicate/amended filing for the same quarterly release; earliest accepted filing retained.",
+    "reason": "DUPLICATE_OR_AMENDMENT",
+    "ticker": "LOW"
+  },
+  "0000060667-25-000094": {
+    "filing_date": "2025-05-21",
+    "note": "Duplicate/amended filing for the same quarterly release; earliest accepted filing retained.",
+    "reason": "DUPLICATE_OR_AMENDMENT",
+    "ticker": "LOW"
+  },
+  "0000063908-20-000035": {
+    "filing_date": "2020-04-08",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "MCD"
+  },
+  "0000063908-20-000066": {
+    "filing_date": "2020-10-08",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "MCD"
+  },
+  "0000070858-24-000006": {
+    "filing_date": "2024-01-08",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "BAC"
+  },
+  "0000078003-22-000062": {
+    "filing_date": "2022-04-20",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "PFE"
+  },
+  "0000078003-23-000099": {
+    "filing_date": "2023-10-13",
+    "note": "Guidance update without full quarterly-result evidence.",
+    "reason": "GUIDANCE_UPDATE",
+    "ticker": "PFE"
+  },
+  "0000093410-24-000002": {
+    "filing_date": "2024-01-02",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "CVX"
+  },
+  "0000200406-19-000063": {
+    "filing_date": "2019-10-23",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "JNJ"
+  },
+  "0000200406-23-000091": {
+    "filing_date": "2023-08-30",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "JNJ"
+  },
+  "0000200406-24-000048": {
+    "filing_date": "2024-05-01",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "JNJ"
+  },
+  "0000320187-18-000037": {
+    "filing_date": "2018-03-27",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "NKE"
+  },
+  "0000320187-18-000065": {
+    "filing_date": "2018-07-03",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "NKE"
+  },
+  "0000320193-19-000002": {
+    "filing_date": "2019-01-02",
+    "note": "AAPL investor letter revising Q1 guidance; final results followed on 2019-01-29.",
+    "reason": "PREANNOUNCEMENT_GUIDANCE",
+    "ticker": "AAPL"
+  },
+  "0000773840-19-000015": {
+    "filing_date": "2019-07-18",
+    "note": "Duplicate/amended filing for the same quarterly release; earliest accepted filing retained.",
+    "reason": "DUPLICATE_OR_AMENDMENT",
+    "ticker": "HON"
+  },
+  "0000773840-20-000041": {
+    "filing_date": "2020-10-23",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "HON"
+  },
+  "0000773840-23-000076": {
+    "filing_date": "2023-10-10",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "HON"
+  },
+  "0000773840-23-000092": {
+    "filing_date": "2023-12-11",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "HON"
+  },
+  "0000773840-24-000066": {
+    "filing_date": "2024-06-03",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "HON"
+  },
+  "0000773840-24-000075": {
+    "filing_date": "2024-07-10",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "HON"
+  },
+  "0000773840-25-000125": {
+    "filing_date": "2025-12-22",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "HON"
+  },
+  "0000930413-18-003112": {
+    "filing_date": "2018-10-19",
+    "note": "Duplicate/amended filing for the same quarterly release; earliest accepted filing retained.",
+    "reason": "DUPLICATE_OR_AMENDMENT",
+    "ticker": "HON"
+  },
+  "0000930413-20-001065": {
+    "filing_date": "2020-04-13",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GE"
+  },
+  "0000950142-23-002083": {
+    "filing_date": "2023-07-24",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "CVX"
+  },
+  "0000950170-21-000423": {
+    "filing_date": "2021-07-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0000950170-23-031241": {
+    "filing_date": "2023-07-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0000950170-23-050938": {
+    "filing_date": "2023-10-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0000950170-24-000282": {
+    "filing_date": "2024-01-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0000950170-24-040274": {
+    "filing_date": "2024-04-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001045810-19-000004": {
+    "filing_date": "2019-01-28",
+    "note": "NVDA updated Q4 FY2019 guidance; final results followed on 2019-02-14.",
+    "reason": "PREANNOUNCEMENT_GUIDANCE",
+    "ticker": "NVDA"
+  },
+  "0001045810-22-000133": {
+    "filing_date": "2022-08-08",
+    "note": "NVDA selected preliminary Q2 FY2023 results; full results followed on 2022-08-24.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "NVDA"
+  },
+  "0001065280-19-000001": {
+    "filing_date": "2019-01-03",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "NFLX"
+  },
+  "0001065280-19-000441": {
+    "filing_date": "2019-12-16",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "NFLX"
+  },
+  "0001104659-18-001245": {
+    "filing_date": "2018-01-08",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "COP"
+  },
+  "0001104659-20-087827": {
+    "filing_date": "2020-07-29",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "ABBV"
+  },
+  "0001104659-22-047977": {
+    "filing_date": "2022-04-21",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "MRK"
+  },
+  "0001104659-22-048450": {
+    "filing_date": "2022-04-21",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001108524-18-000017": {
+    "filing_date": "2018-04-02",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "CRM"
+  },
+  "0001193125-18-026500": {
+    "filing_date": "2018-01-31",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "AVGO"
+  },
+  "0001193125-20-198162": {
+    "filing_date": "2020-07-24",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GS"
+  },
+  "0001193125-20-274226": {
+    "filing_date": "2020-10-22",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GS"
+  },
+  "0001193125-21-357380": {
+    "filing_date": "2021-12-15",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "LLY"
+  },
+  "0001193125-22-191296": {
+    "filing_date": "2022-07-11",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "ORCL"
+  },
+  "0001193125-23-294930": {
+    "filing_date": "2023-12-14",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "PFE"
+  },
+  "0001326160-18-000094": {
+    "filing_date": "2018-03-12",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "DUK"
+  },
+  "0001551152-22-000012": {
+    "filing_date": "2022-04-29",
+    "note": "Duplicate/amended filing for the same quarterly release; earliest accepted filing retained.",
+    "reason": "DUPLICATE_OR_AMENDMENT",
+    "ticker": "ABBV"
+  },
+  "0001551152-22-000023": {
+    "filing_date": "2022-07-06",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-22-000034": {
+    "filing_date": "2022-10-05",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-23-000004": {
+    "filing_date": "2023-01-06",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-23-000015": {
+    "filing_date": "2023-04-05",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-23-000026": {
+    "filing_date": "2023-07-06",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-23-000036": {
+    "filing_date": "2023-10-04",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-24-000002": {
+    "filing_date": "2024-01-05",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-24-000013": {
+    "filing_date": "2024-04-03",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-24-000024": {
+    "filing_date": "2024-07-03",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-24-000033": {
+    "filing_date": "2024-10-03",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-25-000002": {
+    "filing_date": "2025-01-06",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-25-000023": {
+    "filing_date": "2025-04-03",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-25-000034": {
+    "filing_date": "2025-07-03",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001551152-25-000043": {
+    "filing_date": "2025-10-03",
+    "note": "Preliminary-result language in filed document.",
+    "reason": "PRELIMINARY_RESULTS",
+    "ticker": "ABBV"
+  },
+  "0001564590-18-000054": {
+    "filing_date": "2018-01-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-18-007463": {
+    "filing_date": "2018-04-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-18-016465": {
+    "filing_date": "2018-07-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-18-023716": {
+    "filing_date": "2018-10-01",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-18-023815": {
+    "filing_date": "2018-10-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-19-000013": {
+    "filing_date": "2019-01-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-19-000740": {
+    "filing_date": "2019-01-18",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-19-010743": {
+    "filing_date": "2019-04-04",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-19-024414": {
+    "filing_date": "2019-07-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-19-036274": {
+    "filing_date": "2019-10-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-20-000161": {
+    "filing_date": "2020-01-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-20-014992": {
+    "filing_date": "2020-04-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-20-031568": {
+    "filing_date": "2020-07-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-20-045592": {
+    "filing_date": "2020-10-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-21-000008": {
+    "filing_date": "2021-01-04",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-21-017443": {
+    "filing_date": "2021-04-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-21-049874": {
+    "filing_date": "2021-10-04",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-22-000009": {
+    "filing_date": "2022-01-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-22-013264": {
+    "filing_date": "2022-04-04",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-22-025153": {
+    "filing_date": "2022-07-05",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-22-033053": {
+    "filing_date": "2022-10-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-23-000002": {
+    "filing_date": "2023-01-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001564590-23-005126": {
+    "filing_date": "2023-04-03",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001628280-24-030714": {
+    "filing_date": "2024-07-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001628280-24-041816": {
+    "filing_date": "2024-10-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001628280-25-000007": {
+    "filing_date": "2025-01-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001628280-25-016070": {
+    "filing_date": "2025-04-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001628280-25-033842": {
+    "filing_date": "2025-07-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001628280-25-043530": {
+    "filing_date": "2025-10-02",
+    "note": "Quarterly vehicle production/deliveries update, not financial earnings.",
+    "reason": "OPERATIONAL_DELIVERIES",
+    "ticker": "TSLA"
+  },
+  "0001652044-23-000034": {
+    "filing_date": "2023-04-20",
+    "note": "Curated exclusion after filed-document review and secondary event-date cross-check.",
+    "reason": "NON_QUARTERLY_ITEM_202",
+    "ticker": "GOOGL"
+  }
+}
