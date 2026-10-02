@@ -1,0 +1,101 @@
+ticker,company_name,snapshot_date,market_cap_if_available,source,notes
+NVDA,NVIDIA,2026-10-02,5574576046080,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AAPL,Apple,2026-10-02,4820749516800,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+GOOG,Alphabet (Google),2026-10-02,4096171966464,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company; Alphabet class C only; no GOOG/GOOGL duplication
+MSFT,Microsoft,2026-10-02,3807819857920,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AMZN,Amazon,2026-10-02,2677486387200,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+SPCX,SpaceX,2026-10-02,1950701977600,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,"USA issuer classification from source; one listed class per company; IPO 2026, no history in benchmark 2018-2025; retained in snapshot"
+META,Meta Platforms (Facebook),2026-10-02,1849311100928,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AVGO,Broadcom,2026-10-02,1640410251264,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+TSLA,Tesla,2026-10-02,1398574153728,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MU,Micron Technology,2026-10-02,1239384719360,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BRK-B,Berkshire Hathaway,2026-10-02,1071425257472,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company; class B chosen for accessibility/liquidity
+LLY,Eli Lilly,2026-10-02,1024926875648,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AMD,AMD,2026-10-02,1005163773952,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+JPM,JPMorgan Chase,2026-10-02,885654487040,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+WMT,Walmart,2026-10-02,827172388864,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+V,Visa,2026-10-02,675566321664,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+XOM,Exxon Mobil,2026-10-02,673613414400,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+INTC,Intel,2026-10-02,634332643328,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+JNJ,Johnson & Johnson,2026-10-02,623344353280,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MA,Mastercard,2026-10-02,481805467648,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+ABBV,AbbVie,2026-10-02,459326783488,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PLTR,Palantir,2026-10-02,456677195776,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+CSCO,Cisco,2026-10-02,428795756544,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+LRCX,Lam Research,2026-10-02,425609428992,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AMAT,Applied Materials,2026-10-02,420051124224,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+ORCL,Oracle,2026-10-02,418559361024,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+CVX,Chevron,2026-10-02,406248062976,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+COST,Costco,2026-10-02,405561769984,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+CAT,Caterpillar,2026-10-02,379852324864,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BAC,Bank of America,2026-10-02,375720378368,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+KO,Coca-Cola,2026-10-02,370449448960,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MRK,Merck,2026-10-02,354803941376,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+DELL,Dell,2026-10-02,344445190144,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PG,Procter & Gamble,2026-10-02,334602141696,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+UNH,UnitedHealth,2026-10-02,327801634816,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PANW,Palo Alto Networks,2026-10-02,324132503552,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+GE,General Electric,2026-10-02,324124147712,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MS,Morgan Stanley,2026-10-02,295282147328,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PM,Philip Morris International,2026-10-02,293299847168,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+NFLX,Netflix,2026-10-02,282523303936,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+HD,Home Depot,2026-10-02,281807388672,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+CRWD,CrowdStrike,2026-10-02,272458825728,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+GEV,GE Vernova,2026-10-02,262991101952,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+SNDK,Sandisk,2026-10-02,261751783424,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+KLAC,KLA,2026-10-02,261431951360,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+GS,Goldman Sachs,2026-10-02,261084643328,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+ANET,Arista Networks,2026-10-02,257907851264,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+TXN,Texas Instruments,2026-10-02,256905707520,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+RTX,RTX,2026-10-02,249348718592,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+WFC,Wells Fargo,2026-10-02,242675941376,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+TMO,Thermo Fisher Scientific,2026-10-02,241263804416,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MRVL,Marvell Technology,2026-10-02,240924721152,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AMGN,Amgen,2026-10-02,220183183360,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+C,Citigroup,2026-10-02,213034467328,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+IBM,IBM,2026-10-02,212564361216,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+APH,Amphenol,2026-10-02,211259375616,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+AXP,American Express,2026-10-02,204004343808,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+ADI,Analog Devices,2026-10-02,196055187456,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+CRM,Salesforce,2026-10-02,194795864064,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+QCOM,QUALCOMM,2026-10-02,194483126272,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+VZ,Verizon,2026-10-02,191036571648,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+GILD,Gilead Sciences,2026-10-02,182893395968,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+DE,Deere & Company (John Deere),2026-10-02,179910246400,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+DIS,Walt Disney,2026-10-02,174965178368,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+TMUS,T-Mobile US,2026-10-02,173483180032,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BLK,BlackRock,2026-10-02,172933152768,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PEP,Pepsico,2026-10-02,171569594368,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+SCHW,Charles Schwab,2026-10-02,170114760704,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+ABT,Abbott Laboratories,2026-10-02,168415920128,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+SCCO,Southern Copper,2026-10-02,168210153472,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+WDC,Western Digital,2026-10-02,166771818496,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+T,AT&T,2026-10-02,166512967680,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MCD,McDonald,2026-10-02,164052533248,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+WELL,Welltower,2026-10-02,163526623232,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+UNP,Union Pacific Corporation,2026-10-02,161838055424,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PFE,Pfizer,2026-10-02,160274825216,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+NEE,Nextera Energy,2026-10-02,159235964928,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+COP,ConocoPhillips,2026-10-02,152641929216,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BA,Boeing,2026-10-02,151861297152,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+DHR,Danaher,2026-10-02,148864319488,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+TJX,TJX Companies,2026-10-02,147577454592,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+IBKR,Interactive Brokers,2026-10-02,146204409856,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+ISRG,Intuitive Surgical,2026-10-02,143755476992,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+NOW,ServiceNow,2026-10-02,142424817664,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+UBER,Uber,2026-10-02,138648977408,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+GLW,Corning,2026-10-02,137903095808,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BX,Blackstone Group,2026-10-02,134160220160,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+FTNT,Fortinet,2026-10-02,131129303040,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+VRTX,Vertex Pharmaceuticals,2026-10-02,128357236736,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BMY,Bristol-Myers Squibb,2026-10-02,125545242624,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+NET,Cloudflare,2026-10-02,124983975936,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PLD,Prologis,2026-10-02,124602671104,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+BKNG,Booking Holdings (Booking.com),2026-10-02,124197519360,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+MPC,Marathon Petroleum,2026-10-02,122657177600,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PGR,Progressive,2026-10-02,122441187328,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+PH,Parker-Hannifin,2026-10-02,121809461248,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+NEM,Newmont,2026-10-02,120826896384,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+SNOW,Snowflake,2026-10-02,120654069760,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+COF,Capital One,2026-10-02,119313481728,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company
+VLO,Valero Energy,2026-10-02,117606842368,https://companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/,USA issuer classification from source; one listed class per company

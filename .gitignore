@@ -11,3 +11,6 @@ results/short_momentum/short_momentum_v1_research.csv
 
 # Temporary editor backups
 *.save
+
+# Reproducible local price cache (manifest is versioned separately)
+data/cache/

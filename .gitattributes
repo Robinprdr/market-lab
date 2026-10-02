@@ -1,0 +1,2 @@
+# Preserve the exact pre-benchmark snapshot bytes and its SHA256 (CSV CRLF).
+data/universe/top100_us_v1.csv -text whitespace=cr-at-eol

@@ -1,0 +1,2032 @@
+{
+  "universe_size": 100,
+  "tickers_with_prices": 99,
+  "no_history": [
+    "SPCX"
+  ],
+  "start": "2018-01-02",
+  "end": "2025-12-31",
+  "price_sha256": "2563e0e6614d8aeb00d23fcdedbf5e38fbdafa08f3f5bdc86c36b5954f7b60b5",
+  "protocol_sha256": "0a415e7009b11a88191872454120a64f4a57ca9915101677fa71cb7645f606dd",
+  "universe_sha256": "12e9a0f0586c87b552b9280251fa23a44fca8665d2d7e008ffaae19e4bc39173",
+  "thresholds": {
+    "2018": {
+      "ATR_Pct": 0.026373133575490156,
+      "Return_10D": 0.04006033960814999,
+      "rows": 68327
+    },
+    "2019": {
+      "ATR_Pct": 0.027619605893855356,
+      "Return_10D": 0.04138402592330874,
+      "rows": 68490
+    },
+    "2020": {
+      "ATR_Pct": 0.027505380817763124,
+      "Return_10D": 0.04325141119574636,
+      "rows": 69248
+    },
+    "2021": {
+      "ATR_Pct": 0.03489321854105856,
+      "Return_10D": 0.05190418095367787,
+      "rows": 70582
+    },
+    "2022": {
+      "ATR_Pct": 0.034532109223181895,
+      "Return_10D": 0.055639212322631505,
+      "rows": 72183
+    },
+    "2023": {
+      "ATR_Pct": 0.03991102849456623,
+      "Return_10D": 0.05797437542045314,
+      "rows": 72966
+    },
+    "2024": {
+      "ATR_Pct": 0.03488117616077609,
+      "Return_10D": 0.053493730445038024,
+      "rows": 73041
+    },
+    "2025": {
+      "ATR_Pct": 0.034930835683796575,
+      "Return_10D": 0.05373523476574049,
+      "rows": 73231
+    }
+  },
+  "coverage": [
+    {
+      "Ticker": "AAPL",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "ABBV",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "ABT",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "ADI",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "AMAT",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "AMD",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "AMGN",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "AMZN",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "ANET",
+      "First": "2014-06-06",
+      "Last": "2025-12-31",
+      "Rows": 2911,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "APH",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "AVGO",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "AXP",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BA",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BAC",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BKNG",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BLK",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BMY",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BRK-B",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "BX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "C",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "CAT",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "COF",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "COP",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "COST",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "CRM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "CRWD",
+      "First": "2019-06-12",
+      "Last": "2025-12-31",
+      "Rows": 1649,
+      "Rows_2018_2025": 1649,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "CSCO",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "CVX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "DE",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "DELL",
+      "First": "2018-12-28",
+      "Last": "2025-12-31",
+      "Rows": 1762,
+      "Rows_2018_2025": 1762,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "DHR",
+      "First": "2016-07-05",
+      "Last": "2025-12-31",
+      "Rows": 2388,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "DIS",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "FTNT",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "GE",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "GEV",
+      "First": "2024-04-02",
+      "Last": "2025-12-31",
+      "Rows": 440,
+      "Rows_2018_2025": 440,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "GILD",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "GLW",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "GOOG",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "GS",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "HD",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "IBKR",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "IBM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "INTC",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "ISRG",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "JNJ",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "JPM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "KLAC",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "KO",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "LLY",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "LRCX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MA",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MCD",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "META",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MPC",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MRK",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MRVL",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MS",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MSFT",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "MU",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "NEE",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "NEM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "NET",
+      "First": "2019-09-13",
+      "Last": "2025-12-31",
+      "Rows": 1584,
+      "Rows_2018_2025": 1584,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "NFLX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "NOW",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "NVDA",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "ORCL",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PANW",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PEP",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PFE",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PG",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PGR",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PH",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PLD",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PLTR",
+      "First": "2020-09-30",
+      "Last": "2025-12-31",
+      "Rows": 1320,
+      "Rows_2018_2025": 1320,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "PM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "QCOM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "RTX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "SCCO",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "SCHW",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "SNDK",
+      "First": "2025-02-24",
+      "Last": "2025-12-31",
+      "Rows": 216,
+      "Rows_2018_2025": 216,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "SNOW",
+      "First": "2020-09-16",
+      "Last": "2025-12-31",
+      "Rows": 1330,
+      "Rows_2018_2025": 1330,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "SPY",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "T",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "TJX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "TMO",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "TMUS",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "TSLA",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "TXN",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "UBER",
+      "First": "2019-05-10",
+      "Last": "2025-12-31",
+      "Rows": 1671,
+      "Rows_2018_2025": 1671,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "UNH",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "UNP",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "V",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "VLO",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "VRTX",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "VZ",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "WDC",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "WELL",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "WFC",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "WMT",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    },
+    {
+      "Ticker": "XOM",
+      "First": "2014-01-02",
+      "Last": "2025-12-31",
+      "Rows": 3018,
+      "Rows_2018_2025": 2011,
+      "Missing_Internal": 0
+    }
+  ],
+  "source_provenance": {
+    "retrieved_at_utc": "2026-10-02T06:41:29.659315+00:00",
+    "universe_sha256": "12e9a0f0586c87b552b9280251fa23a44fca8665d2d7e008ffaae19e4bc39173",
+    "prices_sha256": "2563e0e6614d8aeb00d23fcdedbf5e38fbdafa08f3f5bdc86c36b5954f7b60b5",
+    "adjustment": "OHLC * AdjClose/Close; Volume as delivered",
+    "tickers": [
+      {
+        "ticker": "NVDA",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NVDA?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "1caabd7dc20de07a3654c257ec87bd5901b1153f7c42b7528cc74d0539c2bbe1",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AAPL",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "0e20a30e65275712e88cd4e82b2b75f40aa2d7327da02f4eab049ac415c7e224",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "GOOG",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "7209324b2e8aee8d5db6ce1fb4d02c7f629f580d99fb2480efe291aa5dca1ed5",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MSFT",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MSFT?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "3b629906f42e0ce05219e3e62ec15b32fcc37c6a05e41fbb0a726eec685a8724",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AMZN",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AMZN?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "e082702bb4c99e51a3ad3d531c8718393e0b9ee7ab5f7c78fb813077d2ab04de",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "SPCX",
+        "status": "IPO_AFTER_PERIOD",
+        "rows": 0,
+        "source": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026042466/spaceexplorationtechnologi.htm"
+      },
+      {
+        "ticker": "META",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/META?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "8226abd5038b2103491699dd863d97c29e09844caee444eca7213287626c9c0f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AVGO",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AVGO?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "a43e57d09a61d5a079c5c70f03e8995fb63fccf5422766eb3f04f3dda08a801d",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "TSLA",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "b0d054e4ee82945c7521408e1122b4923bbf6c9af04d818e433ce17677662b3c",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MU",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MU?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "4ab9689129e71b39a4c5c16b467d0358aa39b3b50460fabf76c25d97aa9a8f7f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BRK-B",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "6e2e5a90eead7b3b63a498f9cb8e98deb1a6194f59f9b0da7dee5570c5613dd4",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "LLY",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/LLY?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "38237f73e1d8b66e36bf975f952d98b188cb3386ab69f736c1e1459a9a8e96df",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AMD",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AMD?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "88c3b67605f0b088ff6e1caaf5147bccaa45627cdadff1213d0aebed62189f30",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "JPM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c03ed587b53cde252658c3f470a2acf8ff3c00f1daf6e307104f77fe01c66c45",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "WMT",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "ed65f6c425cfc8c71cabe00cc66233e5e1295e4b7a7033b9b2fdd7c84b933be6",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "V",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/V?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "bd906e3594e9f95cc048d192ea19c6addadaa5e6354895768f73125d466e7826",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "XOM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/XOM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "b2188725cf74e1d1702e601c84f158299b70dfdd0a3b359f99678c9b089f8a84",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "INTC",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/INTC?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "d8288d072e0fe91c1f67f8ca3d41f782cea52e9d42aa487975af463036cab93d",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "JNJ",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/JNJ?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "d2f7a79a19691258ea711c51981d03c74680888ef41df8dd945e3a21d98e96fe",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MA",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "3c0bfe6b6ebb9a698159425243da87f4ffdbf27af6488d68fc1ad5942099f0c2",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "ABBV",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ABBV?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c4e2b903af228f258c652db0b1ee4fdb216032ef5c5666e89671f03b4a61e47e",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PLTR",
+        "status": "OK",
+        "rows": 1320,
+        "start": "2020-09-30",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PLTR?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "cd149c3bf21e003069de38fa8d305ea80199b6758f0d54f8e62e407976191a8f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "CSCO",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/CSCO?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f4b9a029c99f5eac57e887c1187ba57a64da094cc861a576b867cf669f742462",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "LRCX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/LRCX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "9a807044b83c6e3699df0dfa70d27ce32ac4e89f20bab2963c29b896e4223f5f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AMAT",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AMAT?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "8234aa4c06b693a86eda6da93facf0a563ddc08dc8dc4fbdd82bfddaaa518331",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "ORCL",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "445d6a9f96e27e9afefb588b1dfc78593eff1b02eb42c93f7e30496a9db3200d",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "CVX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/CVX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f83e7677b12b11a6443d37716fe84e4a3804e6f7028cd46ab07cfcce938907ee",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "COST",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/COST?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "dcbadc1d082d6b62593dbcb032344cd7a9742365cda71b7ae973d005237c6fc7",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "CAT",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/CAT?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f63e03ccf11d00befbe6e071fecdcd7e1f6459e4d5a5fa3d4ef10b0bf8c293e0",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BAC",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "777109fec64f4d2e3012bfeea5f8fa8c7eb8632a9f8320b2813279267001873e",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "KO",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "999f1aeb3376ac2185d70427a187ddb1e9e24c0bb37bd6b4e250b70407e92271",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MRK",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MRK?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "b478d93cf2a7f041f9420d4a042d49fd19edb574019c1fff49932af3e3727452",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "DELL",
+        "status": "OK",
+        "rows": 1762,
+        "start": "2018-12-28",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/DELL?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f55f365e31640ccef26e22612a3fac1af76f2ee31c56e837e598fdef7909aa14",
+        "excluded_prefix_rows": 595,
+        "override": {
+          "start": "2018-12-28",
+          "reason": "Class C regular-way listing; exclude predecessor Class V tracking stock and when-issued sessions",
+          "source": "https://www.sec.gov/Archives/edgar/data/1571996/000157199619000008/delltechnologiesfy1910k.htm"
+        }
+      },
+      {
+        "ticker": "PG",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PG?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "042ddfdc7b29ab1dbbed0c059c4fb50bb9027bf1508f12cb7ea698cc05b1518c",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "UNH",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/UNH?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "ae89d2b7339d711837d352783f454d97f7d80ca386e6ec95c6487df76792d6cd",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PANW",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PANW?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "5fb7f2025caa2a8fad628de9bb9155f0713c75ca9061a3f65ec616a4e7fe4533",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "GE",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GE?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "1d787f2d5db7b320587f48c7d8b05c11a59449ca74d6c87453e37595df3532d0",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MS",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MS?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "1439e1513e76ba4b3a398ebbd1e3eae4ea1548fa0787f9c603846a7b02cc1a5f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "ed71a6c41f74a8cdedf3b0e9291953fc5d8d96b86067a8667566c8dc3ce79b4d",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "NFLX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NFLX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "63434c8a542ba641eb303bc36c7f62ad14c9b857c8e539e652f651ddcb9a188f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "HD",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "6617899bb445d83fac4e0838bfa2c75e0ccb7b7f65bad6d38c768e9aabe4f27f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "CRWD",
+        "status": "OK",
+        "rows": 1649,
+        "start": "2019-06-12",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/CRWD?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "69dfd4860bbcc277cbbbaee02f21d416ffefb241a519151f055a1c4476ebef77",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "GEV",
+        "status": "OK",
+        "rows": 440,
+        "start": "2024-04-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GEV?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "b49df0c4ad757440677a7d01e925507c6dbb1e113e65c3084e1891b629090406",
+        "excluded_prefix_rows": 3,
+        "override": {
+          "start": "2024-04-02",
+          "reason": "Exclude when-issued sessions; retain regular-way common stock only",
+          "source": "https://www.gevernova.com/news/press-releases/ge-vernova-completes-spin-off-begins-trading-new-york-stock-exchange"
+        }
+      },
+      {
+        "ticker": "SNDK",
+        "status": "OK",
+        "rows": 216,
+        "start": "2025-02-24",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SNDK?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c7550ffab7a1c2629ad58ffca8c24f19fd353109f194e6c6089163c7d041b32a",
+        "excluded_prefix_rows": 6,
+        "override": {
+          "start": "2025-02-24",
+          "reason": "Exclude SNDKV when-issued sessions; regular-way SNDK began February 24",
+          "source": "https://investor.sandisk.com/static-files/b65d2104-3a0d-422f-a43b-4c80273ae27a"
+        }
+      },
+      {
+        "ticker": "KLAC",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/KLAC?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "62e88951eed702116aafc2c5a30e73af1b278216d64945169b13c8c0d45fa82a",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "GS",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GS?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "94fa000e36e549498194fbcdda862af69be5b46f9214b2f5a35da5f2e7f6ee05",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "ANET",
+        "status": "OK",
+        "rows": 2911,
+        "start": "2014-06-06",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ANET?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "1b950047e872717b6bfd23ea58615c8f85ac0a719f66d9f193a3bdd1d2c29d6b",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "TXN",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TXN?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "1743419d338bf92a8fa59f937b807fd18f9ff69b0960bdaac9084bb93de6eef1",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "RTX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/RTX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "babca174e92bc0f14d63c8bb8896952d357c2e5c6479170f1d5a6aff268918be",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "WFC",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "49e2528d3d7d3ac8fc76167d05ee50306ded0cfd170a38613a434973147d5fc8",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "TMO",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TMO?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "cdb4c4c3a1e794d99ebb3b7301b4868d5e0df48d8ca8a21718a9062d9dbec53c",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MRVL",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MRVL?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "74c357fa766497a628037403fe5a2bd0ece58d1e51af5f2b0773a6f2c17a3778",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AMGN",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AMGN?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c970492603483a0cf1ab518ecd658321b966cff3c3c8503cbc071de36f39172b",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "C",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "cfc2f237c35389bc555e73ae3c8165d37ba19894b43fb1f4a740319dd08e7707",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "IBM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/IBM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "79d74d9f80988c5ad9f2bf08dddaf1e36a9cff619275b01ce8106725deccd371",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "APH",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/APH?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "64b2bf03f725d7ea92b1434c81b714822fdb04aadee80d78ea7728db579be996",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "AXP",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "02bf4dd311b2b5f055c2644eba6471402fc072cdb60734944e233a713aff6d9b",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "ADI",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ADI?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "e6eaa9c7531be9512fcb77467b3b10f4dc8e7ddcdd4901fa39a85315d6a7ff08",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "CRM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/CRM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "80801e2a39aa9485a304b729ec559e8b243e86576cd893725e2647acb43937fa",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "QCOM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/QCOM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "34d7248e84814bfbeb1b81e469c3d605ff086343679fb0cf964817a1aa5adf07",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "VZ",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/VZ?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "ac80fde4ad6797dca27de74eff3b4a3ec6671ff113ff5a2c08d54b3145afc779",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "GILD",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GILD?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "e7a0b6b2f47ebc8dbdb906cc041e660e654c4a26949d7d67ce0cdbe963cdda65",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "DE",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/DE?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "6fdbbe0b59b602d006ff667b66adaa7d8162e452cf98026cbb2097878491f57b",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "DIS",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/DIS?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f718fe784e77a6801d9f78d3fc1fd8e81e540a7f1804a805456d1ced80efb69d",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "TMUS",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TMUS?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c89dd3341e697b390db2bc29f2eff35a0f90482431146c31ecf2aad7d0b03a7c",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BLK",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BLK?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c921d173da46370eccbaffbebe6cea44df9f9dbafb8b327f7b5be0e90eef9aeb",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PEP",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PEP?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "8e9505a5e44fe306beae156a98b7f85c202e54cac0f756168d3ae9b9d6405500",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "SCHW",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "1a91cace9c310d01986e99aae9491ccaa17a5d0d7d7c88f8d95f865a33d32d31",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "ABT",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ABT?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "5b3d7c144c4f7d9017673f0baceee1f52a969c87aec15870245d03ff0fa44715",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "SCCO",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SCCO?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "2736e3e63c19a790dcd3e34d0de2e15b5725a1e54898a2d330582d13457a3c90",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "WDC",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/WDC?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c50b4d9f5cb6390fafc066f27f1d98db952414093e45e957af6317ee17db6e27",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "T",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/T?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f729c4cd7ff449cf111408af3710b2646da23e5988853a556f2bb2f6e58ecbcd",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MCD",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "8fdc5b37d86fa19b5844e1e48f9f208452ee19daedce3dbd58b196ac2eb99087",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "WELL",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/WELL?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "a97f692627e8d24995d3e9493adaebbcb084bced03a441b98c7f0c3ab9c6c107",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "UNP",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/UNP?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c36a6bbd5a72b6a2391e6e48017418881f96848808e2c78311bdb0dd6d5b6e9b",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PFE",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PFE?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "e5bd9af29a8b0c281aa175365a6eceb00abdbd788297792b0a8e5812c1445766",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "NEE",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NEE?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "b63499fe10b7a7aabb1f0ab2d536b50bb934c9b6c5b4dcf0d73174f647b72c30",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "COP",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "fe90c91b8434383046f1c9a06f08ad3e6d7ef78ee1b710113f1319e807247ef4",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BA",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BA?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "44f6a39e605226b9bf3ef3b945f5d58dffdac5148f5005d561d3dc652ccdb9a5",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "DHR",
+        "status": "OK",
+        "rows": 2388,
+        "start": "2016-07-05",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/DHR?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "7ce644d5d90fd65ce0682fc7f6732b63a4086d1ab4ca035635a94babb1b4a845",
+        "excluded_prefix_rows": 630,
+        "override": {
+          "start": "2016-07-05",
+          "reason": "Yahoo AdjClose/Close jumps 55.55% on Fortive separation, creating spurious +61.22% adjusted return. Use only post-separation segment; no invented adjustment or return across the break",
+          "source": "https://investors.fortive.com/sec-filings/all-sec-filings/content/0001193125-16-643459/d208926d8k.htm"
+        }
+      },
+      {
+        "ticker": "TJX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TJX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "2a3695120b0abcdf1fff751af375d0be00b6b086580a03ac69ea6c95d2bb23fe",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "IBKR",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/IBKR?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "50348bd7d027c1f055e2389e9a2e20c109c336b2d53a6d479528908faddb284d",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "ISRG",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/ISRG?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "890034603019e21e77e6336ac26b0f1301ad5c7aa2ed239195f5630502ebf3f6",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "NOW",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NOW?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "b2932366564fe0772685daf9baaed497ce034bb80e26592de79e24942c1fa7b4",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "UBER",
+        "status": "OK",
+        "rows": 1671,
+        "start": "2019-05-10",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/UBER?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "9109cdc9fc99373399c7232db3c6da28b684bf1182124d868be26383108bdaf9",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "GLW",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GLW?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f159209fcae5b3ab04705b109bebfac033c0a14c89b9e83db7baedf1d770b44f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "80cb79daa0f553147ff101f43696e4c5f03cf20f91617f4a8188f0f86f0eee73",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "FTNT",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/FTNT?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "fcffb902c0b810f047c65f4f74f22aa2541863b29a2f06d70bb790eb6d2a0cc9",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "VRTX",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/VRTX?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "52edf4fb5d7b881194f15466f86c556cd1509f8c0e2b5b45ad58ab77e07883f4",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BMY",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BMY?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "5e93f95bd4c0fdaa5d5232373383e7b5dd5b34101b249736e30139c74fbe1ec5",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "NET",
+        "status": "OK",
+        "rows": 1584,
+        "start": "2019-09-13",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NET?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "3ef622982ac711f6fb728dcf0dbdda6dfde0f301c466c9a3366d4ecaa6cf30ef",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PLD",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PLD?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "7e933c399a510292f2f2358c769682bcdc0de6e27526ba97a2d83adfcfc07186",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "BKNG",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/BKNG?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "2cf0c5a6faefbe7b6cf9adcb08458005633922b3bc7f609d53346010cfea84f8",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "MPC",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/MPC?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "4b137abc9694e743264cd07b9f6c9ec35a13333135362349f226184928187db0",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PGR",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PGR?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "3bbe4418cdee066701f99cd23b02d1229e0ca143f6eb6ad46286a7d354381af9",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "PH",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/PH?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "8530df4f92938603dc66f7ba6814e74973f0aa9840abe234fde5d42c7b5da82b",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "NEM",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/NEM?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "c8a2227558b3177df62a6a51bafbceeaa28831091df68390e16ffb4510d4ae20",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "SNOW",
+        "status": "OK",
+        "rows": 1330,
+        "start": "2020-09-16",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SNOW?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "d1ca3da4e949cda4074d76a8eb26a94fa6a56a9ca80ed9b51c20fc8955e6ae7f",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "COF",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/COF?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "436645d6b4f550a2ad81704701cc2e338709ecd4cf8ec2de029236f06237f584",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "VLO",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/VLO?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "bc836eab0a91d41ab0cb3618c52322ec37276ac1c765366ebe1745949d7c4dd6",
+        "excluded_prefix_rows": 0,
+        "override": null
+      },
+      {
+        "ticker": "SPY",
+        "status": "OK",
+        "rows": 3018,
+        "start": "2014-01-02",
+        "end": "2025-12-31",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=1388534400&period2=1767225600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "raw_sha256": "f1e837b8e2038599bedbb31f06837fa18e069ac132d80defeb53e47c9cf9def9",
+        "excluded_prefix_rows": 0,
+        "override": null
+      }
+    ]
+  },
+  "versions": {
+    "python": "3.12.14",
+    "pandas": "2.2.3",
+    "numpy": "2.3.5"
+  },
+  "decisions": [
+    {
+      "Strategy": "Momentum",
+      "Verdict": "DROP",
+      "Best_Year": "2020",
+      "Net_Mean_Without_Best_Year": -0.0005523153202896555,
+      "Best5": [
+        "TSLA",
+        "SNDK",
+        "AMD",
+        "BA",
+        "ADI"
+      ]
+    },
+    {
+      "Strategy": "MeanReversion",
+      "Verdict": "DROP",
+      "Best_Year": "2023",
+      "Net_Mean_Without_Best_Year": 0.00016793571656359147,
+      "Best5": [
+        "META",
+        "ORCL",
+        "COP",
+        "DELL",
+        "C"
+      ]
+    },
+    {
+      "Strategy": "Pullback",
+      "Verdict": "DROP",
+      "Best_Year": "2020",
+      "Net_Mean_Without_Best_Year": -0.00035709783904380694,
+      "Best5": [
+        "AMD",
+        "META",
+        "APH",
+        "COP",
+        "AAPL"
+      ]
+    }
+  ]
+}

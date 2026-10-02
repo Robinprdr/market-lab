@@ -1,0 +1,22 @@
+{
+  "DELL": {
+    "start": "2018-12-28",
+    "reason": "Class C regular-way listing; exclude predecessor Class V tracking stock and when-issued sessions",
+    "source": "https://www.sec.gov/Archives/edgar/data/1571996/000157199619000008/delltechnologiesfy1910k.htm"
+  },
+  "DHR": {
+    "start": "2016-07-05",
+    "reason": "Yahoo AdjClose/Close jumps 55.55% on Fortive separation, creating spurious +61.22% adjusted return. Use only post-separation segment; no invented adjustment or return across the break",
+    "source": "https://investors.fortive.com/sec-filings/all-sec-filings/content/0001193125-16-643459/d208926d8k.htm"
+  },
+  "GEV": {
+    "start": "2024-04-02",
+    "reason": "Exclude when-issued sessions; retain regular-way common stock only",
+    "source": "https://www.gevernova.com/news/press-releases/ge-vernova-completes-spin-off-begins-trading-new-york-stock-exchange"
+  },
+  "SNDK": {
+    "start": "2025-02-24",
+    "reason": "Exclude SNDKV when-issued sessions; regular-way SNDK began February 24",
+    "source": "https://investor.sandisk.com/static-files/b65d2104-3a0d-422f-a43b-4c80273ae27a"
+  }
+}
