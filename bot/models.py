@@ -70,6 +70,9 @@ class BrokerSnapshot:
     positions: dict[str,BrokerPosition] = field(default_factory=dict)
     open_orders: tuple[BrokerOrder,...] = ()
     executions: tuple[BrokerExecution,...] = ()
+    total_cash: float | None = None
+    net_liquidation: float | None = None
+    account_currency: str | None = None
 
 
 class Broker(Protocol):

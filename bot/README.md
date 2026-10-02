@@ -1,5 +1,28 @@
 # Market Lab Bot Core V1 — IBKR Paper only
 
+## Paper integration V1
+
+Use IB Gateway **Simulated Trading** at `127.0.0.1:4002` with dedicated client ID `71`. Set `IBKR_ALLOWED_ACCOUNT_ID` privately to the exact DU paper account; the adapter refuses any other account for every request and order. Install `ibapi` from the official [IBKR TWS API distribution](https://interactivebrokers.github.io/) into the same Python environment as the research dependencies. No credential belongs in Git.
+
+Run `python -m bot.ibkr_smoke_test` with `TRADING_ENABLED=false` first. It checks the socket, `nextValidId`, the allowlisted account, its account-specific cash/net liquidation/positions/open orders/executions, and reconnection. Run `python -m bot.reconcile` before enabling execution. The smoke test does not submit an order.
+
+The pilot account reported **EUR** as its base currency on 2026-10-02. The adapter preserves its EUR cash and net liquidation for diagnostics but reports `available_cash_usd=0` for sizing; it never treats EUR as USD or assumes a margin/FX conversion. Thus entries and the isolated paper order trial are blocked until USD buying cash is unambiguously available or a separately reviewed FX-aware risk model exists. This is an intentional fail-closed limitation, not a strategy rule change.
+
+`bot.paper_order_test` is an isolated one-share Paper `LMT+OPG` trial, using a verified prior-session unadjusted USD close supplied by the operator. It uses the same SQLite ledger, risk checks, account allowlist, reconciliation and durable submission claim. Without `--send` it only previews; with `--send` it submits once. It cannot submit while USD cash is unverified. Its test position is due for MOC on the entry date and must be handled by the normal `bot.run_exits` command before that day's cutoff. Run `bot.reconcile` afterward to record fills and confirm state. Do not use the frozen strategy ID for the test.
+
+```sh
+export IBKR_HOST=127.0.0.1 IBKR_PORT=4002 IBKR_CLIENT_ID=71
+export IBKR_ALLOWED_ACCOUNT_ID=<exact DU paper account>
+TRADING_MODE=PAPER TRADING_ENABLED=false python -m bot.ibkr_smoke_test
+TRADING_MODE=PAPER TRADING_ENABLED=false python -m bot.reconcile
+# Only after USD funds are verified and the prior unadjusted USD close is known:
+TRADING_MODE=PAPER TRADING_ENABLED=true python -m bot.paper_order_test --ticker AAPL --reference-close <verified close> --send
+TRADING_MODE=PAPER TRADING_ENABLED=true python -m bot.run_exits
+TRADING_MODE=PAPER TRADING_ENABLED=false python -m bot.reconcile
+```
+
+All session checks use `America/New_York` and the NYSE calendar, including early closes. The intended automation is reconciliation at startup, `run_daily` after a completed U.S. close and before the next opening auction, and `run_exits` before the MOC cutoff. No scheduler is installed. Opening fills and MOC support remain unverified until an actual Paper order is accepted and completed; a rejected or uncertain order is never blindly resubmitted.
+
 This bot loads frozen Research Engine V2 swing candidate `2366a81673c5` directly from `results/research_v2/frozen_candidates.json`, checking its companion hash and frozen research code. Signal: completed daily close `t`; intended entry at the next NYSE session's open; exit at the close of the **ninth trading session including entry day**. No indicator, threshold, signal filter or holding period is changed. The Top100 US V1 snapshot and Yahoo daily OHLCV provider remain separate from IBKR. The historical cost assumption is 0.20% round trip; real paper fills and fees will differ.
 
 The executable parts are `config.py` (guarded settings), `strategy.py` (generic strategy interface and frozen candidate), `market_data.py`, `calendar.py`, `portfolio.py` (risk sizing), `broker_ibkr.py` (official TWS API socket adapter), `storage.py` (SQLite ledger), `runtime.py` (orchestration), and the `run_daily`, `run_exits`, `reconcile`, `status` commands.
@@ -54,4 +77,4 @@ TRADING_MODE=PAPER TRADING_ENABLED=true python -m bot.run_exits
 TRADING_MODE=PAPER python -m bot.status
 ```
 
-Schedule `run_daily` after the daily Yahoo bar is complete, and `run_exits` before the NYSE close minus 60 minutes, accounting for U.S. holidays and half days. No scheduler, cloud deployment, Telegram, web app, short strategy, or live trading is included. DRY_RUN never connects or submits orders. PAPER was not connected in development because no paper credentials or running TWS/IB Gateway were available; live broker behavior remains unverified until the user configures and observes a paper trial. PAPER may require explicit operator intervention after ambiguous submissions, rejected orders, partial fills, missing broker history, or external changes to the paper account.
+Schedule `run_daily` after the daily Yahoo bar is complete, and `run_exits` before the NYSE close minus 60 minutes, accounting for U.S. holidays and half days. No scheduler, cloud deployment, Telegram, web app, short strategy, or live trading is included. DRY_RUN never connects or submits orders. The read-only Paper connection and reconciliation were verified on 2026-10-02; Paper order acceptance, fills, and auction behavior remain unverified while USD buying cash is unavailable. PAPER may require operator investigation after ambiguous submissions, rejected orders, partial fills, missing broker history, or external changes to the paper account.

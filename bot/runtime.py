@@ -187,7 +187,9 @@ def run_reconcile(store,settings,broker):
         if settings.trading_mode!='PAPER':
             raise ValueError('Broker reconciliation requires PAPER mode')
         snapshot=synchronize(store,broker,settings.allowed_account_id)
-        result=dict(account_id=snapshot.account_id,available_cash=snapshot.available_cash,
+        result=dict(account_id=snapshot.account_id,available_cash_usd=snapshot.available_cash,
+                    account_currency=snapshot.account_currency,total_cash=snapshot.total_cash,
+                    net_liquidation=snapshot.net_liquidation,
                     positions={t:p.quantity for t,p in snapshot.positions.items()},
                     open_orders=len(snapshot.open_orders),executions_seen=len(snapshot.executions))
         store.run_end(run_id,'OK',result);return result

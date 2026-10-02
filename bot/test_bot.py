@@ -10,6 +10,8 @@ import pandas as pd
 
 from bot.calendar import before_moc_cutoff,exit_session,next_session
 from bot.broker_ibkr import IBKRPaperBroker
+from bot.ibkr_smoke_test import smoke
+from bot.paper_order_test import require_usd_cash
 from bot.config import ROOT,Settings
 from bot.models import BrokerExecution,BrokerOrder,BrokerPosition,BrokerSnapshot,Signal
 from bot.portfolio import entry_intent
@@ -212,6 +214,45 @@ class BotTests(unittest.TestCase):
             secret=os.environ.get(key)
             if secret and len(secret)>8:
                 self.assertFalse(any(secret in (ROOT/f).read_text(errors='ignore') for f in tracked if (ROOT/f).is_file()))
+
+    def test_smoke_reconnect_and_account_summary_without_order(self):
+        class Paper:
+            def __init__(self,settings):
+                self.settings=settings;self.connects=0;self.orders=0
+            def connect(self):
+                self.connects+=1
+                self.app=type('App',(),{'next_id':self.connects,'accounts':['U-PERSONAL','DU12345']})()
+            def snapshot(self,account):
+                self.asserted_account=account
+                return BrokerSnapshot(account,0.,total_cash=1000000.,net_liquidation=1000000.,account_currency='EUR')
+            def close(self):pass
+        result=smoke(self.settings,Paper)
+        self.assertEqual(result['status'],'PASS')
+        self.assertEqual(result['account_id'],'DU12345')
+        self.assertEqual(result['reconnected_order_id'],2)
+        self.assertEqual(result['available_cash'],0.)
+
+    def test_smoke_fails_closed_on_gateway_and_wrong_account(self):
+        class NoGateway:
+            def __init__(self,settings):pass
+            def connect(self):raise RuntimeError('IBKR socket connection failed')
+            def close(self):pass
+        with self.assertRaisesRegex(RuntimeError,'socket connection failed'):
+            smoke(self.settings,NoGateway)
+        class WrongAccount:
+            def __init__(self,settings):pass
+            def connect(self):
+                self.app=type('App',(),{'next_id':1,'accounts':['U-PERSONAL']})()
+            def close(self):pass
+        with self.assertRaisesRegex(RuntimeError,'Allowed paper account absent'):
+            smoke(self.settings,WrongAccount)
+
+    def test_paper_trial_never_treats_eur_as_usd(self):
+        eur=BrokerSnapshot('DU12345',0.,total_cash=1000000.,net_liquidation=1000000.,account_currency='EUR')
+        with self.assertRaisesRegex(ValueError,'no verified USD'):
+            require_usd_cash(eur)
+        usd=BrokerSnapshot('DU12345',1000.,total_cash=1000.,net_liquidation=1000.,account_currency='USD')
+        require_usd_cash(usd)
 
 
 if __name__=='__main__':unittest.main()

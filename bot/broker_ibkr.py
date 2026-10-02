@@ -45,8 +45,8 @@ class IBKRPaperBroker:
                 self.accounts=[x.strip() for x in accountsList.split(',') if x.strip()];self.accounts_ready.set()
 
             def updateAccountValue(self,key,val,currency,accountName):
-                if accountName==allowed and key in ('AvailableFunds','TotalCashValue','CashBalance') and currency=='USD':
-                    self.cash_values[key]=float(val)
+                if accountName==allowed and key in ('AvailableFunds','TotalCashValue','CashBalance','NetLiquidation'):
+                    self.cash_values[(key,currency)]=float(val)
 
             def updatePortfolio(self,contract,position,marketPrice,marketValue,averageCost,unrealizedPNL,realizedPNL,accountName):
                 if accountName!=allowed or contract.secType!='STK':return
@@ -99,7 +99,10 @@ class IBKRPaperBroker:
                 if event:event.set()
 
             def error(self,reqId,errorCode,errorString,*args):
-                if int(errorCode) not in (2104,2106,2107,2108,2158):
+                # API 10.51 adds errorTime before errorCode; older releases do not.
+                if isinstance(errorString,int) and args:
+                    errorCode,errorString=errorString,args[0]
+                if int(errorCode) not in (2100,2104,2106,2107,2108,2158):
                     self.errors.append(f'{reqId}:{errorCode}:{errorString}')
                     event=self.ack_events.get(int(reqId)) if isinstance(reqId,int) else None
                     if event:event.set()
@@ -107,7 +110,10 @@ class IBKRPaperBroker:
                     if contract_event:contract_event.set()
 
         app=App()
-        app.connect(self.settings.ibkr_host,self.settings.ibkr_port,self.settings.ibkr_client_id)
+        try:
+            app.connect(self.settings.ibkr_host,self.settings.ibkr_port,self.settings.ibkr_client_id)
+        except (ConnectionError,OSError) as exc:
+            raise RuntimeError('IBKR socket connection failed') from exc
         if not app.isConnected():
             raise RuntimeError('IBKR socket connection failed')
         self.thread=threading.Thread(target=app.run,daemon=True)
@@ -136,11 +142,19 @@ class IBKRPaperBroker:
         from ibapi.execution import ExecutionFilter
         filt=ExecutionFilter();filt.acctCode=account_id
         app.reqExecutions(9001,filt);self._wait(app.executions_done,'executions')
-        cash=app.cash_values.get('TotalCashValue',app.cash_values.get('CashBalance'))
-        available=app.cash_values.get('AvailableFunds')
-        if app.errors or cash is None or available is None or not app.isConnected():
+        currencies={currency for key,currency in app.cash_values if key=='NetLiquidation'}
+        if len(currencies)!=1:
+            raise RuntimeError('IBKR account base currency is ambiguous')
+        currency=currencies.pop()
+        cash=app.cash_values.get(('TotalCashValue',currency),app.cash_values.get(('CashBalance',currency)))
+        available=app.cash_values.get(('AvailableFunds',currency))
+        net_liquidation=app.cash_values.get(('NetLiquidation',currency))
+        if app.errors or cash is None or available is None or net_liquidation is None or not app.isConnected():
             raise RuntimeError('IBKR snapshot incomplete: '+','.join(app.errors[:3]))
-        return BrokerSnapshot(account_id,min(cash,available),dict(app.positions),tuple(app.open_orders),tuple(app.executions))
+        # Risk sizing is USD. No implicit EUR (or other base currency) conversion.
+        usd_available=min(cash,available) if currency=='USD' else 0.0
+        return BrokerSnapshot(account_id,usd_available,dict(app.positions),tuple(app.open_orders),
+                              tuple(app.executions),cash,net_liquidation,currency)
 
     def _contract(self,ticker):
         from ibapi.contract import Contract
@@ -195,3 +209,5 @@ class IBKRPaperBroker:
     def close(self):
         if self.app is not None:
             self.app.disconnect();self.app=None
+        if self.thread is not None:
+            self.thread.join(timeout=2);self.thread=None

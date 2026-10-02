@@ -61,8 +61,10 @@ def exit_intent(position,store,snapshot,settings,ignore_intent_id=None):
     if store.orders_on(session,ignore_intent_id)>=settings.max_orders_per_day:
         return None,'MAX_ORDERS_PER_DAY'
     account=settings.allowed_account_id if settings.trading_mode=='PAPER' else 'DRY_RUN'
+    connectivity_test=position['strategy_id']=='PAPER_CONNECTIVITY_TEST'
     intent=OrderIntent(intent_id(position['strategy_id'],ticker,'SELL',session,account,settings.trading_mode),
         position['strategy_id'],ticker,'SELL',position['quantity'],session,
-        'Frozen V2 exit at close of ninth market session',datetime.now(timezone.utc).isoformat(),
-        9,session,'MOC',None,account,position['avg_entry_price'])
+        'Paper connectivity trial close exit' if connectivity_test else 'Frozen V2 exit at close of ninth market session',
+        datetime.now(timezone.utc).isoformat(),1 if connectivity_test else 9,
+        session,'MOC',None,account,position['avg_entry_price'])
     return intent,None
