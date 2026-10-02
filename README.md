@@ -1,8 +1,8 @@
-# Market Lab V1
+# Market Lab
 
-Bot actions US court terme en préparation : **TOP100_US, LONG uniquement,
-1 à 3 séances, trois stratégies maximum**. Signal à la clôture t, entrée à
-Open[t+1], sortie Close[t+h]. Aucun trading réel ni connexion broker.
+Recherche sur actions US du snapshot **TOP100_US**. Les benchmarks V1 historiques
+étaient LONG, sans connexion broker. Le Bot Core V1, décrit plus bas, ajoute
+uniquement une connexion IBKR Paper pour le candidat swing V2 gelé.
 
 ## Benchmark final
 
@@ -37,11 +37,11 @@ Le snapshot actuel introduit un **survivorship bias historique accepté**.
 Yahoo sont révisables. Ce benchmark rétrospectif n'est pas une validation OOS
 indépendante et son sizing n'est pas celui du futur bot.
 
-## Étapes prévues
+## Suites du benchmark V1
 
-Benchmark final → moteur portefeuille → paper trading IBKR → réel avec petit
-capital, uniquement si des stratégies satisfont les critères de passage.
-Cette mission s'arrête au benchmark ; les étapes suivantes ne sont pas lancées.
+À l'issue du benchmark V1, aucune stratégie n'avait satisfait les critères
+de passage. La recherche V2 et le Bot Core Paper ont ensuite été développés
+séparément ; aucun passage au trading réel n'est prévu dans ce dépôt.
 
 ## Recherche V2 séparée
 
@@ -51,3 +51,11 @@ swing comporte un **KEEP CANDIDATE** et sept DROP ; l'intraday dispose seulement
 d'un pilote technique de cinq séances, sans candidat. Ce candidat n'est pas
 encore une stratégie déployable : les années 2024–2025 ont déjà été examinées
 dans les recherches V1. [Décision et limites V2](results/research_v2/decision.md).
+
+## Bot Core V1 — paper uniquement
+
+Le [Bot Core V1](bot/README.md) charge le candidat swing V2 gelé et sépare
+les signaux, le risque, l'état SQLite et l'adaptateur IBKR Paper. Les ordres
+sont désactivés par défaut ; aucun trading réel n'est implémenté. Le contrôle
+2026 et ses limites sont documentés dans
+[Research V2 2026](results/research_v2_2026/decision.md).
