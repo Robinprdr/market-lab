@@ -1,0 +1,102 @@
+{
+  "version": "research-engine-v2",
+  "created_before_search_utc": "2026-10-02T07:23:26.008504+00:00",
+  "universe": "data/universe/top100_us_v1.csv",
+  "universe_sha256": "12e9a0f0586c87b552b9280251fa23a44fca8665d2d7e008ffaae19e4bc39173",
+  "swing": {
+    "train": [
+      "2018-01-01",
+      "2023-12-31"
+    ],
+    "validation": [
+      "2024-01-01",
+      "2025-12-31"
+    ],
+    "horizons": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "anchor": "align_sma20_50 > 0",
+    "round_trip_cost": 0.002,
+    "minimum_train_trades": 200,
+    "minimum_positive_train_years": 4,
+    "minimum_validation_trades": 60,
+    "minimum_validation_sessions": 400
+  },
+  "intraday": {
+    "raw_minutes": 1,
+    "research_minutes": 5,
+    "supported_aggregations": [
+      5,
+      15,
+      30
+    ],
+    "sample_tickers": [
+      "AAPL",
+      "NVDA",
+      "AMZN",
+      "JPM",
+      "XOM"
+    ],
+    "sample_train": [
+      "2026-09-25",
+      "2026-09-30"
+    ],
+    "sample_validation": [
+      "2026-10-01",
+      "2026-10-01"
+    ],
+    "historical_split_rule": "first 75% of complete session dates train; last 25% validation; persist before search",
+    "horizons_bars": [
+      1,
+      3,
+      6,
+      12,
+      0
+    ],
+    "zero_horizon_means": "session close",
+    "anchor": "distance_vwap > 0",
+    "half_spread_bps_per_side": 2.0,
+    "slippage_bps_per_side": 2.0,
+    "commission_bps_per_side": 0.5,
+    "stress_cost_multiplier": 2,
+    "minimum_train_trades": 20,
+    "minimum_positive_train_years": 1,
+    "minimum_validation_trades": 100,
+    "minimum_validation_sessions": 63,
+    "minimum_train_sessions_for_keep": 252,
+    "sample_is_technical_only": true
+  },
+  "search": {
+    "train_quantiles": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "operators": [
+      ">=",
+      "<="
+    ],
+    "seed_features": 24,
+    "beam_width": 12,
+    "maximum_extra_conditions": 3,
+    "maximum_variants_per_lab": 10000,
+    "maximum_candidates": 8,
+    "maximum_train_signal_jaccard": 0.7,
+    "ranking": "train mean net minus 0.00005 per additional condition; deterministic ties by rule ID",
+    "minimum_train_pf": 1.1
+  },
+  "validation_gate": "net expectancy > 0, PF >= 1.1, every validation year mean net > 0, net after top5 removal > 0, DD >= -20%, minimum sample met; intraday also positive at costs x2",
+  "execution": "signal at bar close; entry next bar open; fixed horizon close or intraday session close; one position per ticker; no pending orders",
+  "boundary": "purge all trades whose exit crosses split end; reset positions, not feature warmup, at validation start",
+  "drawdown": "daily MTM fixed entry-notional 1/100 of initial equity per ticker, no reinvestment; diagnostic only, not final sizing",
+  "holdout_caveat": "2024-2025 already examined in V1. V2 excludes it from all fitting and ranking, but it is not historically virgin. Any KEEP remains a candidate requiring new prospective evidence."
+}

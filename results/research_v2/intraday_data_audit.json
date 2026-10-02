@@ -1,0 +1,35 @@
+{
+  "provider": "yahoo",
+  "feed": null,
+  "acquired_at": "2026-10-02T07:42:57.309884+00:00",
+  "raw_sha256": "546dec8bd12d3831b8edbacdff895200d6f51c80ae514d2e271869a345944faa",
+  "bars_sha256": "c67e98e02df952c7fe32b64b98e39a8a2331fa1bd0bc77c23814c1ef29105a51",
+  "daily_sha256": "0d66f54e6b7a1d9d6f937d011fbb278c744e3e3721d0da726716bb5ba4173b75",
+  "rows_1m": 11706,
+  "rows_5m": 2340,
+  "sessions": [
+    "2026-09-25",
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01"
+  ],
+  "tickers": [
+    "AAPL",
+    "AMZN",
+    "JPM",
+    "NVDA",
+    "XOM"
+  ],
+  "unavailable": [],
+  "train": [
+    "2026-09-25",
+    "2026-09-30"
+  ],
+  "validation": [
+    "2026-10-01",
+    "2026-10-01"
+  ],
+  "historical_validation_eligible": false,
+  "vwap": "trade VWAP when supplied, otherwise minute typical-price approximation"
+}

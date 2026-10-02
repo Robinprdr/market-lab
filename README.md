@@ -42,3 +42,12 @@ indépendante et son sizing n'est pas celui du futur bot.
 Benchmark final → moteur portefeuille → paper trading IBKR → réel avec petit
 capital, uniquement si des stratégies satisfont les critères de passage.
 Cette mission s'arrête au benchmark ; les étapes suivantes ne sont pas lancées.
+
+## Recherche V2 séparée
+
+[Research Engine V2](research/research_v2/README.md) explore des signaux LONG
+swing et intraday sur le même snapshot, avec gel avant validation. Le résultat
+swing comporte un **KEEP CANDIDATE** et sept DROP ; l'intraday dispose seulement
+d'un pilote technique de cinq séances, sans candidat. Ce candidat n'est pas
+encore une stratégie déployable : les années 2024–2025 ont déjà été examinées
+dans les recherches V1. [Décision et limites V2](results/research_v2/decision.md).

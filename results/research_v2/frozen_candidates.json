@@ -1,0 +1,536 @@
+{
+  "frozen_at": "2026-10-02T07:44:47.828617+00:00",
+  "protocol_sha256": "7ba0552419c8b883a08d84cb0c6aac85ac4d9bc9827320ed2f184ce3a72100cf",
+  "universe_sha256": "12e9a0f0586c87b552b9280251fa23a44fca8665d2d7e008ffaae19e4bc39173",
+  "code_sha256": {
+    "run.py": "e4a056aa6f7212a4140ca814d8b9e23fcaf72ff74436c93a45684e634224a341",
+    "__init__.py": "b406f222d99b8c01388a5a0c0a90aebfdb87ba0a699298ed2336e67f95d30ede",
+    "features.py": "f1268e1ccafdb7e0ca3b4dca565d2af86839adc43dd27832debf8c1c8fb67bf6",
+    "providers.py": "b7c4f9cad1363c0c490a933e4156ab587ae024e8b5141a44ae81ff19c0298dae",
+    "search.py": "0d62b447709c5fe7e28ff5a981596fbf577b58828c661ac769b02402e23a0613",
+    "test_v2.py": "ed97e1e742eca5a3d4f3e4e0ddbdea8fe25f618bc5e82d4291ef1152ee5f2b00"
+  },
+  "daily_sha256": "2563e0e6614d8aeb00d23fcdedbf5e38fbdafa08f3f5bdc86c36b5954f7b60b5",
+  "intraday_data_audit_sha256": "c60703ebfe503ce64b794ec03282b60474d3057fa0f76d98abbea2c60f7d62c2",
+  "splits": {
+    "swing": [
+      [
+        "2018-01-01",
+        "2023-12-31"
+      ],
+      [
+        "2024-01-01",
+        "2025-12-31"
+      ]
+    ],
+    "intraday": [
+      [
+        "2026-09-25",
+        "2026-09-30"
+      ],
+      [
+        "2026-10-01",
+        "2026-10-01"
+      ]
+    ]
+  },
+  "candidates": [
+    {
+      "id": "489fb4ac218e",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "volume_ratio_20",
+          "op": "<=",
+          "threshold": 0.7175203272199703
+        },
+        {
+          "feature": "distance_high_20",
+          "op": "<=",
+          "threshold": -0.09276280088410362
+        },
+        {
+          "feature": "spy_distance_sma50",
+          "op": "<=",
+          "threshold": -0.017194555165027665
+        }
+      ],
+      "horizon": 8,
+      "conditions": 4,
+      "exploration": {
+        "trades": 201,
+        "trades_per_year": 33.5,
+        "win_rate": 0.6915422885572139,
+        "avg_gross": 0.028868384449912972,
+        "avg_net": 0.026868384449912974,
+        "median_net": 0.03682681131365917,
+        "pf_net": 2.4126135409653195,
+        "positive_years": 6,
+        "annual": {
+          "2018": 0.037496181484899915,
+          "2019": 0.016976692104316283,
+          "2020": 0.005763244803455918,
+          "2021": 0.03298942132187541,
+          "2022": 0.0235193370291029,
+          "2023": 0.041661823610516464
+        },
+        "ticker_count": 78,
+        "top_ticker_profit_share": 0.06688176250427168
+      },
+      "exploration_drawdown": -0.014720191311185182,
+      "variants_tested": 7520
+    },
+    {
+      "id": "0063ead074d8",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "distance_sma100",
+          "op": "<=",
+          "threshold": -0.05238000094372788
+        },
+        {
+          "feature": "volume_ratio_20",
+          "op": "<=",
+          "threshold": 0.7175203272199703
+        }
+      ],
+      "horizon": 10,
+      "conditions": 3,
+      "exploration": {
+        "trades": 220,
+        "trades_per_year": 36.666666666666664,
+        "win_rate": 0.5681818181818182,
+        "avg_gross": 0.020834661344484903,
+        "avg_net": 0.018834661344484898,
+        "median_net": 0.010539779979161003,
+        "pf_net": 1.913244220203402,
+        "positive_years": 4,
+        "annual": {
+          "2018": 0.02891355007346627,
+          "2019": 0.039590624562773145,
+          "2020": 0.04470751629390823,
+          "2021": -0.005157401782037294,
+          "2022": -0.016261967450767228,
+          "2023": 0.04416200593068437
+        },
+        "ticker_count": 83,
+        "top_ticker_profit_share": 0.0512550277378888
+      },
+      "exploration_drawdown": -0.021145440635382817,
+      "variants_tested": 7520
+    },
+    {
+      "id": "f78c4e441780",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "atr_pct_14",
+          "op": ">=",
+          "threshold": 0.03488721412888235
+        },
+        {
+          "feature": "volume_ratio_20",
+          "op": "<=",
+          "threshold": 0.7175203272199703
+        },
+        {
+          "feature": "rs_spy_10",
+          "op": ">=",
+          "threshold": 0.03832457900651469
+        }
+      ],
+      "horizon": 10,
+      "conditions": 4,
+      "exploration": {
+        "trades": 369,
+        "trades_per_year": 61.5,
+        "win_rate": 0.5772357723577236,
+        "avg_gross": 0.019379905051461754,
+        "avg_net": 0.01737990505146175,
+        "median_net": 0.014279317907334168,
+        "pf_net": 1.7173230765326846,
+        "positive_years": 4,
+        "annual": {
+          "2018": 0.018079598018213017,
+          "2019": 0.03099873891248235,
+          "2020": 0.04166883096497221,
+          "2021": 0.0018092897748995457,
+          "2022": -0.008175820445150224,
+          "2023": -0.0033822492667303534
+        },
+        "ticker_count": 71,
+        "top_ticker_profit_share": 0.0933205840172178
+      },
+      "exploration_drawdown": -0.016425906690054726,
+      "variants_tested": 7520
+    },
+    {
+      "id": "9db70f84ee51",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "return_40",
+          "op": ">=",
+          "threshold": 0.11960506972844002
+        },
+        {
+          "feature": "distance_high_20",
+          "op": "<=",
+          "threshold": -0.09276280088410362
+        },
+        {
+          "feature": "rs_spy_20",
+          "op": ">=",
+          "threshold": 0.057177978370680685
+        }
+      ],
+      "horizon": 9,
+      "conditions": 4,
+      "exploration": {
+        "trades": 201,
+        "trades_per_year": 33.5,
+        "win_rate": 0.582089552238806,
+        "avg_gross": 0.018920121925843383,
+        "avg_net": 0.01692012192584338,
+        "median_net": 0.013971862196915376,
+        "pf_net": 1.6323837523324412,
+        "positive_years": 4,
+        "annual": {
+          "2018": -0.005789082373939658,
+          "2019": -0.008169940566267811,
+          "2020": 0.038873116596765955,
+          "2021": 0.00011266090677282653,
+          "2022": 0.0030574588128177847,
+          "2023": 0.013768858002043034
+        },
+        "ticker_count": 56,
+        "top_ticker_profit_share": 0.07609728589739431
+      },
+      "exploration_drawdown": -0.01080650148155371,
+      "variants_tested": 7520
+    },
+    {
+      "id": "8831b5f9c350",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "realized_vol_20",
+          "op": ">=",
+          "threshold": 0.025434324083699028
+        },
+        {
+          "feature": "volume_ratio_20",
+          "op": "<=",
+          "threshold": 0.7175203272199703
+        },
+        {
+          "feature": "distance_high_50",
+          "op": "<=",
+          "threshold": -0.13399784567122705
+        }
+      ],
+      "horizon": 10,
+      "conditions": 4,
+      "exploration": {
+        "trades": 242,
+        "trades_per_year": 40.333333333333336,
+        "win_rate": 0.5743801652892562,
+        "avg_gross": 0.018919137579399246,
+        "avg_net": 0.016919137579399245,
+        "median_net": 0.020516656589665172,
+        "pf_net": 1.629505611700908,
+        "positive_years": 6,
+        "annual": {
+          "2018": 0.015682169424770187,
+          "2019": 0.024383804805899995,
+          "2020": 0.01811122519828441,
+          "2021": 0.020439089157443798,
+          "2022": 0.0012021653926304332,
+          "2023": 0.03360804932777865
+        },
+        "ticker_count": 65,
+        "top_ticker_profit_share": 0.12770400969954201
+      },
+      "exploration_drawdown": -0.01703250999576944,
+      "variants_tested": 7520
+    },
+    {
+      "id": "2366a81673c5",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "return_40",
+          "op": ">=",
+          "threshold": 0.11960506972844002
+        },
+        {
+          "feature": "align_ema9_20",
+          "op": ">=",
+          "threshold": 0.01738968742745084
+        },
+        {
+          "feature": "distance_high_20",
+          "op": "<=",
+          "threshold": -0.09276280088410362
+        }
+      ],
+      "horizon": 9,
+      "conditions": 4,
+      "exploration": {
+        "trades": 235,
+        "trades_per_year": 39.166666666666664,
+        "win_rate": 0.5617021276595745,
+        "avg_gross": 0.01779328192426386,
+        "avg_net": 0.015793281924263856,
+        "median_net": 0.008552813861651744,
+        "pf_net": 1.6065156000339242,
+        "positive_years": 4,
+        "annual": {
+          "2018": 0.011606952684020426,
+          "2019": 0.010895582171996258,
+          "2020": 0.029732888702998183,
+          "2021": -0.00023211399243751514,
+          "2022": -0.0004657105244498215,
+          "2023": 0.015143724335250837
+        },
+        "ticker_count": 60,
+        "top_ticker_profit_share": 0.12006111777339214
+      },
+      "exploration_drawdown": -0.012308428550450112,
+      "variants_tested": 7520
+    },
+    {
+      "id": "06a523fab176",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "return_20",
+          "op": ">=",
+          "threshold": 0.07901490226288198
+        },
+        {
+          "feature": "distance_high_50",
+          "op": "<=",
+          "threshold": -0.13399784567122705
+        }
+      ],
+      "horizon": 5,
+      "conditions": 3,
+      "exploration": {
+        "trades": 200,
+        "trades_per_year": 33.333333333333336,
+        "win_rate": 0.6,
+        "avg_gross": 0.017341285546066832,
+        "avg_net": 0.015341285546066834,
+        "median_net": 0.01566333573306944,
+        "pf_net": 1.6427900512269105,
+        "positive_years": 4,
+        "annual": {
+          "2018": -0.019292715637228758,
+          "2019": 0.03334417835431341,
+          "2020": 0.01822922758540771,
+          "2021": -0.03240870577735066,
+          "2022": 0.010129549931921956,
+          "2023": 0.03547453042490972
+        },
+        "ticker_count": 64,
+        "top_ticker_profit_share": 0.15810471388268751
+      },
+      "exploration_drawdown": -0.01257968371417284,
+      "variants_tested": 7520
+    },
+    {
+      "id": "1c585fde78e3",
+      "lab": "swing",
+      "rules": [
+        {
+          "feature": "align_sma20_50",
+          "op": ">",
+          "threshold": 0.0
+        },
+        {
+          "feature": "volume_ratio_20",
+          "op": "<=",
+          "threshold": 0.7175203272199703
+        },
+        {
+          "feature": "range_position_50",
+          "op": "<=",
+          "threshold": 0.2606295061564772
+        }
+      ],
+      "horizon": 8,
+      "conditions": 3,
+      "exploration": {
+        "trades": 202,
+        "trades_per_year": 33.666666666666664,
+        "win_rate": 0.6188118811881188,
+        "avg_gross": 0.01662192848313329,
+        "avg_net": 0.014621928483133288,
+        "median_net": 0.013055480686595013,
+        "pf_net": 2.0648111085525054,
+        "positive_years": 5,
+        "annual": {
+          "2018": 0.02264678810461267,
+          "2019": 0.014053399526190249,
+          "2020": 0.03148998122025112,
+          "2021": 0.01814774508991919,
+          "2022": -0.011638659563584161,
+          "2023": 0.013178672808903499
+        },
+        "ticker_count": 85,
+        "top_ticker_profit_share": 0.06998054282567019
+      },
+      "exploration_drawdown": -0.008189638195516769,
+      "variants_tested": 7520
+    }
+  ],
+  "swing_search": {
+    "feature_names": [
+      "return_1",
+      "return_2",
+      "return_3",
+      "return_5",
+      "return_10",
+      "return_20",
+      "return_40",
+      "acceleration",
+      "distance_sma10",
+      "distance_sma20",
+      "distance_sma50",
+      "distance_sma100",
+      "align_sma20_50",
+      "slope_sma20",
+      "distance_ema9",
+      "distance_ema20",
+      "distance_ema50",
+      "align_ema9_20",
+      "atr_pct_5",
+      "atr_pct_14",
+      "atr_pct_20",
+      "realized_vol_5",
+      "realized_vol_20",
+      "volume_ratio_5",
+      "volume_ratio_10",
+      "volume_ratio_20",
+      "volume_z20",
+      "distance_high_20",
+      "range_position_20",
+      "distance_high_50",
+      "range_position_50",
+      "breakout20",
+      "positive_days_5",
+      "positive_days_10",
+      "green_streak",
+      "rs_spy_5",
+      "rs_universe_5",
+      "rank_5",
+      "rs_spy_10",
+      "rs_universe_10",
+      "rank_10",
+      "rs_spy_20",
+      "rs_universe_20",
+      "rank_20",
+      "spy_return_1",
+      "spy_return_5",
+      "spy_distance_sma50",
+      "spy_realized_vol_20"
+    ],
+    "variants": 7520,
+    "sessions": 1509,
+    "summary_sha256": "debff82791377b60680319988c755b40d2b8edbac725e050fbcb1b843a2bea3b"
+  },
+  "intraday_search": {
+    "feature_names": [
+      "return_5m",
+      "return_10m",
+      "return_15m",
+      "return_30m",
+      "return_60m",
+      "return_open",
+      "acceleration",
+      "distance_vwap",
+      "slope_vwap",
+      "vwap_reclaim",
+      "vwap_hold3",
+      "or5_distance",
+      "or15_distance",
+      "or30_distance",
+      "or60_distance",
+      "distance_hod",
+      "new_high",
+      "session_range",
+      "range_position",
+      "volume_acceleration",
+      "volume_breakout",
+      "distance_ema9",
+      "distance_ema20",
+      "distance_ema50",
+      "align_ema9_20",
+      "ema_slope",
+      "clv",
+      "body_range",
+      "green_streak",
+      "range_expansion",
+      "relative_volume",
+      "rs_spy_5m",
+      "rs_universe_5m",
+      "rank_5m",
+      "rs_spy_15m",
+      "rs_universe_15m",
+      "rank_15m",
+      "rs_spy_30m",
+      "rs_universe_30m",
+      "rank_30m",
+      "rs_spy_60m",
+      "rs_universe_60m",
+      "rank_60m",
+      "daily_return_5",
+      "daily_return_10",
+      "daily_return_20",
+      "daily_distance_sma20",
+      "daily_distance_sma50",
+      "daily_atr_pct_14",
+      "daily_rs_spy_20"
+    ],
+    "variants": 1410,
+    "sessions": 4,
+    "summary_sha256": "175e988411c610f5a5aeea6f38060c723928438ea018e5a3d276c854485d1216"
+  }
+}
