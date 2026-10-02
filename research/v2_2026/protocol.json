@@ -1,0 +1,10 @@
+{
+  "parent_commit": "58839ef6c25f5e168c77f666a70509aa77790d8a",
+  "candidate_id": "2366a81673c5",
+  "start": "2026-01-01",
+  "last_complete_session": "2026-10-01",
+  "daily_warmup_start": "2025-01-01",
+  "cost_source": "research/research_v2/protocol.json:swing.round_trip_cost",
+  "portfolio": {"initial_usd": 10000, "weight_per_entry": 0.10, "max_positions": 5, "order": "ticker_ascending", "same_day": "open_before_close", "no_deferred_orders": true},
+  "verdict": "PASS requires at least 30 trades, positive mean net, PF net at least 1.10, positive standardized portfolio return, and positive mean net after removing five largest ticker net contributors. WEAK requires positive mean net and PF above 1 but fails a PASS condition. Otherwise FAIL. These rules are fixed before loading 2026 performance."
+}

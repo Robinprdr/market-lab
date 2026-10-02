@@ -1,0 +1,10 @@
+{
+  "credentials_present": false,
+  "request_status": "not_tested_no_credentials",
+  "basic_account_confirmed": false,
+  "samples": [],
+  "errors": [],
+  "documented_free_feed": "iex",
+  "sip": "historical older than 15 minutes may be accessible on Basic; must verify with actual account",
+  "verdict": "ALPACA_FREE_LIMITED"
+}
