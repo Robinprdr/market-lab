@@ -53,12 +53,15 @@ def _submit(store,broker,intent,settings):
         raise ValueError('KILL_SWITCH')
     if settings.trading_mode!='PAPER' or intent.account_id!=settings.allowed_account_id:
         raise ValueError('ACCOUNT_OR_MODE_REJECTED')
-    if not store.order_claim(intent.intent_id,settings.allowed_account_id):
-        raise ReconciliationRequired('RECONCILIATION_REQUIRED: duplicate or non-planned intent')
-    # DB now says SUBMITTING. Any timeout/crash remains ambiguous; never retry blind.
-    broker_id=broker.submit(intent)
-    store.order_ack(intent.intent_id,broker_id)
-    return broker_id
+    with store.order_gate():
+        if store.kill_switch_enabled():
+            raise ValueError('KILL_SWITCH')
+        if not store.order_claim(intent.intent_id,settings.allowed_account_id):
+            raise ReconciliationRequired('RECONCILIATION_REQUIRED: duplicate or non-planned intent')
+        # DB now says SUBMITTING. Any timeout/crash remains ambiguous; never retry blind.
+        broker_id=broker.submit(intent)
+        store.order_ack(intent.intent_id,broker_id)
+        return broker_id
 
 
 def run_daily(store,settings,strategy,provider,broker=None,asof=None,at_utc=None):

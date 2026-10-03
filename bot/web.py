@@ -38,6 +38,7 @@ def create_app(settings=None):
         if value not in ('0','1'):abort(400)
         store=Store(settings.db_path)
         try:
+            if value=='1' and store.kill_switch_enabled():abort(409)
             store.set_dry_run_enabled(value=='1')
             store.set_operations_state('READY' if value=='1' else 'DISABLED')
         finally:store.close()

@@ -55,7 +55,7 @@ def dashboard_data(store,settings):
         bot_state='ERROR'
     reconciliation=(f"{last_reconcile['mode']}:{last_reconcile['status']} @ {last_reconcile['started_at']}"
                     if last_reconcile else 'NOT_RUN')
-    return dict(state=bot_state,state_record=state,
+    return dict(state=bot_state,state_record=state,kill_switch_enabled=store.kill_switch_enabled(),
                 mode=settings.trading_mode,trading_enabled=settings.trading_enabled,local_dry_run_enabled=enabled,
                 broker='NOT_CONNECTED' if settings.trading_mode=='DRY_RUN' else 'NOT_PROBED',
                 broker_connected=False,account=settings.allowed_account_id or None,

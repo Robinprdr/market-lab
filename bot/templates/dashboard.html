@@ -23,7 +23,7 @@
 <nav><a href="#dashboard">Dashboard</a><a href="#portfolio">Portfolio</a><a href="#signals">Signals</a><a href="#orders">Orders</a><a href="#trades">Trades</a><a href="#errors">Errors & logs</a></nav>
 <section id="dashboard"><h2>Dashboard</h2><div class="grid">
   <div class="card"><div class="label">Bot state</div><div class="value"><span class="pill {{ 'good' if data.state=='READY' else 'warn' }}">{{ data.state }}</span></div></div>
-  <div class="card"><div class="label">Mode / kill switch</div><div class="value">{{ data.mode }} / {{ 'UNLOCKED' if data.trading_enabled else 'LOCKED' }}</div></div>
+  <div class="card"><div class="label">Mode / kill switch</div><div class="value">{{ data.mode }} / {{ 'ACTIVE' if data.kill_switch_enabled or not data.trading_enabled else 'OFF' }}</div></div>
   <div class="card"><div class="label">Broker</div><div class="value">{{ data.broker }}</div></div>
   <div class="card"><div class="label">Reconciliation</div><div class="value">{{ data.reconciliation }}</div></div>
   <div class="card"><div class="label">Last run</div><div class="value">{{ data.last_run.kind if data.last_run else 'Never' }}</div><div class="note">{{ data.last_run.started_at if data.last_run else '' }}</div></div>
