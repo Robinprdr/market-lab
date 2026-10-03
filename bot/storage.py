@@ -66,6 +66,10 @@ class Store:
             started_at TEXT NOT NULL,ended_at TEXT,status TEXT NOT NULL,summary_json TEXT);
         CREATE TABLE IF NOT EXISTS errors(error_id INTEGER PRIMARY KEY AUTOINCREMENT,run_id TEXT,code TEXT NOT NULL,
             message TEXT NOT NULL,at_utc TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS operations_state(id INTEGER PRIMARY KEY CHECK(id=1),state TEXT NOT NULL,
+            updated_at TEXT NOT NULL,last_execution TEXT,last_error TEXT);
+        CREATE TABLE IF NOT EXISTS operations_control(id INTEGER PRIMARY KEY CHECK(id=1),dry_run_enabled INTEGER NOT NULL DEFAULT 0);
+        INSERT OR IGNORE INTO operations_control(id,dry_run_enabled) VALUES(1,0);
         ''')
         cols={r[1] for r in self.db.execute('PRAGMA table_info(executions)')}
         for col,kind in [('benchmark_price','REAL'),('fill_deviation_bps','REAL'),('benchmark_side','TEXT')]:
@@ -237,3 +241,24 @@ class Store:
                     recent_executions=[dict(x) for x in self.db.execute('SELECT execution_id,ticker,side,quantity,price,session,benchmark_price,fill_deviation_bps FROM executions ORDER BY received_at DESC LIMIT 10')],
                     recent_runs=[dict(x) for x in self.db.execute('SELECT run_id,kind,asof,status,summary_json FROM daily_runs ORDER BY started_at DESC LIMIT 5')],
                     recent_errors=[dict(x) for x in self.db.execute('SELECT code,message,at_utc FROM errors ORDER BY error_id DESC LIMIT 5')])
+
+    def operations_state(self):
+        row=self.db.execute('SELECT * FROM operations_state WHERE id=1').fetchone()
+        return dict(row) if row else None
+
+    def set_operations_state(self,state,last_execution=None,last_error=None):
+        valid={'RUNNING','READY','DISABLED','BROKER_DISCONNECTED','RECONCILIATION_REQUIRED',
+               'DATA_ERROR','ORDER_BLOCKED','ERROR'}
+        if state not in valid:raise ValueError('Invalid bot state')
+        with self.tx() as db:
+            db.execute('''INSERT INTO operations_state VALUES(1,?,?,?,?)
+                ON CONFLICT(id) DO UPDATE SET state=excluded.state,updated_at=excluded.updated_at,
+                last_execution=COALESCE(excluded.last_execution,operations_state.last_execution),
+                last_error=excluded.last_error''',(state,now(),last_execution,last_error))
+
+    def dry_run_enabled(self):
+        return bool(self.db.execute('SELECT dry_run_enabled FROM operations_control WHERE id=1').fetchone()[0])
+
+    def set_dry_run_enabled(self,enabled):
+        with self.tx() as db:
+            db.execute('UPDATE operations_control SET dry_run_enabled=? WHERE id=1',(int(bool(enabled)),))

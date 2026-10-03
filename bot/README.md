@@ -1,5 +1,7 @@
 # Market Lab Bot Core V1 — IBKR Paper only
 
+For the local DRY_RUN scheduler and dashboard, see [OPERATIONS.md](OPERATIONS.md).
+
 ## Paper integration V1
 
 Use IB Gateway **Simulated Trading** at `127.0.0.1:4002` with dedicated client ID `71`. Set `IBKR_ALLOWED_ACCOUNT_ID` privately to the exact DU paper account; the adapter refuses any other account for every request and order. Install `ibapi` from the official [IBKR TWS API distribution](https://interactivebrokers.github.io/) into the same Python environment as the research dependencies. No credential belongs in Git.

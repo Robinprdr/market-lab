@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Market Lab · Operations</title>
+  <style>
+    :root{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1d2935;background:#f3f6f8}
+    *{box-sizing:border-box}body{margin:0}header{background:#102435;color:#fff;padding:20px clamp(16px,4vw,48px)}
+    h1{margin:0;font-size:1.35rem}header p{margin:5px 0 0;color:#b6cad8;font-size:.9rem}
+    main{max-width:1320px;margin:auto;padding:22px clamp(12px,3vw,36px) 80px}
+    nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px}nav a{color:#18354a;background:#fff;border:1px solid #d8e1e8;border-radius:8px;padding:9px 12px;text-decoration:none;white-space:nowrap;font-weight:600;font-size:.88rem}
+    section{margin:16px 0 28px;background:#fff;border:1px solid #dfe7ec;border-radius:12px;padding:20px;box-shadow:0 2px 10px #10243508}
+    h2{font-size:1.08rem;margin:0 0 14px}h3{font-size:.9rem;margin:0 0 8px;color:#50677a}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.card{background:#f5f8fa;border:1px solid #e6edf1;border-radius:9px;padding:14px;min-height:80px}
+    .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:#60788b}.value{font-size:1.05rem;font-weight:700;margin-top:6px;overflow-wrap:anywhere}
+    .pill{display:inline-block;padding:5px 9px;background:#e4edf5;border-radius:999px;font-size:.76rem;font-weight:700}.pill.good{background:#daf3e7;color:#176a49}.pill.warn{background:#fff0cc;color:#895600}
+    .note{color:#60788b;font-size:.86rem}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:650px}th,td{text-align:left;padding:9px;border-bottom:1px solid #e8eef2;vertical-align:top}th{color:#526b7e;background:#f6f9fb;position:sticky;top:0}button{background:#184e73;border:0;color:#fff;border-radius:7px;padding:9px 13px;font-weight:700;cursor:pointer}button.off{background:#8a3d36}form{display:inline-block;margin-right:7px}code{font-size:.82em}a{color:#146a9c}
+  </style>
+</head>
+<body>
+<header><h1>Market Lab <span style="font-weight:400">/ Operations</span></h1><p>Local DRY_RUN monitor · broker orders disabled</p></header>
+<main>
+<nav><a href="#dashboard">Dashboard</a><a href="#portfolio">Portfolio</a><a href="#signals">Signals</a><a href="#orders">Orders</a><a href="#trades">Trades</a><a href="#errors">Errors & logs</a></nav>
+<section id="dashboard"><h2>Dashboard</h2><div class="grid">
+  <div class="card"><div class="label">Bot state</div><div class="value"><span class="pill {{ 'good' if data.state=='READY' else 'warn' }}">{{ data.state }}</span></div></div>
+  <div class="card"><div class="label">Mode / kill switch</div><div class="value">{{ data.mode }} / {{ 'UNLOCKED' if data.trading_enabled else 'LOCKED' }}</div></div>
+  <div class="card"><div class="label">Broker</div><div class="value">{{ data.broker }}</div></div>
+  <div class="card"><div class="label">Reconciliation</div><div class="value">{{ data.reconciliation }}</div></div>
+  <div class="card"><div class="label">Last run</div><div class="value">{{ data.last_run.kind if data.last_run else 'Never' }}</div><div class="note">{{ data.last_run.started_at if data.last_run else '' }}</div></div>
+  <div class="card"><div class="label">Next run (ET)</div><div class="value">{{ data.next_runs[0].job if data.next_runs else '—' }}</div><div class="note">{{ data.next_runs[0].at_et if data.next_runs else '' }}</div></div>
+</div><p class="note">Account: {{ data.account or 'not configured' }}. Scheduler: {{ 'enabled' if data.local_dry_run_enabled else 'disabled' }}. This control changes DRY_RUN scheduling only; it cannot enable PAPER or LIVE.</p>
+<form method="post" action="/control/dry-run"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="enabled" value="1"><button>Enable DRY_RUN scheduler</button></form>
+<form method="post" action="/control/dry-run"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="enabled" value="0"><button class="off">Disable scheduler</button></form></section>
+<section id="portfolio"><h2>Portfolio</h2><div class="grid"><div class="card"><div class="label">Cash USD</div><div class="value">{{ data.cash_usd if data.cash_usd is not none else 'Unavailable in DRY_RUN' }}</div></div><div class="card"><div class="label">Positions</div><div class="value">{{ data.position_count }}</div></div><div class="card"><div class="label">Exposure</div><div class="value">{{ data.exposure_usd if data.exposure_usd is not none else 'Unavailable' }}</div></div><div class="card"><div class="label">Realized P&L</div><div class="value">{{ data.pnl_usd if data.pnl_usd is not none else 'No fills' }}</div></div></div>
+<div class="tablewrap"><table><thead><tr><th>Ticker</th><th>Strategy</th><th>Quantity</th><th>Entry</th><th>Scheduled exit</th></tr></thead><tbody>{% for p in data.positions %}<tr><td>{{ p.ticker }}</td><td>{{ p.strategy_id }}</td><td>{{ p.quantity }}</td><td>{{ p.entry_session }}</td><td>{{ p.exit_session }}</td></tr>{% else %}<tr><td colspan="5">No positions</td></tr>{% endfor %}</tbody></table></div></section>
+<section id="signals"><h2>Signals</h2><p class="note">{{ data.signals|length }} recent signals · {{ data.pending_entries|length }} planned entries · {{ data.pending_exits|length }} pending exits</p><div class="tablewrap"><table><thead><tr><th>Session</th><th>Ticker</th><th>Decision</th><th>Reason</th><th>Next entry</th></tr></thead><tbody>{% for d in data.decisions %}<tr><td>{{ d.asof }}</td><td>{{ d.ticker }}</td><td>{{ 'Accepted' if d.accepted else 'Refused' }}</td><td>{{ d.reason if d.reason is defined else '—' }}</td><td>{{ d.intended_entry_date if d.intended_entry_date is defined else '—' }}</td></tr>{% else %}<tr><td colspan="5">No decisions yet</td></tr>{% endfor %}</tbody></table></div></section>
+<section id="orders"><h2>Orders & intents</h2><div class="tablewrap"><table><thead><tr><th>Intent</th><th>Ticker</th><th>Side</th><th>Quantity</th><th>Status</th><th>Broker ID</th><th>Entry / exit</th></tr></thead><tbody>{% for o in data.orders %}<tr><td><code>{{ o.intent_id[:12] }}</code></td><td>{{ o.ticker }}</td><td>{{ o.side }}</td><td>{{ o.quantity }}</td><td>{{ o.status }}</td><td>{{ o.broker_order_id or '—' }}</td><td>{{ o.intended_entry_date }} / {{ o.target_exit_date }}</td></tr>{% else %}<tr><td colspan="7">No intents</td></tr>{% endfor %}</tbody></table></div></section>
+<section id="trades"><h2>Trades</h2><p class="note">P&L derives only from recorded executions; DRY_RUN intents are not fills.</p><div class="tablewrap"><table><thead><tr><th>Strategy</th><th>Ticker</th><th>Entry</th><th>Exit</th><th>Duration</th><th>Quantity</th><th>P&L USD</th></tr></thead><tbody>{% for t in data.trades %}<tr><td>{{ t.strategy }}</td><td>{{ t.ticker }}</td><td>{{ t.entry }}</td><td>{{ t.exit }}</td><td>{{ t.duration_days }} days</td><td>{{ t.quantity }}</td><td>{{ '%.2f'|format(t.pnl_usd) }}</td></tr>{% else %}<tr><td colspan="7">No closed trades</td></tr>{% endfor %}</tbody></table></div></section>
+<section id="errors"><h2>Errors & logs</h2><div class="tablewrap"><table><thead><tr><th>UTC</th><th>Code</th><th>Message</th></tr></thead><tbody>{% for e in data.errors %}<tr><td>{{ e.at_utc }}</td><td>{{ e.code }}</td><td>{{ e.message }}</td></tr>{% else %}<tr><td colspan="3">No errors</td></tr>{% endfor %}</tbody></table></div></section>
+</main></body></html>
