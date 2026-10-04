@@ -55,6 +55,9 @@ class BotAPI:
     def send_message(self,chat_id,text):
         return self._call('sendMessage',{'chat_id':chat_id,'text':text})
 
+    def get_me(self):
+        return self._call('getMe',{})
+
     def get_updates(self,offset):
         return self._call('getUpdates',{'offset':offset,'timeout':30,'allowed_updates':['message']})
 
@@ -78,11 +81,14 @@ class TelegramWorker:
         if (sender.get('id')!=self.allowed_user_id or chat.get('id')!=self.allowed_user_id
                 or chat.get('type')!='private'):
             return False
-        command=(message.get('text') or '').split(maxsplit=1)[0].split('@')[0]
+        parts=(message.get('text') or '').split(maxsplit=1)
+        if not parts:return False
+        command=parts[0].split('@')[0]
         if command=='/status':
             view=dashboard_data(self.store,self.settings)
             critical=sum(e['code'] in ('RECONCILIATION_REQUIRED','RUN_FAILED','DATA_ERROR') for e in view['errors'])
             answer=(f"Market Lab — {view['state']}\nMode : {view['mode']}\n"
+                    f"Trading : {'activé' if view['trading_enabled'] else 'désactivé'}\n"
                     f"Broker : {'connecté' if view['broker_connected'] else 'non connecté'}\n"
                     f"Réconciliation : {view['reconciliation']}\nPositions : {view['position_count']}\n"
                     f"Erreurs critiques : {critical}\nKill switch : {'actif' if view['kill_switch_enabled'] else 'inactif'}")
