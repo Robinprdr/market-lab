@@ -7,6 +7,7 @@ import re
 import threading
 
 from .models import BrokerExecution,BrokerOrder,BrokerPosition,BrokerSnapshot
+from .account_cash import currency_cash,numeric
 
 
 class IBKRPaperBroker:
@@ -45,15 +46,24 @@ class IBKRPaperBroker:
                 self.accounts=[x.strip() for x in accountsList.split(',') if x.strip()];self.accounts_ready.set()
 
             def updateAccountValue(self,key,val,currency,accountName):
-                if accountName==allowed and key in ('AvailableFunds','TotalCashValue','CashBalance','NetLiquidation'):
-                    self.cash_values[(key,currency)]=float(val)
+                tag=key[len('$LEDGER-'):] if key.startswith('$LEDGER-') else key
+                if accountName==allowed and tag in (
+                        'AvailableFunds','TotalCashValue','CashBalance','TotalCashBalance',
+                        'SettledCash','SettledCashByDate','BuyingPower','NetLiquidation','Currency',
+                        'NetLiquidationByCurrency'):
+                    self.cash_values[(key,currency)]=str(val)
 
             def updatePortfolio(self,contract,position,marketPrice,marketValue,averageCost,unrealizedPNL,realizedPNL,accountName):
                 if accountName!=allowed or contract.secType!='STK':return
                 ticker='BRK-B' if contract.symbol in ('BRK B','BRK.B') else contract.symbol
                 if float(position)!=int(position):
                     self.errors.append('Fractional position cannot be reconciled safely');return
-                if int(position):self.positions[ticker]=BrokerPosition(ticker,int(position),float(marketValue))
+                # marketValue is in account base currency; price is in contract currency.
+                if int(position) and contract.currency!='USD':
+                    self.errors.append('Non-USD stock exposure unsupported');return
+                if int(position) and (numeric(marketPrice) is None or float(marketPrice)<=0):
+                    self.errors.append('Unverified USD stock price');return
+                if int(position):self.positions[ticker]=BrokerPosition(ticker,int(position),float(marketPrice)*int(position))
                 else:self.positions.pop(ticker,None)
 
             def accountDownloadEnd(self,accountName):
@@ -146,15 +156,19 @@ class IBKRPaperBroker:
         if len(currencies)!=1:
             raise RuntimeError('IBKR account base currency is ambiguous')
         currency=currencies.pop()
-        cash=app.cash_values.get(('TotalCashValue',currency),app.cash_values.get(('CashBalance',currency)))
-        available=app.cash_values.get(('AvailableFunds',currency))
-        net_liquidation=app.cash_values.get(('NetLiquidation',currency))
+        cash=numeric(app.cash_values.get(('TotalCashValue',currency)))
+        available=numeric(app.cash_values.get(('AvailableFunds',currency)))
+        net_liquidation=numeric(app.cash_values.get(('NetLiquidation',currency)))
         if app.errors or cash is None or available is None or net_liquidation is None or not app.isConnected():
             raise RuntimeError('IBKR snapshot incomplete: '+','.join(app.errors[:3]))
-        # Risk sizing is USD. No implicit EUR (or other base currency) conversion.
-        usd_available=min(cash,available) if currency=='USD' else 0.0
+        balances,funds,settled,verified=currency_cash(app.cash_values)
+        # Base funds can block, never fund, a USD order. BuyingPower is diagnostic only.
+        usd_available=verified.get('USD',0.) if available>0 else 0.
+        raw={}
+        for (key,cur),value in app.cash_values.items():raw.setdefault(key,{})[cur]=value
         return BrokerSnapshot(account_id,usd_available,dict(app.positions),tuple(app.open_orders),
-                              tuple(app.executions),cash,net_liquidation,currency)
+                              tuple(app.executions),cash,net_liquidation,currency,
+                              balances,funds,settled,verified,raw)
 
     def _contract(self,ticker):
         from ibapi.contract import Contract

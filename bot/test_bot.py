@@ -251,7 +251,8 @@ class BotTests(unittest.TestCase):
         eur=BrokerSnapshot('DU12345',0.,total_cash=1000000.,net_liquidation=1000000.,account_currency='EUR')
         with self.assertRaisesRegex(ValueError,'no verified USD'):
             require_usd_cash(eur)
-        usd=BrokerSnapshot('DU12345',1000.,total_cash=1000.,net_liquidation=1000.,account_currency='USD')
+        usd=BrokerSnapshot('DU12345',1000.,total_cash=1000.,net_liquidation=1000.,account_currency='USD',
+                           verified_cash_by_currency={'USD':1000.})
         require_usd_cash(usd)
 
 

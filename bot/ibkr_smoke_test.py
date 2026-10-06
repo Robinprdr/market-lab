@@ -30,6 +30,12 @@ def smoke(settings, broker_factory=IBKRPaperBroker):
                     reconnected_order_id=broker.app.next_id, cash=second.total_cash,
                     available_cash=second.available_cash, net_liquidation=second.net_liquidation,
                     account_currency=second.account_currency,
+                    cash_by_currency=second.cash_by_currency,
+                    available_cash_by_currency=second.available_cash_by_currency,
+                    settled_cash_by_currency=second.settled_cash_by_currency,
+                    verified_cash_by_currency=second.verified_cash_by_currency,
+                    account_values=second.account_values,
+                    cash_verdict='USD_CASH_CONFIRMED' if second.cash_by_currency.get('USD',0)>0 else 'USD_CASH_NOT_VISIBLE',
                     positions={key:value.quantity for key,value in second.positions.items()},
                     open_orders=len(second.open_orders), executions_seen=len(second.executions),
                     account_summary_accessible=True, reconnect=True)

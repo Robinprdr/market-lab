@@ -6,7 +6,7 @@ Use IB Gateway **Simulated Trading** at `127.0.0.1:4002` with dedicated client I
 
 Run `python -m bot.ibkr_smoke_test` with `TRADING_ENABLED=false` first. It checks the socket, `nextValidId`, the allowlisted account, its account-specific cash/net liquidation/positions/open orders/executions, and reconnection. Run `python -m bot.reconcile` before enabling execution. The smoke test does not submit an order.
 
-The pilot account reported **EUR** as its base currency on 2026-10-02. The adapter preserves its EUR cash and net liquidation for diagnostics but reports `available_cash_usd=0` for sizing; it never treats EUR as USD or assumes a margin/FX conversion. Thus entries and the isolated paper order trial are blocked until USD buying cash is unambiguously available or a separately reviewed FX-aware risk model exists. This is an intentional fail-closed limitation, not a strategy rule change.
+The base currency is separate from actual currency balances. The adapter reads both legacy and `$LEDGER-` prefixed cash keys from account-scoped callbacks. USD entries require verified actual USD cash plus USD availability or settlement evidence, with a USD buffer per pending/new buy. EUR account totals and BuyingPower cannot fund a USD order. Future values in `SettledCashByDate` never authorize today's entry. See [multi-currency cash rules](MULTICURRENCY_CASH.md).
 
 `bot.paper_order_test` is an isolated one-share Paper `LMT+OPG` trial, using a verified prior-session unadjusted USD close supplied by the operator. It uses the same SQLite ledger, risk checks, account allowlist, reconciliation and durable submission claim. Without `--send` it only previews; with `--send` it submits once. It cannot submit while USD cash is unverified. Its test position is due for MOC on the entry date and must be handled by the normal `bot.run_exits` command before that day's cutoff. Run `bot.reconcile` afterward to record fills and confirm state. Do not use the frozen strategy ID for the test.
 
@@ -55,6 +55,7 @@ The executable parts are `config.py` (guarded settings), `strategy.py` (generic 
 | `BOT_MAX_ORDER_NOTIONAL_USD` | `1000` | Hard pre-order cap at LOO limit price |
 | `BOT_MAX_ORDERS_PER_DAY` | `5` | Daily order count cap; due exits reserve slots before new entries |
 | `BOT_MAX_ENTRY_PRICE_DRIFT` | `0.03` | LOO cap relative to signal close |
+| `BOT_CASH_BUFFER_USD` | `5` | Minimum USD reserve per new/pending buy; may only be raised |
 
 Do not store credentials or the paper account ID in Git. Keep TWS/IB Gateway authenticated to the **paper** account and enable socket API on the matching paper port. To allow PAPER orders, disable TWS's API read-only setting for that paper session; keep `TRADING_ENABLED=false` until this has been checked. IBKR's official Python `ibapi` package must be installed from the official [TWS API distribution](https://ibkrcampus.com/campus/trading-lessons/accessing-the-tws-python-api-source-code/) into the runtime used for PAPER. It is imported only when a paper connection is attempted. Session authentication and any 2FA are managed by TWS/IB Gateway, never by this repository. If the gateway disconnects or a callback times out, the run fails closed. IBKR execution lookback can be limited by TWS trade-log settings; after prolonged downtime, reconciliation may require investigation.
 

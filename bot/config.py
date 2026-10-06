@@ -1,6 +1,7 @@
 """Environment configuration. LIVE is deliberately unsupported in V1."""
 from dataclasses import dataclass
 import os
+import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,7 @@ class Settings:
     max_order_notional_usd: float = 1000.
     max_orders_per_day: int = 5
     max_entry_price_drift: float = .03
+    cash_buffer_usd: float = 5.
 
     def validate(self):
         if self.trading_mode not in ('DRY_RUN','PAPER'):
@@ -40,6 +42,8 @@ class Settings:
             raise ValueError('Invalid risk limits')
         if self.initial_equity_usd <= 0 or self.max_order_notional_usd <= 0 or not (0 <= self.max_entry_price_drift <= .20):
             raise ValueError('Invalid capital or price guard')
+        if not math.isfinite(self.cash_buffer_usd) or self.cash_buffer_usd<5:
+            raise ValueError('USD cash buffer must be at least 5 per entry')
         return self
 
 
@@ -60,5 +64,6 @@ def from_env():
         max_order_notional_usd=float(os.getenv('BOT_MAX_ORDER_NOTIONAL_USD','1000')),
         max_orders_per_day=int(os.getenv('BOT_MAX_ORDERS_PER_DAY','5')),
         max_entry_price_drift=float(os.getenv('BOT_MAX_ENTRY_PRICE_DRIFT','0.03')),
+        cash_buffer_usd=float(os.getenv('BOT_CASH_BUFFER_USD','5')),
     )
     return cfg.validate()

@@ -73,6 +73,11 @@ class BrokerSnapshot:
     total_cash: float | None = None
     net_liquidation: float | None = None
     account_currency: str | None = None
+    cash_by_currency: dict[str,float] = field(default_factory=dict)
+    available_cash_by_currency: dict[str,float] = field(default_factory=dict)
+    settled_cash_by_currency: dict[str,float] = field(default_factory=dict)
+    verified_cash_by_currency: dict[str,float] = field(default_factory=dict)
+    account_values: dict[str,dict[str,str]] = field(default_factory=dict)
 
 
 class Broker(Protocol):

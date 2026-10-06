@@ -21,6 +21,10 @@ def projected(store,snapshot,settings,ignore_intent_id=None):
 
 
 def entry_intent(signal,store,snapshot,settings,ignore_intent_id=None):
+    verified=snapshot.verified_cash_by_currency.get('USD',0.)
+    if snapshot.account_currency is not None and (not math.isfinite(verified) or verified<=0):
+        return None,'USD_CASH_UNVERIFIED_OR_UNAVAILABLE'
+    usable_cash=min(snapshot.available_cash,verified) if snapshot.account_currency is not None else snapshot.available_cash
     positions,pending_tickers,reserved=projected(store,snapshot,settings,ignore_intent_id)
     if signal.ticker in positions or signal.ticker in pending_tickers:
         return None,'ALREADY_HELD_OR_PENDING'
@@ -39,7 +43,7 @@ def entry_intent(signal,store,snapshot,settings,ignore_intent_id=None):
             settings.initial_equity_usd*settings.max_exposure_per_ticker,
             settings.initial_equity_usd*settings.max_total_exposure-gross_exposure,
             settings.max_order_notional_usd,
-            snapshot.available_cash-reserved)
+            usable_cash-reserved-(len(pending_tickers)+1)*settings.cash_buffer_usd)
     quantity=math.floor((cap-1e-6)/price_cap)
     if quantity<1:
         return None,'CASH_OR_EXPOSURE_LIMIT'

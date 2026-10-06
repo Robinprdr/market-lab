@@ -13,7 +13,7 @@ from .storage import Store
 
 
 def require_usd_cash(snapshot):
-    if snapshot.account_currency!='USD' or snapshot.available_cash<=0:
+    if snapshot.available_cash<=0 or snapshot.verified_cash_by_currency.get('USD',0.)<=0:
         raise ValueError('Paper trial blocked: no verified USD buying cash; no implicit FX or margin')
 
 
