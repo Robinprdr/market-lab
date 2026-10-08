@@ -1,0 +1,15 @@
+{
+  "seconds": 140.0467855829993,
+  "variants": 6000,
+  "thresholds": 121,
+  "dictionary_thresholds": 105,
+  "families": 8,
+  "frozen": 1,
+  "passes": {
+    "1": 1600,
+    "2": "exploration feature selection",
+    "3": 2200,
+    "4": 2200,
+    "5": 1
+  }
+}

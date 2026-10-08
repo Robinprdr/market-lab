@@ -1,0 +1,22 @@
+{
+  "SPCX": {
+    "start": "2026-06-12",
+    "reason": "SpaceX regular-way IPO. Alpaca returns a predecessor ETF under the recycled SPCX symbol before this date; exclude the ETF from all research and daily context.",
+    "sources": ["https://www.sec.gov/Archives/edgar/data/1181412/000162828026042466/spaceexplorationtechnologi.htm", "https://www.sec.gov/Archives/edgar/data/1719812/000199937126007611/cist-497_040226.htm", "https://ir.spacex.com/updates/releases-details/2026/Space-Exploration-Technologies-Corp--Announces-Closing-of-Initial-Public-Offering-Including-Full-Exercise-of-Underwriters-Option-to-Purchase-Additional-Shares-2026-RgoR-Y1Vwh/default.aspx"]
+  },
+  "DELL": {
+    "start": "2018-12-28",
+    "reason": "Reuse audited Top100 V1 regular-way class C boundary; exclude predecessor tracking stock/when-issued sessions.",
+    "sources": ["https://www.sec.gov/Archives/edgar/data/1571996/000157199619000008/delltechnologiesfy1910k.htm"]
+  },
+  "GEV": {
+    "start": "2024-04-02",
+    "reason": "Reuse audited Top100 V1 regular-way boundary; exclude when-issued prices.",
+    "sources": ["https://www.gevernova.com/news/press-releases/ge-vernova-completes-spin-off-begins-trading-new-york-stock-exchange"]
+  },
+  "SNDK": {
+    "start": "2025-02-24",
+    "reason": "Reuse audited Top100 V1 regular-way boundary; exclude when-issued prices and historical predecessor symbol reuse.",
+    "sources": ["https://investor.sandisk.com/static-files/b65d2104-3a0d-422f-a43b-4c80273ae27a"]
+  }
+}

@@ -1,0 +1,2 @@
+candidate,stage,trades,win_rate,average_gross,average_net,median_net,pf_net,expectancy,stress_average_net,signal_drawdown,top_ticker_share,top5_share,top5_tickers,remove_top5_average_net,remove_top5_trades,verdict
+IV1_02791,validation,256,0.5390625,0.015773673375615103,0.014373673375615112,0.0022109313600197755,3.05379468776024,0.014373673375615112,0.0129736733756151,-0.8104016967968446,0.05257501571206753,0.18363074599049473,"['DELL', 'ADI', 'AVGO', 'AMAT', 'ISRG']",0.013185022905209837,226,DROP

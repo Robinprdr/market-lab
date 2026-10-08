@@ -1,0 +1,10 @@
+{
+  "tests": 110,
+  "test_seconds": 4.052,
+  "result": "PASS",
+  "frozen_hashes_verified": true,
+  "credential_artifact_scan": "PASS",
+  "cache_total_bytes": 13772600048,
+  "main_before": "219a487d42e1ca2e7e11bf3281676c61eed7c734",
+  "broker_orders_sent": 0
+}

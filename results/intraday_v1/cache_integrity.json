@@ -1,0 +1,9 @@
+{
+  "universe_sha256": "12e9a0f0586c87b552b9280251fa23a44fca8665d2d7e008ffaae19e4bc39173",
+  "overrides_sha256": "053b39171725a38b55664e705df9224cb8a1226e439ec008ffb426f34c2f6f34",
+  "partitions": 909,
+  "usable_regular_bars": 81777735,
+  "excluded_prefix_bars": 33133,
+  "tickers_with_data": 100,
+  "data_quality_sha256": "17c0d160e8ea40893dbd3918b527214d75a2429b7cc367730213cee04721e589"
+}

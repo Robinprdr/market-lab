@@ -1,0 +1,36 @@
+{
+  "protocol_sha256": "949f2d4490b2e26c665a135523bd9de7d8ed25eb72bf326610b51744af58e8c4",
+  "code_sha256": {
+    "common.py": "7ddb0147f0f14f620261044ad2df7b73c8cd21dcf029900ccff2d0b7ef68fb15",
+    "features.py": "476d4688145d5e6eafd3a1ef6a55f6f83e67327ee4dfeb3b312f2aea69408838",
+    "evaluate.py": "9f675bb546ef2ca78bc845f22d444373dfd1fff6404525948c2129f365b8e9d3"
+  },
+  "data_overrides_sha256": "053b39171725a38b55664e705df9224cb8a1226e439ec008ffb426f34c2f6f34",
+  "exploration_only": true,
+  "candidates": [
+    {
+      "family": "opening_range",
+      "conditions": [
+        [
+          "or15_breakout",
+          ">=",
+          1
+        ],
+        [
+          "range_position",
+          ">=",
+          0.9
+        ],
+        [
+          "return_60m",
+          ">=",
+          0.02
+        ]
+      ],
+      "horizon_bars": 0,
+      "pass_number": 3,
+      "id": "IV1_02791"
+    }
+  ],
+  "selection": "Predeclared net/stress/frequency/stability/concentration gates; max2/family; distinct horizons"
+}

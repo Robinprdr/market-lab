@@ -1,0 +1,8 @@
+{
+  "frozen_sha256": "84ad010c02b5729eecccf517cc05f6f9f006cdb82b6e7bf3d85e75e26571eb2d",
+  "verdicts": {
+    "IV1_02791": "DROP"
+  },
+  "seconds": 3.44966229199963,
+  "skipped_reason": null
+}

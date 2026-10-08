@@ -1,0 +1,11 @@
+{
+  "seconds": 33312.036818027496,
+  "seconds_current_run": 815.5747903750007,
+  "pages": 10302,
+  "regular_bars": 81810868,
+  "source_bars": 98097911,
+  "disk_bytes": 2911251283,
+  "tickers": 100,
+  "end": "2026-10-07T20:00:00+00:00",
+  "partitions": 909
+}

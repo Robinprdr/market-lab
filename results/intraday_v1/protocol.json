@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "universe_sha256": "12e9a0f0586c87b552b9280251fa23a44fca8665d2d7e008ffaae19e4bc39173",
+  "feed": "sip",
+  "adjustment": "split",
+  "symbol_asof": "2026-10-02",
+  "exploration": [
+    "2018-01-01",
+    "2023-12-31"
+  ],
+  "validation": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "final": [
+    "2026-01-01",
+    "2026-10-07"
+  ],
+  "source_minutes": 1,
+  "search_minutes": 5,
+  "horizons_bars": [
+    3,
+    6,
+    12,
+    18,
+    24,
+    0
+  ],
+  "base_cost": {
+    "commission_bps_per_side": 3.5,
+    "half_spread_bps_per_side": 1.0,
+    "slippage_bps_per_side": 2.5
+  },
+  "stress_multiple": 2,
+  "liquidity_dollar_volume": 100000.0,
+  "max_bar_range_pct": 0.05,
+  "seed": 20261008,
+  "maximum_variants": 6000,
+  "maximum_candidates": 10,
+  "train_min_trades": 1000,
+  "train_min_pf": 1.1,
+  "train_positive_years": 4,
+  "train_top_ticker_share": 0.3,
+  "validation_min_trades": 300,
+  "validation_min_pf": 1.1,
+  "validation_top_ticker_share": 0.4,
+  "final_min_trades": 100,
+  "final_min_pf": 1.15,
+  "portfolio": {
+    "capital": 10000.0,
+    "notional": 1000.0,
+    "maximum_positions": 5,
+    "leverage": 0
+  },
+  "research": "LONG continuity only; no retuning after exploration; same-day exits",
+  "limits": [
+    "Current Top100 snapshot has survivorship bias",
+    "2024\u20132026 calendar periods were seen in earlier families; no fully independent prospective proof",
+    "Bars do not identify bid/ask spread; costs are scenarios",
+    "Fixed notional signal study assumes fractional shares; standardized research portfolio, not execution-ready"
+  ]
+}
