@@ -1,7 +1,5 @@
 """Manual, isolated one-share Paper OPG/MOC validation. No strategy changes."""
-import argparse
-from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import datetime
 import json
 import math
 from pathlib import Path
@@ -11,12 +9,8 @@ import time
 import pandas as pd
 
 from .broker_ibkr import IBKRPaperBroker
-from .calendar import before_moc_cutoff, exchange, last_complete_session
-from .config import Settings
-from .models import OrderIntent, Signal
-from .portfolio import entry_intent, intent_id
-from .runtime import _submit, synchronize
-from .storage import Store, now
+from .calendar import exchange
+from .storage import now
 
 ACCOUNT = 'DUR231204'
 TICKER = 'AAPL'
@@ -87,10 +81,13 @@ class Audit:
 
 
 class AuctionBroker(IBKRPaperBroker):
+    """Short-lived API connection with durable order/execute evidence."""
     def __init__(self, settings, audit, day):
         super().__init__(settings)
         self.audit, self.day = audit, day
         self.fill_times = {}
+        self.records, self.fill_metadata, self.fees = [], {}, {}
+        self.capture_lock = threading.Lock()
         self.stop_path = ROOT / 'data/cache/bot_core' / ('auction_' + day + '.stop')
 
     def connect(self):
@@ -98,104 +95,96 @@ class AuctionBroker(IBKRPaperBroker):
         super().connect()
         if already:
             return
-        original = self.app.orderStatus
+        original_status, original_open, original_exec = self.app.orderStatus, self.app.openOrder, self.app.execDetails
         def status(*args):
-            original(*args)
-            self.audit.emit('ORDER_STATUS', order_id=args[0], status=args[1],
-                            filled=float(args[2]), remaining=float(args[3]),
-                            avg_fill_price=args[4], perm_id=args[5])
-        self.app.orderStatus = status
-        def fees(report):
-            self.audit.emit('COMMISSION', execution_id=report.execId,
-                            commission=report.commissionAndFees, currency=report.currency)
-        self.app.commissionAndFeesReport = fees
-        original_execution = self.app.execDetails
-        def execution(req, contract, fill):
-            original_execution(req, contract, fill)
-            if fill.acctNumber == ACCOUNT:
+            original_status(*args)
+            self.audit.emit('ORDER_STATUS',order_id=args[0],status=args[1],filled=float(args[2]),
+                            remaining=float(args[3]),avg_fill_price=args[4],perm_id=args[5])
+        def capture(contract, order, state, oid, kind):
+            if order.account != ACCOUNT:
+                return
+            record = dict(ref=str(order.orderRef),oid=int(oid),perm_id=int(order.permId),
+                          account=order.account,ticker=contract.symbol,currency=contract.currency,
+                          security_type=contract.secType,side=order.action,quantity=float(order.totalQuantity),
+                          order_type=order.orderType,tif=order.tif,limit_price=float(order.lmtPrice) if order.orderType=='LMT' else None,
+                          status=state.status,reason=getattr(state,'completedStatus',''),kind=kind)
+            with self.capture_lock:
+                self.records.append(record)
+            self.audit.emit('BROKER_ORDER',**record)
+        def opened(oid, contract, order, state):
+            original_open(oid,contract,order,state)
+            capture(contract,order,state,oid,'open')
+        def completed(contract,order,state):
+            capture(contract,order,state,order.orderId,'completed')
+        def execution(req,contract,fill):
+            original_exec(req,contract,fill)
+            if fill.acctNumber != ACCOUNT:
+                return
+            meta=dict(execution_id=fill.execId,oid=int(fill.orderId),perm_id=int(fill.permId),
+                      exchange_time=str(fill.time),account=fill.acctNumber,currency=contract.currency,
+                      security_type=contract.secType,ticker=contract.symbol)
+            with self.capture_lock:
+                self.fill_metadata[str(fill.execId)] = meta
                 self.fill_times[int(fill.orderId)] = str(fill.time)
-                self.audit.emit('EXECUTION', execution_id=fill.execId, order_id=fill.orderId,
-                                perm_id=fill.permId, exchange_time=fill.time,
-                                ticker=contract.symbol, side=fill.side, quantity=float(fill.shares), price=fill.price)
-        self.app.execDetails = execution
-        original_error = self.app.error
-        def error(*args):
-            original_error(*args)
-            self.audit.emit('IBKR_ERROR', details=list(args))
-        self.app.error = error
-        # Include orders from other API clients in account-scoped preflight.
-        self.app.reqOpenOrders = self.app.reqAllOpenOrders
+            self.audit.emit('EXECUTION',**meta,price=float(fill.price),quantity=float(fill.shares),side=fill.side)
+        def fees(report):
+            with self.capture_lock:
+                self.fees[str(report.execId)] = dict(commission=float(report.commissionAndFees),currency=report.currency)
+        self.app.orderStatus=status;self.app.openOrder=opened;self.app.completedOrder=completed
+        self.app.execDetails=execution;self.app.commissionAndFeesReport=fees
+        self.app.reqOpenOrders=self.app.reqAllOpenOrders
+
+    def evidence(self):
+        self.connect()
+        with self.capture_lock:
+            self.records=[]
+        snapshot=self.snapshot(ACCOUNT)
+        done=threading.Event()
+        self.app.completedOrdersEnd=lambda:done.set()
+        self.app.reqCompletedOrders(False)
+        self._wait(done,'completed orders')
+        if not self.thread.is_alive() or not self.app.isConnected() or self.audit.failed:
+            raise RuntimeError('Connection/receiver/audit unavailable')
+        with self.capture_lock:
+            return snapshot,list(self.records),dict(self.fill_metadata),dict(self.fees)
 
     def reference(self):
-        contract = self._contract(TICKER)
-        done, bars = threading.Event(), []
-        self.app.historicalData = lambda rid, bar: bars.append(bar) if rid == 9203 else None
-        self.app.historicalDataEnd = lambda rid, *args: done.set() if rid == 9203 else None
-        self.app.reqHistoricalData(9203, contract, '', '5 D', '1 day', 'TRADES', 1, 1, False, [])
-        if not done.wait(20):
-            raise RuntimeError('Reference price timeout')
-        cal = exchange(self.day)
-        previous_day = cal.previous_session(pd.Timestamp(self.day)).date().isoformat()
-        # A preview before today's close must not call a partial daily bar a completed close.
-        previous_day = min(previous_day, last_complete_session())
-        previous = previous_day.replace('-', '')
-        self.reference_session = previous_day
-        found = [bar for bar in bars if str(bar.date) == previous]
-        if len(found) != 1:
+        contract=self._contract(TICKER)
+        done,bars=threading.Event(),[]
+        self.app.historicalData=lambda rid,bar:bars.append(bar) if rid==9203 else None
+        self.app.historicalDataEnd=lambda rid,*a:done.set() if rid==9203 else None
+        self.app.reqHistoricalData(9203,contract,'','5 D','1 day','TRADES',1,1,False,[])
+        self._wait(done,'reference close')
+        previous=exchange(self.day).previous_session(pd.Timestamp(self.day)).date().strftime('%Y%m%d')
+        found=[b for b in bars if str(b.date)==previous]
+        if len(found)!=1:
             raise RuntimeError('Prior-session unadjusted close unavailable')
         return float(found[0].close)
 
-    def submit(self, intent):
-        if (self.settings.trading_mode != 'PAPER' or not self.settings.trading_enabled
-                or self.settings.allowed_account_id != ACCOUNT or self.audit.failed or self.stop_path.exists()):
-            raise ValueError('Paper/account/kill-switch/audit guard failed')
-        utc = pd.Timestamp.now(tz='UTC')
-        opening, closing = schedule(self.day)
-        if intent.side == 'BUY' and not opening - pd.Timedelta(minutes=30) <= utc < opening:
-            raise ValueError('OPG requires same-session pre-open window')
-        if intent.side == 'SELL' and not before_moc_cutoff(self.day, utc):
-            raise ValueError('Conservative MOC deadline closed')
-        snapshot = self.snapshot(ACCOUNT)
-        # A durable SUBMITTING claim already exists; do not treat our own claim as an uncertain prior submission.
-        for execution in snapshot.executions:
-            store.sync_execution(execution)
-        local = {t: p['quantity'] for t, p in store.positions(ACCOUNT).items()}
-        if local != {t: p.quantity for t, p in snapshot.positions.items()}:
-            raise ValueError('Pre-submit position reconciliation mismatch')
-        # _submit already claimed this intent; no other active intents allowed.
-        others = [r for r in store.active_intents() if r['intent_id'] != intent.intent_id]
-        if snapshot.open_orders or others:
-            raise ValueError('Unexpected/pending order')
-        if intent.side == 'BUY':
-            verified_cash = min(snapshot.settled_cash_by_currency.get('USD', 0),
-                                snapshot.verified_cash_by_currency.get('USD', 0), snapshot.available_cash)
-            if snapshot.positions or not math.isfinite(verified_cash) or verified_cash < intent.limit_price + 5:
-                raise ValueError('Unexpected position/insufficient USD settled cash')
-        else:
-            position = store.position(ACCOUNT, TICKER)
-            if (set(snapshot.positions) != {TICKER} or snapshot.positions[TICKER].quantity != 1
-                    or position is None or position['strategy_id'] != STRATEGY):
-                raise ValueError('Exit is not the verified one-share OPG test position')
-        order = order_for(intent)
-        contract = self._contract(TICKER)
+    def reserve(self, intent):
+        self.contract=self._contract(intent.ticker)
         with self.order_lock:
-            oid = self.app.next_id
-            self.app.next_id += 1
-        event = threading.Event()
-        self.app.ack_events[oid] = event
-        self.audit.emit('SUBMITTED', order_id=oid, side=intent.side, quantity=1,
-                        order_type=order.orderType, tif=order.tif, account=ACCOUNT,
-                        order_ref=intent.intent_id, limit_price=intent.limit_price)
-        if self.audit.failed:
-            raise RuntimeError('Audit failed before submission; no order sent')
-        self.app.placeOrder(oid, contract, order)
-        self._wait(event, 'auction acknowledgement')
-        status = self.app.ack_status.get(oid)
-        if status in ('Inactive', 'Cancelled', 'ApiCancelled') or any(
-                e.startswith(str(oid) + ':') for e in self.app.errors):
-            raise RuntimeError('Auction rejected/cancelled; inspect audit')
-        self.audit.emit('ACKNOWLEDGED', order_id=oid, status=status)
+            oid=self.app.next_id;self.app.next_id+=1
         return oid
+
+    def send(self,intent,oid):
+        order=order_for(intent)
+        if (self.settings.trading_mode!='PAPER' or not self.settings.trading_enabled
+                or self.settings.allowed_account_id!=ACCOUNT or self.audit.failed or self.stop_path.exists()):
+            raise ValueError('Paper/account/kill-switch/audit guard failed')
+        from .auction_checkpoints import phase_window, guard_snapshot
+        phase_window('enter' if intent.side=='BUY' else 'arm-exit',self.day,pd.Timestamp.now(tz='UTC'))
+        guard_snapshot(self.snapshot(ACCOUNT),intent.side,intent.limit_price,self.settings.cash_buffer_usd)
+        event=threading.Event();self.app.ack_events[oid]=event
+        self.audit.emit('SUBMITTED',order_id=oid,order_ref=intent.intent_id,side=intent.side,
+                        order_type=order.orderType,tif=order.tif,transmit=True,quantity=1)
+        if self.audit.failed:
+            raise RuntimeError('Audit failed before network submission')
+        self.app.placeOrder(oid,self.contract,order)
+        self._wait(event,'order acknowledgement')
+        errors=[e for e in self.app.errors if e.startswith(str(oid)+':')]
+        if errors or self.app.ack_status.get(oid) in ('Inactive','Cancelled','ApiCancelled'):
+            raise RuntimeError('Broker refused order: '+str(errors))
 
 
 def verify_auction_time(broker, oid, auction, start, end):
@@ -222,95 +211,10 @@ def wait_fill(broker, oid, deadline):
     raise RuntimeError('Auction fill not confirmed by deadline; STOP, no substitute/resubmission')
 
 
-def reconcile(broker, ledger):
-    for attempt in range(3):
-        try:
-            return synchronize(ledger, broker, ACCOUNT)
-        except Exception:
-            if attempt == 2:
-                raise
-            time.sleep(1)
-
-
 def main():
-    global store  # Scoped to this one locked manual test process, never strategy runtime.
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--session', required=True, help='NYSE session YYYY-MM-DD')
-    parser.add_argument('--send', action='store_true', help='One OPG entry, then one MOC exit; blocks until close')
-    args = parser.parse_args()
-    opening, closing = schedule(args.session)
-    utc = pd.Timestamp.now(tz='UTC')
-    if args.send and not opening - pd.Timedelta(minutes=30) <= utc < opening:
-        raise ValueError('Launch --send between 09:00 and 09:30 ET on the specified session')
-    settings = Settings(allowed_account_id=ACCOUNT, ibkr_port=4002, ibkr_client_id=82,
-                        trading_enabled=args.send).validate()
-    audit = Audit(ROOT / 'data/cache/bot_core' / ('auction_' + args.session + '.jsonl'))
-    broker = AuctionBroker(settings, audit, args.session)
-    store = Store(settings.db_path)
-    run = store.run_start('auction_validation', 'PAPER', args.session)
-    try:
-        snapshot = synchronize(store, broker, ACCOUNT)
-        if snapshot.positions or snapshot.open_orders or store.active_intents():
-            raise ValueError('Account/ledger must be flat with no pending intents')
-        reference = broker.reference()
-        signal = Signal(STRATEGY, TICKER, args.session, args.session, args.session,
-                        reference, 'Isolated user-authorized OPG/MOC test; no strategy signal', 1)
-        candidate, reason = entry_intent(signal, store, snapshot, settings)
-        if reason or snapshot.settled_cash_by_currency.get('USD', 0) <= 0:
-            raise ValueError('Preflight failed: ' + str(reason))
-        buy = replace(candidate, intent_id='PAPER_TEST_OPG_' + candidate.intent_id, quantity=1,
-                      limit_price=min(candidate.limit_price, safe_limit(reference)))
-        audit.emit('PREFLIGHT_PASS', account=ACCOUNT, settled_usd=snapshot.settled_cash_by_currency['USD'],
-                   ticker=TICKER, quantity=1, reference_close=reference, reference_session=broker.reference_session, calculated_limit=buy.limit_price,
-                   current_ibkr_ceiling=None, ceiling_note='No authoritative pre-submit ceiling exposed; prior rejected ceiling is not reused',
-                   opening_et=opening.tz_convert('America/New_York').isoformat(),
-                   closing_et=closing.tz_convert('America/New_York').isoformat(),
-                   conservative_moc_deadline_et=(closing-pd.Timedelta(hours=1)).tz_convert('America/New_York').isoformat())
-        if not args.send:
-            store.run_end(run, 'PREVIEW'); return
-        if store.intent(buy.intent_id):
-            raise ValueError('Test already attempted this session: no duplicate entry')
-        store.register(STRATEGY, 'bot/auction_validation.py')
-        store.save_intent(buy, 'PLANNED')
-        bid = _submit(store, broker, buy, settings)
-        wait_fill(broker, bid, opening + pd.Timedelta(minutes=5))
-        snapshot = reconcile(broker, store)
-        if set(snapshot.positions) != {TICKER} or snapshot.positions[TICKER].quantity != 1:
-            raise RuntimeError('OPG position mismatch')
-        verify_auction_time(broker, bid, 'OPG', opening, opening + pd.Timedelta(minutes=5))
-        audit.emit('OPG_PASS', order_id=bid, sqlite_quantity=1, ibkr_quantity=1, reconciliation='PASS')
-        sell = OrderIntent('PAPER_TEST_OPG_' + intent_id(STRATEGY,TICKER,'SELL',args.session,ACCOUNT,'PAPER'),
-                           STRATEGY,TICKER,'SELL',1,args.session,'PAPER_TEST MOC close',now(),1,
-                           args.session,'MOC',None,ACCOUNT,reference)
-        store.save_intent(sell,'PLANNED')
-        sid = _submit(store,broker,sell,settings)
-        wait_fill(broker,sid,closing+pd.Timedelta(minutes=10))
-        snapshot = reconcile(broker,store)
-        if snapshot.positions or snapshot.open_orders or store.positions(ACCOUNT) or store.active_intents():
-            raise RuntimeError('Final state not flat')
-        verify_auction_time(broker, sid, 'MOC', closing, closing + pd.Timedelta(minutes=10))
-        result = dict(opg='PASS',moc='PASS',entry_order_id=bid,exit_order_id=sid,
-                      positions=0,open_orders=0,reconciliation='PASS')
-        audit.emit('FINAL_PASS',**result)
-        store.run_end(run,'OK',result)
-    except Exception as exc:
-        audit.emit('STOP',error=str(exc))
-        if broker.app is not None and broker.app.isConnected():
-            done = threading.Event()
-            def completed(contract, order, state):
-                if order.account == ACCOUNT and order.orderRef.startswith('PAPER_TEST_OPG_'):
-                    audit.emit('COMPLETED_ORDER', order_id=order.orderId, perm_id=order.permId,
-                               status=state.status, completed_time=state.completedTime, reason=state.completedStatus)
-            broker.app.completedOrder = completed
-            broker.app.completedOrdersEnd = lambda: done.set()
-            broker.app.reqCompletedOrders(False)
-            done.wait(15)
-        store.error(run,'AUCTION_VALIDATION_STOP',str(exc))
-        store.run_end(run,'FAILED',dict(error=str(exc)))
-        raise
-    finally:
-        broker.close();store.close()
+    from .auction_checkpoints import main as checkpoint_main
+    return checkpoint_main()
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
