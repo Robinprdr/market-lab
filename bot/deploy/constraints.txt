@@ -1,0 +1,19 @@
+# Resolved for CPython 3.12 / Linux ARM64, 2026-10-10. No credentials.
+blinker==1.9.0
+click==8.5.0
+exchange-calendars==4.13.2
+flask==3.1.2
+itsdangerous==2.2.0
+jinja2==3.1.6
+korean-lunar-calendar==0.4.0
+markupsafe==3.0.4
+numpy==2.3.5
+pandas==2.2.3
+pyluach==2.3.0
+python-dateutil==2.9.0.post0
+pytz==2026.5
+six==1.17.0
+toolz==1.2.0
+tzdata==2026.5
+waitress==3.0.2
+werkzeug==3.1.9

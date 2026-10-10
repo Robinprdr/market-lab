@@ -66,6 +66,17 @@ class Store:
             started_at TEXT NOT NULL,ended_at TEXT,status TEXT NOT NULL,summary_json TEXT);
         CREATE TABLE IF NOT EXISTS errors(error_id INTEGER PRIMARY KEY AUTOINCREMENT,run_id TEXT,code TEXT NOT NULL,
             message TEXT NOT NULL,at_utc TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS operations_state(id INTEGER PRIMARY KEY CHECK(id=1),state TEXT NOT NULL,
+            updated_at TEXT NOT NULL,last_execution TEXT,last_error TEXT);
+        CREATE TABLE IF NOT EXISTS operations_control(id INTEGER PRIMARY KEY CHECK(id=1),dry_run_enabled INTEGER NOT NULL DEFAULT 0);
+        INSERT OR IGNORE INTO operations_control(id,dry_run_enabled) VALUES(1,0);
+        CREATE TABLE IF NOT EXISTS safety_control(id INTEGER PRIMARY KEY CHECK(id=1),kill_switch INTEGER NOT NULL DEFAULT 0,
+            activated_at TEXT,source TEXT);
+        INSERT OR IGNORE INTO safety_control(id,kill_switch) VALUES(1,0);
+        CREATE TABLE IF NOT EXISTS notification_outbox(event_key TEXT PRIMARY KEY,kind TEXT NOT NULL,
+            payload_json TEXT NOT NULL,created_at TEXT NOT NULL,sent_at TEXT);
+        CREATE TABLE IF NOT EXISTS telegram_poll_state(id INTEGER PRIMARY KEY CHECK(id=1),last_update_id INTEGER NOT NULL DEFAULT 0);
+        INSERT OR IGNORE INTO telegram_poll_state(id,last_update_id) VALUES(1,0);
         ''')
         cols={r[1] for r in self.db.execute('PRAGMA table_info(executions)')}
         for col,kind in [('benchmark_price','REAL'),('fill_deviation_bps','REAL'),('benchmark_side','TEXT')]:
@@ -97,12 +108,27 @@ class Store:
             with self.tx() as db:
                 db.execute('UPDATE daily_runs SET ended_at=?,status=?,summary_json=? WHERE run_id=?',
                            (now(),status,json.dumps(summary or {},sort_keys=True),run_id))
+                row=db.execute('SELECT kind,asof,mode FROM daily_runs WHERE run_id=?',(run_id,)).fetchone()
+                if row and row['kind']=='daily' and status=='OK' and row['asof']:
+                    closures=[json.loads(r[0]) for r in db.execute(
+                        "SELECT payload_json FROM notification_outbox WHERE kind='closed'")]
+                    realized=sum(p['pnl_usd'] for p in closures if p.get('session')==row['asof'])
+                    critical=db.execute('SELECT COUNT(*) FROM errors WHERE run_id=?',(run_id,)).fetchone()[0]
+                    position_count=db.execute('SELECT COUNT(*) FROM positions').fetchone()[0]
+                    if row['mode']=='DRY_RUN' and db.execute("SELECT 1 FROM sqlite_master WHERE name='simulated_positions'").fetchone():
+                        position_count=db.execute('SELECT COUNT(*) FROM simulated_positions').fetchone()[0]
+                    self._enqueue(db,'daily:'+row['mode']+':'+row['asof'],'daily',
+                                  dict(session=row['asof'],positions=position_count,
+                                       realized_pnl_usd=realized,critical_errors=critical,unrealized_pct=None))
         finally:
             self._release_run_lock()
 
     def error(self,run_id,code,message):
         with self.tx() as db:
-            db.execute('INSERT INTO errors(run_id,code,message,at_utc) VALUES(?,?,?,?)',(run_id,code,str(message),now()))
+            cursor=db.execute('INSERT INTO errors(run_id,code,message,at_utc) VALUES(?,?,?,?)',(run_id,code,str(message),now()))
+            if code in ('RECONCILIATION_REQUIRED','RUN_FAILED','DATA_ERROR'):
+                kind='reconciliation' if code=='RECONCILIATION_REQUIRED' else 'critical_error'
+                self._enqueue(db,'error:'+str(cursor.lastrowid),kind,dict(code=code))
 
     def save_signal(self,s):
         with self.tx() as db:
@@ -139,6 +165,8 @@ class Store:
     def order_claim(self,intent_id,account):
         """Durable state before network I/O. A crash here requires reconciliation."""
         with self.tx() as db:
+            if db.execute('SELECT kill_switch FROM safety_control WHERE id=1').fetchone()[0]:
+                return False
             row=db.execute('SELECT status,account_id FROM order_intents WHERE intent_id=?',(intent_id,)).fetchone()
             if not row or row['status']!='PLANNED' or row['account_id']!=account:
                 return False
@@ -198,6 +226,10 @@ class Store:
                 db.execute('INSERT OR REPLACE INTO positions VALUES(?,?,?,?,?,?,?)',
                            (execution.account_id,execution.ticker,order['strategy_id'],qty,execution.session,
                             order['target_exit_date'],avg))
+                if pos is None:
+                    self._enqueue(db,'open:'+execution.account_id+':'+execution.ticker+':'+execution.session,
+                                  'opened',dict(ticker=execution.ticker,price=avg,quantity=qty,
+                                                notional_usd=qty*avg,strategy=order['strategy_id']))
             else:
                 if execution.session != order['target_exit_date']:
                     raise RuntimeError('RECONCILIATION_REQUIRED: exit filled outside intended session')
@@ -208,6 +240,14 @@ class Store:
                     db.execute('UPDATE positions SET quantity=? WHERE account_id=? AND ticker=?',(qty,execution.account_id,execution.ticker))
                 else:
                     db.execute('DELETE FROM positions WHERE account_id=? AND ticker=?',(execution.account_id,execution.ticker))
+                    aggregate=db.execute('SELECT SUM(quantity),SUM(quantity*price) FROM executions WHERE intent_id=?',
+                                         (order['intent_id'],)).fetchone()
+                    closed_qty=int(aggregate[0]);exit_price=float(aggregate[1])/closed_qty
+                    pnl=float(aggregate[1])-closed_qty*pos['avg_entry_price']
+                    self._enqueue(db,'close:'+order['intent_id'],'closed',
+                                  dict(ticker=execution.ticker,price=exit_price,quantity=closed_qty,
+                                       pnl_usd=pnl,pnl_pct=(exit_price/pos['avg_entry_price']-1)*100,
+                                       session=execution.session,strategy=order['strategy_id']))
             filled=db.execute('SELECT SUM(quantity) FROM executions WHERE intent_id=?',(order['intent_id'],)).fetchone()[0]
             status='FILLED' if filled>=order['quantity'] else 'PARTIAL'
             db.execute('UPDATE orders SET filled_qty=?,status=?,updated_at=? WHERE intent_id=?',(filled,status,now(),order['intent_id']))
@@ -237,3 +277,84 @@ class Store:
                     recent_executions=[dict(x) for x in self.db.execute('SELECT execution_id,ticker,side,quantity,price,session,benchmark_price,fill_deviation_bps FROM executions ORDER BY received_at DESC LIMIT 10')],
                     recent_runs=[dict(x) for x in self.db.execute('SELECT run_id,kind,asof,status,summary_json FROM daily_runs ORDER BY started_at DESC LIMIT 5')],
                     recent_errors=[dict(x) for x in self.db.execute('SELECT code,message,at_utc FROM errors ORDER BY error_id DESC LIMIT 5')])
+
+    def operations_state(self):
+        row=self.db.execute('SELECT * FROM operations_state WHERE id=1').fetchone()
+        return dict(row) if row else None
+
+    def set_operations_state(self,state,last_execution=None,last_error=None):
+        valid={'RUNNING','READY','DISABLED','BROKER_DISCONNECTED','RECONCILIATION_REQUIRED',
+               'DATA_ERROR','ORDER_BLOCKED','ERROR'}
+        if state not in valid:raise ValueError('Invalid bot state')
+        with self.tx() as db:
+            db.execute('''INSERT INTO operations_state VALUES(1,?,?,?,?)
+                ON CONFLICT(id) DO UPDATE SET state=excluded.state,updated_at=excluded.updated_at,
+                last_execution=COALESCE(excluded.last_execution,operations_state.last_execution),
+                last_error=excluded.last_error''',(state,now(),last_execution,last_error))
+
+    def dry_run_enabled(self):
+        return bool(self.db.execute('SELECT dry_run_enabled FROM operations_control WHERE id=1').fetchone()[0])
+
+    def set_dry_run_enabled(self,enabled):
+        with self.tx() as db:
+            if enabled and db.execute('SELECT kill_switch FROM safety_control WHERE id=1').fetchone()[0]:
+                raise ValueError('KILL_SWITCH_ACTIVE')
+            db.execute('UPDATE operations_control SET dry_run_enabled=? WHERE id=1',(int(bool(enabled)),))
+
+    @contextmanager
+    def order_gate(self):
+        """Serialize network submission with /kill across processes."""
+        handle=open(str(self.path)+'.order_gate.lock','a')
+        try:
+            fcntl.flock(handle,fcntl.LOCK_EX)
+            yield
+        finally:
+            fcntl.flock(handle,fcntl.LOCK_UN)
+            handle.close()
+
+    def kill_switch_enabled(self):
+        return bool(self.db.execute('SELECT kill_switch FROM safety_control WHERE id=1').fetchone()[0])
+
+    def activate_kill_switch(self,source='telegram'):
+        with self.order_gate():
+            with self.tx() as db:
+                if db.execute('SELECT kill_switch FROM safety_control WHERE id=1').fetchone()[0]:
+                    return False
+                db.execute('UPDATE safety_control SET kill_switch=1,activated_at=?,source=? WHERE id=1',
+                           (now(),source))
+                db.execute('UPDATE operations_control SET dry_run_enabled=0 WHERE id=1')
+                if source!='telegram':
+                    self._enqueue(db,'kill:'+now(),'kill',dict(source=source))
+                db.execute('INSERT INTO errors(run_id,code,message,at_utc) VALUES(NULL,?,?,?)',
+                           ('KILL_SWITCH_ACTIVATED','Kill switch activated by authorized command',now()))
+                return True
+
+    def reset_kill_switch_local(self):
+        """Local operator action only; no Telegram resume command."""
+        with self.order_gate():
+            with self.tx() as db:
+                db.execute('UPDATE safety_control SET kill_switch=0,activated_at=NULL,source=NULL WHERE id=1')
+                db.execute('INSERT INTO errors(run_id,code,message,at_utc) VALUES(NULL,?,?,?)',
+                           ('KILL_SWITCH_RESET','Kill switch reset by local operator',now()))
+
+    @staticmethod
+    def _enqueue(db,key,kind,payload):
+        db.execute('INSERT OR IGNORE INTO notification_outbox VALUES(?,?,?,?,NULL)',
+                   (key,kind,json.dumps(payload,sort_keys=True),now()))
+
+    def pending_notifications(self,limit=20):
+        return [dict(row) for row in self.db.execute(
+            'SELECT * FROM notification_outbox WHERE sent_at IS NULL ORDER BY created_at,event_key LIMIT ?',
+            (limit,))]
+
+    def mark_notification_sent(self,key):
+        with self.tx() as db:
+            db.execute('UPDATE notification_outbox SET sent_at=? WHERE event_key=? AND sent_at IS NULL',(now(),key))
+
+    def telegram_offset(self):
+        return self.db.execute('SELECT last_update_id FROM telegram_poll_state WHERE id=1').fetchone()[0]
+
+    def mark_telegram_update(self,update_id):
+        with self.tx() as db:
+            db.execute('UPDATE telegram_poll_state SET last_update_id=MAX(last_update_id,?) WHERE id=1',
+                       (int(update_id),))

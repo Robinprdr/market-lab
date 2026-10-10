@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# GUI login/2FA remains interactive over a private SSH/VNC tunnel.
+exec /opt/market-lab/ibgateway/ibgateway

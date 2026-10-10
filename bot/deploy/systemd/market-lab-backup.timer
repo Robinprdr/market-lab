@@ -1,0 +1,8 @@
+[Unit]
+Description=Market Lab backup timer
+[Timer]
+OnCalendar=*-*-* 02:00:00 UTC
+Persistent=true
+Unit=market-lab-backup.service
+[Install]
+WantedBy=timers.target

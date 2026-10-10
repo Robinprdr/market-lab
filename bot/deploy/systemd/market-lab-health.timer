@@ -1,0 +1,8 @@
+[Unit]
+Description=Market Lab health timer
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+Unit=market-lab-health.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,26 @@
+[Unit]
+Description=Market Lab DRY_RUN telegram
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+[Service]
+Type=simple
+User=marketlab
+Group=marketlab
+WorkingDirectory=/opt/market-lab
+EnvironmentFile=/etc/market-lab/cloud.env
+Environment=PYTHONUNBUFFERED=1
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/market-lab
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=45
+ExecStart=/opt/market-lab/.venv/bin/python -m bot.cloud_service telegram
+
+[Install]
+WantedBy=multi-user.target

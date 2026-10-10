@@ -1,0 +1,99 @@
+{
+  "level": "A_LOCAL_PREPARATION",
+  "oracle_provisioned": false,
+  "broker_orders_sent": 0,
+  "strategy_unchanged": true,
+  "initial_commit": "f3fe17e63bedc1e5424c40f571b80e566a63ac83",
+  "main_unchanged": "219a487d42e1ca2e7e11bf3281676c61eed7c734",
+  "scenario": {
+    "strategy": "2366a81673c5",
+    "signal_session": "2026-03-03",
+    "entry_session": "2026-03-04",
+    "exit_session": "2026-03-16",
+    "planned": {
+      "signals": 2,
+      "accepted": 2,
+      "refused": 0,
+      "orders_sent": 0,
+      "decisions": [
+        {
+          "ticker": "AMAT",
+          "accepted": true,
+          "intent_id": "0a3a478e466a3caa0ef90d095a34c0a4",
+          "quantity": 2,
+          "intended_entry_date": "2026-03-04",
+          "exit_date": "2026-03-16"
+        },
+        {
+          "ticker": "SNDK",
+          "accepted": true,
+          "intent_id": "e272f4321d89ecea58e2b2eaaa33be1a",
+          "quantity": 1,
+          "intended_entry_date": "2026-03-04",
+          "exit_date": "2026-03-16"
+        }
+      ]
+    },
+    "entry": {
+      "simulated_entries": 1,
+      "simulated_exits": 0,
+      "orders_sent": 0,
+      "observation": "AFTER_CLOSE_COMPLETED_DAILY_BAR"
+    },
+    "exit": {
+      "simulated_entries": 0,
+      "simulated_exits": 1,
+      "orders_sent": 0,
+      "observation": "AFTER_CLOSE_COMPLETED_DAILY_BAR"
+    },
+    "restart_positions": 1,
+    "duplicate_entries": 0,
+    "final_reconciliation": {
+      "status": "PASS",
+      "scope": "SIMULATION_ONLY",
+      "broker": "DISABLED_BY_DRY_RUN_POLICY",
+      "positions": 0
+    },
+    "broker_orders": 0,
+    "broker_executions": 0,
+    "backup_restore": "PASS",
+    "dashboard": "PASS",
+    "telegram": "SIMULATED_TRANSPORT_PASS",
+    "telegram_messages": 3
+  },
+  "dashboard": {
+    "flask_routes": "PASS",
+    "waitress_loopback_http": "PASS"
+  },
+  "telegram": {
+    "simulated_transport": "PASS",
+    "test_messages": 3,
+    "real_transport_tested": false,
+    "reason": "Private environment credentials unavailable"
+  },
+  "ibkr_local_read_only": {
+    "status": "PASS",
+    "reconnect": true,
+    "positions": 0,
+    "open_orders": 0,
+    "orders_sent": 0
+  },
+  "linux_runtime_tested": false,
+  "systemd_runtime_tested": false,
+  "gateway_arm_binary_http": "200",
+  "oracle_quota_verified_in_user_console": false,
+  "secret_scan": "PASS",
+  "python_linux_arm64_wheel_resolution": {
+    "status": "PASS",
+    "python": "3.12",
+    "wheels": 18,
+    "execution_on_linux": false
+  },
+  "tests": {
+    "total": 229,
+    "status": "PASS",
+    "existing_tests_preserved": 178,
+    "platform": "macOS ARM64"
+  },
+  "runtime_numpy": "2.3.5"
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=Interactive IB Gateway (optional, never required for DRY_RUN)
+Requires=market-lab-display.service
+After=market-lab-display.service network-online.target
+StartLimitIntervalSec=600
+StartLimitBurst=3
+[Service]
+User=marketlab
+Group=marketlab
+Environment=DISPLAY=:99
+WorkingDirectory=/var/lib/market-lab
+ExecStart=/opt/market-lab/bot/deploy/start-gateway.launcher
+Restart=on-failure
+RestartSec=30
+UMask=0077
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

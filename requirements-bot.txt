@@ -1,2 +1,3 @@
 -r research/research_v2/requirements.txt
 # Install official ibapi from IBKR's TWS API distribution for PAPER mode.
+Flask>=3.0,<4
