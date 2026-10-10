@@ -14,6 +14,7 @@ from .config import Settings
 from .models import OrderIntent, Signal
 from .portfolio import entry_intent, intent_id
 from .storage import Store, now
+from .execution_time import execution_timestamp, timestamp_evidence
 
 TERMINAL={'Cancelled':'CANCELLED','ApiCancelled':'CANCELLED','Inactive':'REJECTED'}
 ACCEPTED={'PreSubmitted','Submitted','Filled'}
@@ -71,7 +72,7 @@ class Checkpoints:
             db.execute('INSERT OR IGNORE INTO auction_sessions VALUES(?,?,?,?,?,?,?)',
                        (self.day,ACCOUNT,TICKER,STRATEGY,state,None,None))
             current=db.execute('SELECT state FROM auction_sessions WHERE session=?',(self.day,)).fetchone()
-            rank={'ENTRY_SUBMITTING':1,'ENTRY_ACCEPTED':2,'ENTRY_FILLED':3,'EXIT_SUBMITTING':4,'EXIT_ACCEPTED':5,'EXIT_FILLED':6,'CLOSED':7}
+            rank={'ENTRY_SUBMITTING':1,'ENTRY_ACCEPTED':2,'ENTRY_FILLED':3,'EXIT_SUBMITTING':4,'EXIT_ACCEPTED':5,'EXIT_FILLED':6,'CLOSED':7,'CLOSED_WITH_TIMING_WARNING':7}
             if report is None and rank.get(current['state'],0)>rank.get(state,0):
                 db.execute('UPDATE auction_sessions SET last_reconciled_at=? WHERE session=?',(now(),self.day))
                 return
@@ -102,14 +103,25 @@ class Checkpoints:
             identities={(r['perm_id'],r['status']) for r in matching}
             if len(identities)>1:self.stop('Conflicting broker order evidence')
             if matching:
-                r=matching[-1]
                 expected=('LMT','OPG') if proof['side']=='BUY' else ('MOC','DAY')
-                if (r['account'],r['ticker'],r['currency'],r['security_type'],r['side'],r['quantity'],r['order_type'],r['tif']) != (
-                        ACCOUNT,TICKER,'USD','STK',proof['side'],1,*expected):self.stop('Broker order terms mismatch')
-                if r['oid']>0 and r['oid']!=proof['broker_order_id']:self.stop('Broker order ID mismatch')
-                if r['perm_id']<=0 or proof['perm_id'] not in (None,r['perm_id']):self.stop('permId mismatch/missing')
-                if proof['side']=='BUY' and abs(r['limit_price']-intent['limit_price'])>.000001:self.stop('Broker limit changed')
-                if r['status'] not in ACCEPTED and r['status'] not in TERMINAL:self.stop('Order status uncertain: '+r['status'])
+                # Validate every callback, not merely the last snapshot. An
+                # explicit zero totalQuantity in a terminal completedOrder is
+                # not a cancellation or a fill quantity. Execution IDs/shares
+                # below remain the sole authority for ledger fills.
+                for r in matching:
+                    completed_zero=(r['kind']=='completed' and r['quantity']==0
+                                    and (r['status']=='Filled' or r['status'] in TERMINAL))
+                    if r['quantity']!=1 and not completed_zero:self.stop('Broker order terms mismatch: quantity')
+                    if (r['account'],r['ticker'],r['currency'],r['security_type'],r['side'],r['order_type'],r['tif']) != (
+                            ACCOUNT,TICKER,'USD','STK',proof['side'],*expected):self.stop('Broker order terms mismatch')
+                    if r['oid']>0 and r['oid']!=proof['broker_order_id']:self.stop('Broker order ID mismatch')
+                    if r['perm_id']<=0 or proof['perm_id'] not in (None,r['perm_id']):self.stop('permId mismatch/missing')
+                    if proof['side']=='BUY' and abs(r['limit_price']-intent['limit_price'])>.000001:self.stop('Broker limit changed')
+                    if r['status'] not in ACCEPTED and r['status'] not in TERMINAL:self.stop('Order status uncertain: '+r['status'])
+                    filled=r.get('filled_quantity')
+                    if filled is not None and (not math.isfinite(filled) or not 0<=filled<=1):
+                        self.stop('Invalid broker filled quantity')
+                r=matching[-1]
                 with self.store.tx() as db:
                     db.execute('UPDATE auction_order_proofs SET perm_id=?,acknowledged=1,broker_status=?,broker_terms_json=?,updated_at=? WHERE intent_id=?',
                                (r['perm_id'],r['status'],json.dumps(r),now(),proof['intent_id']))
@@ -125,11 +137,23 @@ class Checkpoints:
             if row and row['intent_id'] in refs:
                 p=self.store.db.execute('SELECT * FROM auction_order_proofs WHERE intent_id=?',(row['intent_id'],)).fetchone()
                 m=metadata.get(ex.execution_id)
-                if p is None or m is None or p['perm_id'] is None or (m['perm_id'],m['account'],m['currency'],m['security_type'],m['ticker']) != (p['perm_id'],ACCOUNT,'USD','STK',TICKER):
+                if p is None or m is None or p['perm_id'] is None or (m['oid'],m['perm_id'],m['account'],m['currency'],m['security_type'],m['ticker']) != (p['broker_order_id'],p['perm_id'],ACCOUNT,'USD','STK',TICKER):
                     self.stop('Missing/inconsistent execution proof')
+                m=dict(m,**timestamp_evidence(m['exchange_time']))
+                if m['execution_session']!=ex.session or ex.session!=self.day:
+                    self.stop('Execution timestamp/session mismatch')
+                previous=self.store.db.execute('SELECT metadata_json,fees_json FROM auction_execution_proofs WHERE execution_id=?',(ex.execution_id,)).fetchone()
+                observed=set(m.get('observed_exchange_times',[]))|{m['exchange_time']}
+                if previous:
+                    old=json.loads(previous['metadata_json'])
+                    if execution_timestamp(old['exchange_time'])!=execution_timestamp(m['exchange_time']):
+                        self.stop('Conflicting execution timestamps')
+                    observed.update(old.get('observed_exchange_times',[old['exchange_time']]))
+                m['observed_exchange_times']=sorted(observed)
+                fee_json=json.dumps(fees[ex.execution_id]) if ex.execution_id in fees else previous['fees_json'] if previous else None
                 with self.store.tx() as db:
                     db.execute('INSERT OR REPLACE INTO auction_execution_proofs VALUES(?,?,?,?,?)',
-                               (ex.execution_id,row['intent_id'],json.dumps(m),json.dumps(fees.get(ex.execution_id)) if ex.execution_id in fees else None,now()))
+                               (ex.execution_id,row['intent_id'],json.dumps(m),fee_json,now()))
             self.store.sync_execution(ex)
         local={t:r['quantity'] for t,r in self.store.positions(ACCOUNT).items()}
         actual={t:p.quantity for t,p in s.positions.items() if p.quantity}
@@ -155,13 +179,34 @@ class Checkpoints:
         proofs=self.store.db.execute('SELECT metadata_json FROM auction_execution_proofs WHERE intent_id=?',(self.ref(side),)).fetchall()
         executions=self.store.db.execute('SELECT quantity FROM executions WHERE intent_id=?',(self.ref(side),)).fetchall()
         if not proofs or sum(r['quantity'] for r in executions)!=1:self.stop('Missing one-share fill proof')
+        order=self.store.db.execute('SELECT * FROM auction_order_proofs WHERE intent_id=?',(self.ref(side),)).fetchone()
+        if order is None or not order['perm_id']:self.stop('Missing identified auction order')
+        terms=json.loads(order['broker_terms_json'])
+        expected=('BUY','LMT','OPG') if side=='BUY' else ('SELL','MOC','DAY')
+        if (terms['side'],terms['order_type'],terms['tif'])!=expected:self.stop('Auction order type mismatch')
         opening,closing=schedule(self.day)
         start=opening if side=='BUY' else closing
         end=start+pd.Timedelta(minutes=5 if side=='BUY' else 10)
         for p in proofs:
             m=json.loads(p['metadata_json'])
-            verify_auction_time(SimpleNamespace(fill_times={m['oid']:m['exchange_time']},audit=self.broker.audit),m['oid'],side,start,end)
+            if execution_timestamp(m['exchange_time']).date().isoformat()!=self.day:self.stop('Execution on wrong ET session')
+            # The order type and actual execution establish a Paper MOC fill.
+            # Its exact timestamp is assessed separately, never forced to PASS.
+            if side=='BUY':
+                verify_auction_time(SimpleNamespace(fill_times={m['oid']:m['exchange_time']},audit=self.broker.audit),m['oid'],side,start,end)
         return True
+
+    def moc_timing(self):
+        closing=schedule(self.day)[1]
+        results=[]
+        for row in self.store.db.execute('SELECT metadata_json FROM auction_execution_proofs WHERE intent_id=?',(self.ref('SELL'),)):
+            m=json.loads(row['metadata_json']);stamp=execution_timestamp(m['exchange_time'])
+            delta=(stamp-closing).total_seconds()
+            results.append(dict(execution_id=m['execution_id'],**timestamp_evidence(m['exchange_time']),
+                                delta_to_close_seconds=delta,
+                                status='WITHIN_EXPECTED_WINDOW' if 0<=delta<=600 else 'OUTSIDE_EXPECTED_WINDOW',
+                                window_start=closing.isoformat(),window_end=(closing+pd.Timedelta(minutes=10)).isoformat()))
+        return results
 
     def submit(self,intent):
         if not self.settings.trading_enabled or self.broker.stop_path.exists():self.stop('Kill switch/trading disabled')
@@ -221,13 +266,19 @@ class Checkpoints:
             phase_window(phase,self.day,self.at)
             buy_filled,sell_filled=self.filled('BUY'),self.filled('SELL')
             flat=not s.positions and not s.open_orders and not self.store.positions(ACCOUNT)
+            timing=self.moc_timing()
+            timing_ok=bool(timing) and all(r['status']=='WITHIN_EXPECTED_WINDOW' for r in timing)
             result=dict(phase=phase,OPG='PASS' if buy_filled else 'FAIL',
-                        MOC='PASS' if sell_filled and flat else 'FAIL',
+                        MOC=('PASS' if timing_ok else 'EXECUTION_CONFIRMED_TIMING_UNVERIFIED') if sell_filled and flat else 'FAIL',
+                        MOC_execution='CONFIRMED' if sell_filled else 'NOT_CONFIRMED',MOC_timing=timing,
+                        simulator_timestamp_precision='NOT_ESTABLISHED_IN_PAPER',
                         positions={t:p.quantity for t,p in s.positions.items()},open_orders=len(s.open_orders),reconciliation='PASS')
             if buy_filled and sell_filled and flat:result['positions']=0
             result['orders']=[dict(r) for r in self.store.db.execute('SELECT * FROM auction_order_proofs WHERE session=?',(self.day,))]
             result['executions']=[dict(r) for r in self.store.db.execute('SELECT e.*,p.metadata_json,p.fees_json FROM executions e JOIN auction_execution_proofs p USING(execution_id) WHERE e.intent_id IN (?,?)',(self.ref('BUY'),self.ref('SELL')))]
-            self.state('CLOSED' if result['OPG']==result['MOC']=='PASS' else 'FAILED',result)
+            result['execution_timestamps']=[dict(execution_id=r['execution_id'],**timestamp_evidence(json.loads(r['metadata_json'])['exchange_time'])) for r in result['executions']]
+            state='CLOSED' if result['OPG']==result['MOC']=='PASS' else 'CLOSED_WITH_TIMING_WARNING' if buy_filled and sell_filled and flat else 'FAILED'
+            self.state(state,result)
             return result
         proof=dict(self.store.db.execute('SELECT * FROM auction_order_proofs WHERE intent_id=?',(i.intent_id,)).fetchone())
         return dict(phase=phase,status='ACCEPTED',order=proof,reconciliation='PASS')
@@ -256,7 +307,8 @@ def main():
             report_path.write_text(json.dumps(result,indent=2))
         if audit.failed:raise RuntimeError('Audit unavailable')
         failed=args.phase=='verify-close' and (result.get('OPG')!='PASS' or result.get('MOC')!='PASS')
-        store.run_end(run,'FAILED' if failed else 'OK',result)
+        warning=failed and result.get('OPG')=='PASS' and result.get('MOC')=='EXECUTION_CONFIRMED_TIMING_UNVERIFIED'
+        store.run_end(run,'WARNING' if warning else 'FAILED' if failed else 'OK',result)
         return 2 if failed else 0
     except Exception as exc:
         audit.emit('STOP',error=str(exc))

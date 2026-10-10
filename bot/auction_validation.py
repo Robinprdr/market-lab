@@ -1,5 +1,5 @@
 """Manual, isolated one-share Paper OPG/MOC validation. No strategy changes."""
-from datetime import datetime
+from dataclasses import replace
 import json
 import math
 from pathlib import Path
@@ -11,6 +11,7 @@ import pandas as pd
 from .broker_ibkr import IBKRPaperBroker
 from .calendar import exchange
 from .storage import now
+from .execution_time import execution_timestamp, timestamp_evidence
 
 ACCOUNT = 'DUR231204'
 TICKER = 'AAPL'
@@ -108,6 +109,11 @@ class AuctionBroker(IBKRPaperBroker):
                           security_type=contract.secType,side=order.action,quantity=float(order.totalQuantity),
                           order_type=order.orderType,tif=order.tif,limit_price=float(order.lmtPrice) if order.orderType=='LMT' else None,
                           status=state.status,reason=getattr(state,'completedStatus',''),kind=kind)
+            # completedOrder's totalQuantity is not reliable as the original
+            # order size (observed: totalQuantity=0, filledQuantity=1). Preserve
+            # both fields; only execDetails creates executions in the ledger.
+            filled = float(getattr(order,'filledQuantity',float('nan')))
+            record['filled_quantity'] = filled if math.isfinite(filled) and abs(filled)<1e100 else None
             with self.capture_lock:
                 self.records.append(record)
             self.audit.emit('BROKER_ORDER',**record)
@@ -123,6 +129,10 @@ class AuctionBroker(IBKRPaperBroker):
             meta=dict(execution_id=fill.execId,oid=int(fill.orderId),perm_id=int(fill.permId),
                       exchange_time=str(fill.time),account=fill.acctNumber,currency=contract.currency,
                       security_type=contract.secType,ticker=contract.symbol)
+            try:
+                meta.update(timestamp_evidence(fill.time))
+            except ValueError:
+                return  # Core callback records the error and refuses the snapshot.
             with self.capture_lock:
                 self.fill_metadata[str(fill.execId)] = meta
                 self.fill_times[int(fill.orderId)] = str(fill.time)
@@ -146,6 +156,10 @@ class AuctionBroker(IBKRPaperBroker):
         if not self.thread.is_alive() or not self.app.isConnected() or self.audit.failed:
             raise RuntimeError('Connection/receiver/audit unavailable')
         with self.capture_lock:
+            # openOrder can also report a terminal order during synchronization.
+            # Keep it in diagnostics, but do not call it a working order.
+            snapshot=replace(snapshot,open_orders=tuple(o for o in snapshot.open_orders
+                             if o.status not in ('Filled','Cancelled','ApiCancelled','Inactive')))
             return snapshot,list(self.records),dict(self.fill_metadata),dict(self.fees)
 
     def reference(self):
@@ -189,10 +203,10 @@ class AuctionBroker(IBKRPaperBroker):
 
 def verify_auction_time(broker, oid, auction, start, end):
     text = broker.fill_times.get(oid, '')
-    parts = text.split()
-    if len(parts) != 3 or parts[2] not in ('US/Eastern', 'America/New_York'):
-        raise RuntimeError('Execution timezone unavailable/unrecognized: ' + text)
-    timestamp = pd.Timestamp(datetime.strptime(' '.join(parts[:2]), '%Y%m%d %H:%M:%S')).tz_localize('America/New_York').tz_convert('UTC')
+    try:
+        timestamp = execution_timestamp(text).tz_convert('UTC')
+    except ValueError as exc:
+        raise RuntimeError(str(exc)) from exc
     if not start <= timestamp <= end:
         raise RuntimeError(auction + ' execution outside expected auction time: ' + text)
     broker.audit.emit('AUCTION_TIME_CONFIRMED', auction=auction, order_id=oid, execution_time=text)

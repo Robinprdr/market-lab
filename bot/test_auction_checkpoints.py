@@ -75,6 +75,60 @@ class CheckpointTests(unittest.TestCase):
         self.enter();self.broker.fill('BUY');self.arm();self.broker.fill('SELL')
         r=self.verify();self.assertEqual((r['OPG'],r['MOC'],r['positions']),('PASS','PASS',0))
         self.verify();self.assertEqual(len(self.broker.sent),2);self.assertFalse(self.store.positions(ACCOUNT))
+    def test_paper_moc_26_seconds_early_is_fill_with_timing_warning(self):
+        self.enter();self.broker.fill('BUY');self.arm();self.broker.fill('SELL')
+        self.broker.metadata['fill-SELL']['exchange_time']='20261010 05:59:34 Australia/Brisbane'
+        result=self.verify()
+        self.assertEqual(result['MOC'],'EXECUTION_CONFIRMED_TIMING_UNVERIFIED')
+        self.assertEqual(result['MOC_execution'],'CONFIRMED')
+        self.assertEqual(result['MOC_timing'][0]['delta_to_close_seconds'],-26)
+        self.assertEqual(result['MOC_timing'][0]['status'],'OUTSIDE_EXPECTED_WINDOW')
+        self.assertEqual(result['reconciliation'],'PASS');self.assertEqual(result['positions'],0)
+        self.assertEqual(self.store.db.execute('SELECT state FROM auction_sessions').fetchone()[0],'CLOSED_WITH_TIMING_WARNING')
+        self.verify();self.enter() # Neither retry nor an old entry resets the warning.
+        self.assertEqual(len(self.broker.sent),2)
+        self.assertEqual(self.store.db.execute('SELECT state FROM auction_sessions').fetchone()[0],'CLOSED_WITH_TIMING_WARNING')
+    def test_moc_far_from_close_never_becomes_temporal_pass(self):
+        self.enter();self.broker.fill('BUY');self.arm();self.broker.fill('SELL')
+        self.broker.metadata['fill-SELL']['exchange_time']='20261009 10:00:00 US/Eastern'
+        self.assertEqual(self.verify()['MOC'],'EXECUTION_CONFIRMED_TIMING_UNVERIFIED')
+    def test_moc_wrong_et_session_rejected(self):
+        self.enter();self.broker.fill('BUY');self.arm();self.broker.fill('SELL')
+        self.broker.metadata['fill-SELL']['exchange_time']='20261010 16:00:01 US/Eastern'
+        with self.assertRaisesRegex(RuntimeError,'session'):self.verify()
+    def test_moc_wrong_type_cannot_confirm_fill(self):
+        self.enter();self.broker.fill('BUY');self.arm();self.broker.fill('SELL')
+        self.broker.orders[self.workflow().ref('SELL')]['order_type']='MKT'
+        with self.assertRaisesRegex(RuntimeError,'terms'):self.verify()
+    def test_equivalent_timezones_retained_and_replay_idempotent(self):
+        self.enter();self.broker.fill('BUY')
+        self.broker.metadata['fill-BUY']['exchange_time']='20261009 23:30:01 Australia/Brisbane'
+        self.workflow().recover()
+        self.broker.metadata['fill-BUY']['exchange_time']='20261009 09:30:01 US/Eastern'
+        self.workflow().recover()
+        row=self.store.db.execute('SELECT metadata_json FROM auction_execution_proofs').fetchone()
+        metadata=json.loads(row[0])
+        self.assertEqual(len(metadata['observed_exchange_times']),2)
+        self.assertEqual(self.store.db.execute('SELECT COUNT(*) FROM executions').fetchone()[0],1)
+    def test_conflicting_execution_timestamp_rejected(self):
+        self.enter();self.broker.fill('BUY');self.workflow().recover()
+        self.broker.metadata['fill-BUY']['exchange_time']='20261009 09:30:02 US/Eastern'
+        with self.assertRaisesRegex(RuntimeError,'Conflicting execution'):self.workflow().recover()
+    def test_completed_order_id_zero_uses_perm_and_execution_identity(self):
+        self.enter();self.broker.fill('BUY');self.broker.orders[self.workflow().ref('BUY')].update(oid=0,quantity=0,filled_quantity=1)
+        # completedOrder may omit orderId; execDetails must retain the real ID.
+        self.broker.executions=[replace(self.broker.executions[0],broker_order_id=101)]
+        self.broker.metadata['fill-BUY']['oid']=101
+        self.assertTrue(self.workflow().recover().positions)
+        self.assertTrue(self.workflow().filled('BUY'))
+    def test_fees_survive_replay_without_commission_callback(self):
+        self.enter();self.broker.fill('BUY');evidence=self.broker.evidence
+        def with_fees():
+            snap,records,meta,_=evidence()
+            return snap,records,meta,{'fill-BUY':dict(commission=1,currency='USD')}
+        self.broker.evidence=with_fees;self.workflow().recover()
+        self.broker.evidence=evidence;self.workflow().recover()
+        self.assertEqual(json.loads(self.store.db.execute('SELECT fees_json FROM auction_execution_proofs').fetchone()[0])['commission'],1)
     def test_restart_stale_sqlite_imports_real_fill(self):
         self.enter();self.broker.fill('BUY');self.assertFalse(self.store.positions(ACCOUNT))
         self.store.close();self.store=Store(self.path)
@@ -98,6 +152,56 @@ class CheckpointTests(unittest.TestCase):
     def test_filled_status_without_execution_refused(self):
         self.enter();self.broker.orders[self.workflow().ref('BUY')]['status']='Filled'
         with self.assertRaisesRegex(RuntimeError,'without'):self.arm()
+    def test_completed_zero_real_fill_recovered_without_submission(self):
+        self.enter();self.broker.fill('BUY')
+        record=self.broker.orders[self.workflow().ref('BUY')]
+        record.update(quantity=0,filled_quantity=1)
+        w=self.workflow();s=w.recover()
+        self.assertTrue(w.filled('BUY'))
+        self.assertEqual(s.positions[TICKER].quantity,1)
+        self.assertEqual(self.store.position(ACCOUNT,TICKER)['quantity'],1)
+        w.recover()  # Replay must not duplicate the execution or position.
+        self.assertEqual(self.store.db.execute('SELECT COUNT(*) FROM executions').fetchone()[0],1)
+        self.assertEqual([side for side,_ in self.broker.sent],['BUY'])
+    def test_completed_zero_filled_field_never_invents_execution(self):
+        self.enter();record=self.broker.orders[self.workflow().ref('BUY')]
+        record.update(status='Filled',kind='completed',quantity=0,filled_quantity=1)
+        with self.assertRaisesRegex(RuntimeError,'without'):self.workflow().recover()
+        self.assertFalse(self.store.positions(ACCOUNT))
+        self.assertEqual(self.store.db.execute('SELECT COUNT(*) FROM executions').fetchone()[0],0)
+        self.assertEqual(len(self.broker.sent),1)
+    def test_completed_zero_cancellation_is_status_based(self):
+        self.enter();record=self.broker.orders[self.workflow().ref('BUY')]
+        record.update(status='Cancelled',kind='completed',quantity=0,filled_quantity=0)
+        self.workflow().recover()
+        self.assertEqual(self.store.intent(record['ref'])['status'],'CANCELLED')
+        self.assertFalse(self.store.positions(ACCOUNT));self.assertEqual(len(self.broker.sent),1)
+    def test_open_zero_quantity_rejected(self):
+        self.enter();self.broker.orders[self.workflow().ref('BUY')]['quantity']=0
+        with self.assertRaisesRegex(RuntimeError,'quantity'):self.workflow().recover()
+    def test_completed_wrong_positive_quantity_rejected(self):
+        self.enter();self.broker.fill('BUY');self.broker.orders[self.workflow().ref('BUY')]['quantity']=2
+        with self.assertRaisesRegex(RuntimeError,'quantity'):self.workflow().recover()
+        self.assertFalse(self.store.positions(ACCOUNT))
+    def test_bad_open_terms_not_hidden_by_completed_zero(self):
+        self.enter();self.broker.fill('BUY');record=self.broker.orders[self.workflow().ref('BUY')]
+        record.update(quantity=0,filled_quantity=1)
+        evidence=self.broker.evidence
+        def both():
+            s,rs,ms,fs=evidence()
+            return s,[dict(record,kind='open',quantity=2),*rs],ms,fs
+        self.broker.evidence=both
+        with self.assertRaisesRegex(RuntimeError,'quantity'):self.workflow().recover()
+        self.assertFalse(self.store.positions(ACCOUNT))
+    def test_execution_order_id_mismatch_rejected(self):
+        self.enter();self.broker.fill('BUY');self.broker.metadata['fill-BUY']['oid']=999
+        with self.assertRaisesRegex(RuntimeError,'proof'):self.workflow().recover()
+        self.assertFalse(self.store.positions(ACCOUNT))
+    def test_completed_zero_does_not_override_real_position(self):
+        self.enter();self.broker.fill('BUY');self.broker.orders[self.workflow().ref('BUY')].update(quantity=0,filled_quantity=1)
+        self.broker.positions={}
+        with self.assertRaisesRegex(RuntimeError,'disagree'):self.workflow().recover()
+        self.assertEqual(len(self.broker.sent),1)
     def test_wrong_account(self):
         self.broker.account='DU_OTHER'
         with self.assertRaisesRegex(RuntimeError,'Wrong'):self.enter()
@@ -180,6 +284,18 @@ class CheckpointTests(unittest.TestCase):
             with patch.dict('os.environ',environment), patch('sys.argv',['auction','enter','--session',DAY]), patch('bot.auction_checkpoints.AuctionBroker') as real:
                 with self.assertRaises(ValueError):main()
                 real.assert_not_called()
+    def test_cli_timing_warning_nonzero_and_durable_warning_report(self):
+        from bot.auction_checkpoints import main
+        result=dict(OPG='PASS',MOC='EXECUTION_CONFIRMED_TIMING_UNVERIFIED',reconciliation='PASS')
+        env=dict(TRADING_MODE='PAPER',TRADING_ENABLED='false',IBKR_ALLOWED_ACCOUNT_ID=ACCOUNT,BOT_DB_PATH=str(Path(self.temp.name)/'cli.sqlite'))
+        with patch.dict('os.environ',env),patch('sys.argv',['auction','verify-close','--session',DAY]),patch('bot.auction_checkpoints.AuctionBroker',return_value=self.broker),patch.object(Checkpoints,'run',return_value=result):
+            self.assertEqual(main(),2)
+        db=Store(env['BOT_DB_PATH'])
+        try:
+            self.assertEqual(db.db.execute('SELECT status FROM daily_runs').fetchone()[0],'WARNING')
+        finally:db.close()
+        self.assertEqual(json.loads((Path(self.temp.name)/('auction_'+DAY+'_report.json')).read_text()),result)
+        self.assertFalse(self.broker.sent)
     def test_late_entry_never_transmits(self):
         with self.assertRaises(ValueError):self.workflow('2026-10-09T13:26:00Z').run('enter')
         self.assertFalse(self.broker.sent)

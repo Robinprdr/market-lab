@@ -3,11 +3,11 @@
 IB's official `ibapi` must be installed from its TWS API package. Import is
 lazy so offline dry runs and tests never require the package or a connection.
 """
-import re
 import threading
 
 from .models import BrokerExecution,BrokerOrder,BrokerPosition,BrokerSnapshot
 from .account_cash import currency_cash,numeric
+from .execution_time import execution_timestamp
 
 
 class IBKRPaperBroker:
@@ -88,10 +88,10 @@ class IBKRPaperBroker:
             def execDetails(self,reqId,contract,execution):
                 if execution.acctNumber!=allowed:return
                 ticker='BRK-B' if contract.symbol in ('BRK B','BRK.B') else contract.symbol
-                digits=re.match(r'(\d{4})[-/]?(\d{2})[-/]?(\d{2})',str(execution.time))
-                if not digits:
-                    self.errors.append('Unparseable execution date');return
-                session='-'.join(digits.groups())
+                try:
+                    session=execution_timestamp(execution.time).date().isoformat()
+                except ValueError as exc:
+                    self.errors.append(str(exc));return
                 side={'BOT':'BUY','SLD':'SELL','BUY':'BUY','SELL':'SELL'}.get(str(execution.side).upper())
                 if side is None:
                     self.errors.append('Unknown execution side');return

@@ -14,7 +14,7 @@ import pandas as pd
 from bot.auction_validation import Audit, AuctionBroker, ACCOUNT, STRATEGY, order_for, safe_limit, schedule, wait_fill, verify_auction_time
 from bot.calendar import before_moc_cutoff
 from bot.config import Settings
-from bot.models import OrderIntent
+from bot.models import OrderIntent, BrokerOrder, BrokerSnapshot
 from bot.runtime import _submit, ReconciliationRequired
 from bot.storage import Store
 
@@ -34,6 +34,22 @@ class AuctionTests(unittest.TestCase):
 
     def test_moc(self):
         o=self.build(self.intent('SELL'));self.assertEqual((o.orderType,o.tif),('MOC','DAY'))
+
+    def test_terminal_open_callback_preserved_but_not_working(self):
+        b=AuctionBroker(Settings(allowed_account_id=ACCOUNT),SimpleNamespace(failed=False),'2026-10-09')
+        filled=BrokerOrder(8,'entry','AAPL','BUY',1,'Filled',ACCOUNT)
+        working=replace(filled,broker_order_id=9,intent_id='exit',side='SELL',status='Submitted')
+        b.connect=lambda:None
+        b.snapshot=lambda account:BrokerSnapshot(ACCOUNT,10000,open_orders=(filled,working))
+        b.thread=SimpleNamespace(is_alive=lambda:True)
+        b.app=SimpleNamespace(isConnected=lambda:True)
+        def completed(request):
+            b.records.append(dict(oid=8,kind='completed',status='Filled',quantity=0,filled_quantity=1))
+            b.app.completedOrdersEnd()
+        b.app.reqCompletedOrders=completed
+        snapshot,records,_,_=b.evidence()
+        self.assertEqual(snapshot.open_orders,(working,))
+        self.assertEqual(records[0]['filled_quantity'],1)
 
     def test_no_market_substitution(self):
         with self.assertRaises(ValueError):self.build(replace(self.intent(),order_type='MKT'))
