@@ -5,7 +5,26 @@ import time
 
 from bot.config import from_env
 from bot.storage import Store
-from .client import BotAPI,TelegramWorker
+from .client import BotAPI,TelegramWorker,ResponseDeliveryError
+
+
+def poll_once(worker):
+    """Control commands take priority; notification delivery cannot starve /kill."""
+    errors=0
+    try:updates=worker.api.get_updates(worker.store.telegram_offset()+1)
+    except Exception:updates=[];errors+=1
+    for update in updates:
+        try:worker.process_update(update)
+        except ResponseDeliveryError:
+            # /kill is durably applied before its reply. Do not let a failed
+            # /status reply prevent a subsequent /kill in the same batch.
+            errors+=1
+        except Exception:
+            errors+=1;break # No offset advance past an unapplied command.
+        worker.store.mark_telegram_update(update['update_id'])
+    try:worker.flush_notifications()
+    except Exception:errors+=1
+    return errors
 
 
 def main():
@@ -19,10 +38,9 @@ def main():
     try:
         while True:
             try:
-                worker.flush_notifications()
-                for update in worker.api.get_updates(store.telegram_offset()+1):
-                    worker.process_update(update)
-                    store.mark_telegram_update(update['update_id'])
+                if poll_once(worker):
+                    print('Telegram polling/notification error; retrying',file=sys.stderr,flush=True)
+                    time.sleep(5)
             except KeyboardInterrupt:
                 break
             except Exception:

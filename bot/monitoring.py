@@ -20,7 +20,8 @@ def dashboard_data(store,settings):
         LEFT JOIN orders o USING(intent_id) ORDER BY i.created_at DESC LIMIT 100''')]
     errors=[dict(row) for row in db.execute('SELECT * FROM errors ORDER BY error_id DESC LIMIT 50')]
     positions=[dict(row) for row in db.execute('SELECT * FROM positions ORDER BY ticker')]
-    executions=[dict(row) for row in db.execute('SELECT * FROM executions ORDER BY session DESC,received_at DESC LIMIT 200')]
+    # Display limits must not truncate the ledger used for cumulative P&L.
+    executions=[dict(row) for row in db.execute('SELECT * FROM executions ORDER BY session DESC,received_at DESC,execution_id DESC')]
     simulated=[];deployment={}
     if settings.trading_mode=='DRY_RUN' and db.execute("SELECT 1 FROM sqlite_master WHERE name='simulated_positions'").fetchone():
         simulated=[dict(row) for row in db.execute('SELECT * FROM simulated_positions ORDER BY ticker')]

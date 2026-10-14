@@ -1,5 +1,7 @@
 # Oracle Cloud V1 : préparation, exclusivement DRY_RUN
 
+Avant installation, lire [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) : corrections et blocages constatés lors du dernier audit.
+
 Niveau A préparé et testé sur Mac. **Aucune VM créée, aucun ordre transmis.**
 Niveau B : installation sur une VM autorisée, puis observation DRY_RUN.
 Niveau C : Paper automatique, interdit avant autorisation séparée et validation sur Linux.

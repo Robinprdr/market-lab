@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "OFFLINE_OPERATIONAL_SIMULATION_NOT_PERFORMANCE_BACKTEST",
+  "frozen_candidate": "2366a81673c5",
+  "start": "2026-03-03",
+  "end": "2026-03-27",
+  "sessions": 19,
+  "restarts": 22,
+  "incidents": [
+    {
+      "type": "DATA_FAILURE",
+      "session": "2026-03-05",
+      "recovery": "RETRY_WITHIN_SAME_WINDOW"
+    },
+    {
+      "type": "CRASH_AFTER_COMMIT_BEFORE_JOB_ACK",
+      "session": "2026-03-06"
+    },
+    {
+      "type": "SIMULATED_PROJECTION_CORRUPTION",
+      "session": "2026-03-09",
+      "recovery": "FROM_EXISTING_SIMULATED_FILL"
+    },
+    {
+      "type": "TELEGRAM_INVALID_PAYLOAD_AND_DELIVERY_FAILURE",
+      "session": "2026-03-10"
+    }
+  ],
+  "intent_statuses": {
+    "DRY_RUN": 3,
+    "SIMULATED_CLOSED": 5,
+    "SIMULATED_NO_FILL": 1
+  },
+  "simulated_fills": 11,
+  "simulated_positions_at_stop": 1,
+  "abandoned_jobs_marked_interrupted": 1,
+  "invalid_notifications_quarantined": 1,
+  "duplicate_fills": 0,
+  "duplicate_successful_jobs": 0,
+  "broker_orders": 0,
+  "broker_executions": 0,
+  "reconciliation": "PASS_SIMULATION_ONLY",
+  "backup_restore": "PASS",
+  "dashboard": "PASS",
+  "telegram": "OFFLINE_TRANSPORT_ONLY",
+  "telegram_messages": 35,
+  "kill_persistent": true,
+  "base_commit": "417edabb170f06e15455b7a8d0870330e011e6ca",
+  "oracle_deployed": false,
+  "linux_systemd_executed": false,
+  "real_telegram_called": false,
+  "real_ibkr_connected": false,
+  "original_regressions_reproduced": 8,
+  "daily_csv_sha256": "3256efd4e19d65cdc7701676b844b789fac93ecc2d4927b561eaf3bbcb2255ac",
+  "pending_simulated_entries_at_stop": 2
+}

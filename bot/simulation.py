@@ -42,10 +42,30 @@ def positions(store):
 
 def reconcile(store,settings):
     require_dry_run(store,settings)
-    quantities={r['ticker']:r['quantity'] for r in store.db.execute("SELECT ticker,SUM(CASE WHEN side='BUY' THEN quantity ELSE -quantity END) AS quantity FROM simulated_fills GROUP BY ticker") if r['quantity']}
-    held={p['ticker']:p['quantity'] for p in positions(store)}
-    if quantities!=held or any(q<=0 for q in held.values()):raise ValueError('Simulated ledger mismatch')
-    if store.db.execute("SELECT 1 FROM simulated_fills f LEFT JOIN order_intents i USING(intent_id) WHERE i.intent_id IS NULL OR i.ticker!=f.ticker OR i.quantity!=f.quantity LIMIT 1").fetchone():raise ValueError('Invalid simulated fill provenance')
+    intents={r['intent_id']:r for r in store.db.execute('SELECT * FROM order_intents')}
+    grouped={};expected={}
+    for fill in store.db.execute('SELECT * FROM simulated_fills'):
+        intent=intents.get(fill['intent_id'])
+        if (intent is None or fill['side'] not in ('BUY','SELL') or fill['ticker']!=intent['ticker']
+                or fill['quantity']!=intent['quantity'] or fill['quantity']<=0
+                or fill['price'] is None or not math.isfinite(fill['price']) or fill['price']<=0):
+            raise ValueError('Invalid simulated fill provenance')
+        date=intent['intended_entry_date'] if fill['side']=='BUY' else intent['target_exit_date']
+        if fill['session']!=date:raise ValueError('Simulated fill session mismatch')
+        grouped.setdefault(fill['intent_id'],{})[fill['side']]=fill
+    for key,intent in intents.items():
+        fills=grouped.get(key,{})
+        if intent['status']=='SIMULATED_CLOSED':
+            if set(fills)!={'BUY','SELL'}:raise ValueError('Closed simulation lacks fills')
+        elif 'SELL' in fills or fills and intent['status']!='DRY_RUN':
+            raise ValueError('Simulated intent/fills disagree')
+        if 'BUY' in fills and 'SELL' not in fills:
+            ticker=intent['ticker']
+            if ticker in expected:raise ValueError('Duplicate simulated exposure')
+            expected[ticker]=(intent['strategy_id'],intent['quantity'],intent['intended_entry_date'],
+                              intent['target_exit_date'],fills['BUY']['price'])
+    held={p['ticker']:(p['strategy_id'],p['quantity'],p['entry_session'],p['exit_session'],p['avg_entry_price']) for p in positions(store)}
+    if held!=expected:raise ValueError('Simulated ledger mismatch')
     return dict(status='PASS',scope='SIMULATION_ONLY',broker='DISABLED_BY_DRY_RUN_POLICY',positions=len(held))
 
 

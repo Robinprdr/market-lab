@@ -75,8 +75,10 @@ def tick(store,settings,provider=None,strategy=None,at=None):
             run=store.run_start(kind,'DRY_RUN',day)
             try:
                 if kind=='reconcile':result=reconcile(store,settings)
-                elif kind=='preopen':result=_dry_preopen(store,day)
-                elif kind=='exits':result=_dry_exits(store,day)
+                elif kind=='preopen':
+                    reconcile(store,settings);result=_dry_preopen(store,day)
+                elif kind=='exits':
+                    reconcile(store,settings);result=_dry_exits(store,day)
                 else:
                     frame=provider.load(day)
                     if kind=='data_refresh':

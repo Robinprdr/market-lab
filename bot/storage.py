@@ -3,6 +3,7 @@ from contextlib import contextmanager
 from datetime import datetime,timezone
 import fcntl
 import json
+import math
 from pathlib import Path
 import sqlite3
 import uuid
@@ -75,6 +76,8 @@ class Store:
         INSERT OR IGNORE INTO safety_control(id,kill_switch) VALUES(1,0);
         CREATE TABLE IF NOT EXISTS notification_outbox(event_key TEXT PRIMARY KEY,kind TEXT NOT NULL,
             payload_json TEXT NOT NULL,created_at TEXT NOT NULL,sent_at TEXT);
+        CREATE TABLE IF NOT EXISTS notification_failures(event_key TEXT PRIMARY KEY,status TEXT NOT NULL,
+            at_utc TEXT NOT NULL,FOREIGN KEY(event_key) REFERENCES notification_outbox(event_key));
         CREATE TABLE IF NOT EXISTS telegram_poll_state(id INTEGER PRIMARY KEY CHECK(id=1),last_update_id INTEGER NOT NULL DEFAULT 0);
         INSERT OR IGNORE INTO telegram_poll_state(id,last_update_id) VALUES(1,0);
         ''')
@@ -97,6 +100,10 @@ class Store:
         run_id=uuid.uuid4().hex
         try:
             with self.tx() as db:
+                # A live run holds this same lock. Only its next owner may
+                # classify abandoned diagnostics; never infer broker fills.
+                db.execute("UPDATE daily_runs SET status='INTERRUPTED',ended_at=?,summary_json=COALESCE(summary_json,?) WHERE status='RUNNING'",
+                           (now(),json.dumps(dict(error='PROCESS_INTERRUPTED'))))
                 db.execute('INSERT INTO daily_runs(run_id,kind,mode,asof,started_at,status) VALUES(?,?,?,?,?,?)',
                            (run_id,kind,mode,asof,now(),'RUNNING'))
         except Exception:
@@ -199,14 +206,19 @@ class Store:
 
     def sync_execution(self,execution):
         with self.tx() as db:
-            if db.execute('SELECT 1 FROM executions WHERE execution_id=?',(execution.execution_id,)).fetchone():
+            previous=db.execute('SELECT * FROM executions WHERE execution_id=?',(execution.execution_id,)).fetchone()
+            if previous:
+                fields=('broker_order_id','ticker','side','quantity','price','session','account_id')
+                if any(previous[name]!=getattr(execution,name) for name in fields):
+                    raise RuntimeError('RECONCILIATION_REQUIRED: conflicting execution evidence')
                 return False
             order=db.execute('''SELECT o.intent_id,i.strategy_id,i.side,i.target_exit_date,i.intended_entry_date,
                    i.quantity,i.ticker FROM orders o JOIN order_intents i USING(intent_id)
                    WHERE o.broker_order_id=? AND o.account_id=?''',(execution.broker_order_id,execution.account_id)).fetchone()
             if order is None or order['ticker']!=execution.ticker or order['side']!=execution.side:
                 raise RuntimeError('RECONCILIATION_REQUIRED: unrecognized execution')
-            if execution.quantity<=0 or execution.price<=0:
+            if (not math.isfinite(execution.quantity) or execution.quantity<=0 or execution.quantity!=int(execution.quantity)
+                    or not math.isfinite(execution.price) or execution.price<=0 or execution.side not in ('BUY','SELL')):
                 raise ValueError('Invalid broker execution')
             already=db.execute('SELECT COALESCE(SUM(quantity),0) FROM executions WHERE intent_id=?',(order['intent_id'],)).fetchone()[0]
             if already+execution.quantity>order['quantity']:
@@ -344,8 +356,18 @@ class Store:
 
     def pending_notifications(self,limit=20):
         return [dict(row) for row in self.db.execute(
-            'SELECT * FROM notification_outbox WHERE sent_at IS NULL ORDER BY created_at,event_key LIMIT ?',
+            '''SELECT * FROM notification_outbox o WHERE sent_at IS NULL
+               AND NOT EXISTS (SELECT 1 FROM notification_failures f WHERE f.event_key=o.event_key)
+               ORDER BY created_at,event_key LIMIT ?''',
             (limit,))]
+
+    def fail_notification(self,key):
+        """Keep malformed evidence undelivered, without blocking later alerts."""
+        with self.tx() as db:
+            db.execute('INSERT OR IGNORE INTO notification_failures VALUES(?,?,?)',(key,'INVALID_PAYLOAD',now()))
+            db.execute('INSERT INTO errors(run_id,code,message,at_utc) VALUES(NULL,?,?,?)',
+                       ('NOTIFICATION_INVALID','Invalid notification quarantined; no payload logged',now()))
+            self._enqueue(db,'invalid-notification:'+key,'critical_error',dict(code='NOTIFICATION_INVALID'))
 
     def mark_notification_sent(self,key):
         with self.tx() as db:

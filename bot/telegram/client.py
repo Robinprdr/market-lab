@@ -5,6 +5,10 @@ from urllib import request
 from bot.monitoring import dashboard_data
 
 
+class ResponseDeliveryError(RuntimeError):
+    """Command already applied, but its Telegram response could not be sent."""
+
+
 def money(value,signed=False):
     sign='+' if signed and value>=0 else ''
     return (sign+f'{value:,.2f}').replace(',',' ').replace('.',',')+' $'
@@ -69,8 +73,12 @@ class TelegramWorker:
     def flush_notifications(self):
         sent=0
         for event in self.store.pending_notifications():
-            payload=json.loads(event['payload_json'])
-            text=event_message(event['kind'],payload)
+            try:
+                payload=json.loads(event['payload_json'])
+                if not isinstance(payload,dict):raise ValueError('Invalid notification')
+                text=event_message(event['kind'],payload)
+            except (ValueError,TypeError,KeyError):
+                self.store.fail_notification(event['event_key']);continue
             if self.settings.trading_mode=='DRY_RUN' or payload.get('test'):
                 text='[TEST / DRY_RUN — aucun ordre broker]\n'+text
             self.api.send_message(self.allowed_user_id,text)
@@ -90,7 +98,7 @@ class TelegramWorker:
         command=parts[0].split('@')[0]
         if command=='/status':
             view=dashboard_data(self.store,self.settings)
-            critical=sum(e['code'] in ('RECONCILIATION_REQUIRED','RUN_FAILED','DATA_ERROR') for e in view['errors'])
+            critical=sum(e['code'] in ('RECONCILIATION_REQUIRED','RUN_FAILED','DATA_ERROR','NOTIFICATION_INVALID') for e in view['errors'])
             answer=(f"Market Lab — {view['state']}\nMode : {view['mode']}\n"
                     f"Trading : {'activé' if view['trading_enabled'] else 'désactivé'}\n"
                     f"Broker : {'connecté' if view['broker_connected'] else 'non connecté'}\n"
@@ -111,5 +119,6 @@ class TelegramWorker:
                     else 'Kill switch déjà actif. Aucun nouvel ordre.')
         else:
             return False
-        self.api.send_message(self.allowed_user_id,answer)
+        try:self.api.send_message(self.allowed_user_id,answer)
+        except Exception:raise ResponseDeliveryError('Command applied; response delivery failed') from None
         return True

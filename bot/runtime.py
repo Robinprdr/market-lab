@@ -26,7 +26,9 @@ def synchronize(store,broker,account):
             if order.account_id != account:
                 raise ReconciliationRequired('RECONCILIATION_REQUIRED: wrong-account order')
             store.bind_open_order(order)
-        for execution in snapshot.executions:
+        # Callback arrival order is not execution chronology, especially after
+        # reconnection. The fixed multi-session strategy buys before its exit.
+        for execution in sorted(snapshot.executions,key=lambda e:(e.session,e.side!='BUY',e.execution_id)):
             if execution.account_id!=account:
                 raise ReconciliationRequired('RECONCILIATION_REQUIRED: wrong-account execution')
             store.sync_execution(execution)

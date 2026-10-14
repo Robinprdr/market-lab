@@ -1,0 +1,23 @@
+{
+  "audit_date": "2026-10-14",
+  "base_commit": "417edabb170f06e15455b7a8d0870330e011e6ca",
+  "branch": "feature/production-readiness-audit",
+  "tests_total": 238,
+  "tests_passed": 238,
+  "previous_tests_preserved": 229,
+  "new_regressions": 9,
+  "original_failures_reproduced": 8,
+  "platform": "macOS ARM64 / CPython 3.12",
+  "strategy_files_changed": false,
+  "frozen_inputs_changed": false,
+  "paper_ledger_changed": false,
+  "ibkr_connections_during_audit": 0,
+  "broker_orders_sent": 0,
+  "real_telegram_messages_sent": 0,
+  "oracle_resources_created": 0,
+  "systemd_runtime_tested": false,
+  "linux_gateway_runtime_tested": false,
+  "dry_run_verdict": "SUPERVISED_ORACLE_PILOT_PREPARATION_ONLY",
+  "paper_autonomy_verdict": "BLOCKED",
+  "main_baseline": "219a487d42e1ca2e7e11bf3281676c61eed7c734"
+}
